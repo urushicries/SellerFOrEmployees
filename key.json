@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "wagesproject",
+  "private_key_id": "d17cd55a0221ecc96bb6ada69c57223851bc5842",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIPnI1V8rl0bP2\n1UmyIYrdTHHTbKs6rurm9JmiYQDshr40zIcFHDFC0QcFnyBlPsLi+pMkt23YC4nk\n4gK/mjK6aQffxsUn6RD8RHb6O72FP6FdwwZxU9FxVffacLsezGgmRcKH9Asi47/9\na8E3g/TkD3eTsDqGlCNfLpv5YvqVtbbzY9PoiuBxdF8BnSN8LqINGpJOiuiI4YVT\nsn82Mobk9MCLCmuKOHngmEX5IrHN/3zs5NrAHCiDnyeR4EE6OGZ8peMcU25Zoi8g\nWJxufQo+w8Cj6Hn0voICijScgXefxjiWttwexNn4+ly2Fo+47DmiaJGIBIQCQSKB\np1PvXCdpAgMBAAECggEAH6UmvWFbckharXZ1iA4e+OwczPHOeZ6tBsS/BtdXowmE\nQ6nS6K7U5h9Mgcns/7MUb3R0DohidpMUPrStBISk4aq5kNbDz5PYmFVljBQm1kkB\nAmVQvlYlskiIu9+24p4hE3NQ09VwcRoW/ECsL07OQ8BiAFgIV75PfLpL8fR/b2sZ\nph4w2Y6dM12/hC73kEKhD9X+OJelIbdBJSVVP0MuCCM0bpy6q4Y964TXdmTjwr5O\nt9LR5P4fI1xSDRWXAeOY9PLuTDKSlnt/4uf79m40cUSiwyQK6e+hG1Eko0B1+B+i\nQl42P2bFuYDN4irBLfQLOX85vWccDWAYXwsonQfo5QKBgQDlVGbAyCZ+8CH8LGGC\njDHvY2rkADSbLgjG6JaA854GOBQ4jmPoNHuwo5lRi3z/7FaLS6H9yCAM9XOTke3k\nmjnCOMD/XOh5yiY2zZGLOfYVjn7FLyzrxaG+EhJFwGhVXoKT9y/NegAho8fhgGKw\ngrE5ULoO5PFZIJdckB8+S6G0VwKBgQDfiBqjQs/u3ZGw0ZAR9yAvNAd58I/Z/S6k\nDz87E0jotCm0tJ6SW2APODs3ezVf1AOfC5U6pyhsS7fQxTOwKJgEoCSUrEoiu0ga\neRfSon3WkiMFAKOT9+3mWPffU82REvpe5RI6CFSSwVknnZl9XLXRij/FCaHAgn8w\n6vGQHEmqPwKBgHOjrrixdK/3uLtnSbhBp4B2GlVkQSKrAOQELrhRoDK0noWyT3Cs\n3l5A8LPs6ZhHfZB6D/JfssG2F5SnNlVa65sjcTaTi+q147UozaZuEMfn9cbKthUh\nsCCfDjW8AyBhKukf8SvkxCIyaz0rtxgYnvMu4NNX4Ne3lnundQm9q4m7AoGAYv9j\nVMUFVDP7D0VwuhQpw94WJZI+E3xHCM/b4C0FUFJiWi7YP9eKLpNn3oWJuPwr8mdt\n2wEnLPdH3IVKBA2mbf4C1XmMh99L6rWQsG/YrYwhSFjlGWZnjWn/tX/m/gZarmZj\ncSI5WpmZA6uPy+6gc8H3xisi4SCqdh7Hh1yP338CgYEA0kt4JG8kFS1GrDUQc9J/\nJqetdH6lDd2K1an/695UyxZXIg+rqM1p6TPXXcbp/eLv0NUNGqS5QUcKgsnNpBZB\nENiKVAHKVX/OonWMpY+YLLRK1Scy7rKuc/ShxR6whgNidmRnVX3o627n05zxzC9Y\nwRdGcasZ0r9reYOQ6pEFniA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "wgsappaccname@wagesproject.iam.gserviceaccount.com",
+  "client_id": "101385830318813287957",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/wgsappaccname%40wagesproject.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
