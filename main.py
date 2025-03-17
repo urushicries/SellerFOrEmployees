@@ -1,12 +1,14 @@
-from ui import UIManager
-import tkinter as tk
-import gspread
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-from googleapiclient.discovery import build
 import os
 import sys
+import tkinter as tk
+
+import gspread
+from googleapiclient.discovery import build
+from oauth2client.service_account import ServiceAccountCredentials
+
 from OptimizedWindows import OptimizedWindows
+from ui import UIManager
+
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
     try:
@@ -37,16 +39,23 @@ if __name__ == "__main__":
     service = build('sheets', 'v4', credentials=credentials)
     sheetWAGES = client.open("! Таблица расчета зарплаты").worksheet("WGSlist")
 
+    def get_non_empty_cells(sheet, cell_range):
+        cell_values = sheet.range(cell_range)
+        non_empty_cells = [cell.value for cell in cell_values if cell.value]
+        return non_empty_cells
+
+    non_empty_cells = get_non_empty_cells(sheetWAGES, 'C97:C119')
+
     root = tk.Tk()
     root.resizable(False,False)
 
     scaling_factor, screen_height, screen_width = OptimizedWindows.checkWindowDPI()
 
     window_width, window_height, position_x, position_y, scale_factor = OptimizedWindows.adjust_window_size(
-    screen_width, screen_height, 440, 430)
-    root.geometry(f"{440}x{430}+{position_x}+{position_y}")
-
-    root.geometry()
-    uim = UIManager(root,sheetWAGES)
+    screen_width, screen_height, 440, 460)
+    root.geometry(f"{440}x{460}+{position_x}+{position_y}")
+    root.attributes('-topmost', 1)
+    root.after(5000, lambda: root.attributes('-topmost', 0))
+    uim = UIManager(root,sheetWAGES,non_empty_cells)
     uim.getCellAddrToday(sheetWAGES)
     uim.openUI(root)
