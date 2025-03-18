@@ -46,6 +46,27 @@ if __name__ == "__main__":
 
     non_empty_cells = get_non_empty_cells(sheetWAGES, 'C97:C119')
 
+    rootadd = tk.Tk()
+    rootadd.resizable(False,False)
+    rootadd.geometry(f"{400}x{400}")
+    employee_label = tk.Label(rootadd, text="Выберете сотрудника и арену")
+    employee_label.grid(row=1, column=0, padx=10, pady=5)
+    additional_variable = tk.StringVar(rootadd)
+    additional_options = non_empty_cells
+    employee_dropdown = tk.OptionMenu(rootadd, additional_variable, *additional_options)
+    employee_dropdown.grid(row=1, column=1, padx=10, pady=5)
+
+    additional_optionsplace = ["Июнь","ПИК","Лондон Молл"]
+    additional_variableplace = tk.StringVar(rootadd)
+    additional_variableplace.set(additional_optionsplace[0])  # default value
+
+    additional_label = tk.Label(rootadd, text="Арена")
+    additional_label.grid(row=0, column=0, padx=10, pady=5)
+    additional_dropdown = tk.OptionMenu(rootadd, additional_variableplace, *additional_optionsplace)
+    additional_dropdown.grid(row=0, column=1, padx=10, pady=5)
+    rootadd.mainloop()
+    
+
     root = tk.Tk()
     root.resizable(False,False)
 

@@ -5,20 +5,10 @@ from FFCWP import ffcwp
 
 class UIManager:
     def __init__(self, root, sheetwages,employees):
-
         self.additional_options = employees
         self.additional_variable = tk.StringVar(root)
         self.additional_variable.set(self.additional_options[0])  # default value
 
-        additional_label = tk.Label(root, text="Сотрудник")
-        additional_label.grid(row=0, column=0, padx=10, pady=5)
-        additional_dropdown = tk.OptionMenu(root, self.additional_variable, *self.additional_options)
-        additional_dropdown.grid(row=0, column=1, padx=10, pady=5)
-
-        employee_label = tk.Label(root, text="Сотрудник")
-        employee_label.grid(row=1, column=0, padx=10, pady=5)
-        employee_dropdown = tk.OptionMenu(root, self.additional_variable, *self.additional_options)
-        employee_dropdown.grid(row=1, column=1, padx=10, pady=5)
 
         self.today_date = str(datetime.date.today())
         self.root = root
@@ -27,7 +17,7 @@ class UIManager:
         label1.grid(row=2, column=0, padx=10, pady=5)
         labeltovar = tk.Label(root, text="Выберете товар")
         labeltovar.grid(row=3, column=0, padx=10, pady=5)
-        options = ["Тариф", "Время","Одиночная игра"]
+        options = ["Тариф", "Время","Одиночная игра","Абонемент","Сертификат"]
         self.variable = tk.StringVar(root)
         self.variable.set(options[0])  # default value
         dropdown = tk.OptionMenu(root, self.variable, *options)
@@ -89,8 +79,12 @@ class UIManager:
             new_options = ["STD", "HARD", "VIP"]
         elif self.variable.get() == "Время":
             new_options = [f"{i} мин" for i in range(30, 330, 30)]
-        else: 
+        elif self.variable.get() == "Одиночная игра": 
             new_options = [f"{i} мин" for i in range(15, 325, 15)]
+        elif self.variable.get() == "Сертификат":
+            new_options = [f"На {i} рублей" for i in [1000, 3000, 5000, 10000]]
+        elif self.variable.get() == "Абонемент":
+            new_options = [f"За {i} рублей" for i in [2500,4500,6500]]
         menu = self.second_dropdown["menu"]
         menu.delete(0, "end")
         for option in new_options:
