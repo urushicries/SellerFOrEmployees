@@ -1,11 +1,17 @@
 import tkinter as tk
-import datetime
+
 from FFCWP import ffcwp
-import os
-from dotenv import load_dotenv
+
 import hashlib
+import datetime
+
+try:
+    import tkcalendar
+except ImportError:
+    raise ImportError("tkcalendar is not installed. Install it using 'pip install tkcalendar'.")
 
 class UIManager:
+
     def __init__(self, root, sheetwages, employees):
         employees.append("Пропуск")
         self.sheetwages = sheetwages
@@ -26,7 +32,7 @@ class UIManager:
         for frame_name, frame in self.frames.items():
             if frame.winfo_ismapped():
                 if frame_name == "payment_frame":
-                    self.root.geometry("460x500")
+                    self.root.geometry("1000x550")
                 elif frame_name == "employee_frame":
                     self.root.geometry("460x300")
                 elif frame_name == "login_frame":
@@ -171,38 +177,157 @@ class UIManager:
     def init_payment_frame(self):
         self.root.geometry("460x500")
         self.root.bind("<Configure>", self.enforce_frame_size)
-
+        dropdown_width = 10
         frame = tk.Frame(self.root)
         self.frames["payment_frame"] = frame
 
-        tk.Label(frame, text="Выберите тип оплаты").grid(row=2, column=0, pady=10)
+        tk.Label(frame, text="Выберите тип оплаты", anchor="w").grid(row=2, column=0, pady=10, sticky="w")
         self.payment_type_var = tk.StringVar(frame)
-        self.payment_type_var.set("Тип оплаты")  # Default value
-        tk.OptionMenu(frame, self.payment_type_var, "Доплата", "Предоплата", "Полная оплата").grid(row=2, column=1, pady=10)
+        self.payment_type_var.set("Тип оплаты")  # Default 
+        payment_type_menu = tk.OptionMenu(frame, self.payment_type_var, "Доплата", "Предоплата", "Полная оплата")
+        payment_type_menu.configure(width=dropdown_width)
+        payment_type_menu.grid(row=2, column=1, pady=10)
 
-        tk.Label(frame, text="Выберете Тип товара").grid(row=0, column=0, pady=10)
+        tk.Label(frame, text="Выберите Тип товара", anchor="w").grid(row=0, column=0, pady=10, sticky="w")
         self.product_type_var = tk.StringVar(frame)
-        self.product_type_var.set("Тип товара")  # Default value
-        tk.OptionMenu(frame, self.product_type_var, "Тариф", "Время", "Одиночная игра", "Абонемент", "Сертификат").grid(row=0, column=1, pady=10)
+        self.product_type_var.set("Тип товара")  # Default 
+        product_type_menu = tk.OptionMenu(frame, self.product_type_var, "Тариф", "Время", "Одиночная игра", "Абонемент", "Сертификат")
+        product_type_menu.configure(width=dropdown_width)
+        product_type_menu.grid(row=0, column=1, pady=10)
 
         self.product_var = tk.StringVar(frame)
-        self.product_dropdown = tk.OptionMenu(frame, self.product_var, "")
+        self.product_dropdown = tk.OptionMenu(frame, self.product_var, "тут будут продукты")
+        self.product_dropdown.configure(width=dropdown_width)
         self.product_dropdown.grid(row=1, column=1, pady=10)
-
         self.product_type_var.trace_add("write", self.update_dropdown)
 
-        tk.Label(frame, text="Количество человек").grid(row=4, column=0, pady=10)
-        self.people_count_var = tk.StringVar(frame)
-        tk.Entry(frame, textvariable=self.people_count_var).grid(row=4, column=1, pady=10)
+        def update_people_count_visibility(*args):
 
-        tk.Label(frame, text="Способ оплаты").grid(row=5, column=0, pady=10)
+            if self.product_type_var.get() in ["Время", "Одиночная игра"]:
+                people_count_label.grid(row=4, column=0, pady=10, sticky="w")
+                people_count_entry.grid(row=4, column=1, pady=10)
+            else:
+                people_count_label.grid_forget()
+                people_count_entry.grid_forget()
+
+        people_count_label = tk.Label(frame, text="Количество человек", anchor="w")
+        self.people_count_var = tk.StringVar(frame)
+        people_count_entry = tk.Entry(frame, textvariable=self.people_count_var)
+
+        self.product_type_var.trace_add("write", update_people_count_visibility)
+
+        tk.Label(frame, text="Способ оплаты", anchor="w").grid(row=5, column=0, pady=10, sticky="w")
         self.split_payment_var = tk.BooleanVar(frame)
         tk.Checkbutton(frame, text="Раздельная оплата", variable=self.split_payment_var).grid(row=5, column=1, pady=10)
 
+        tk.Label(frame, text="Выберите дату", anchor="w").grid(row=3, column=0, pady=10, sticky="w")
+        self.date_var = tk.StringVar(frame)
 
+        # Year dropdown
+        self.year_var = tk.StringVar(frame)
+        self.year_var.set(str(self.today_date.year))  # Default to current year
+        year_options = [str(year) for year in range(self.today_date.year, 2027)]
+        year_menu = tk.OptionMenu(frame, self.year_var, *year_options)
+        year_menu.configure(width=dropdown_width)
+        year_menu.grid(row=3, column=1, pady=10)
+
+        # Month dropdown
+        self.month_var = tk.StringVar(frame)
+        # Define month_options before using it
+        month_options = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ]
+        self.month_var.set(month_options[self.today_date.month - 1])  # Default to current month
+        # Time input
+        self.time_var = tk.StringVar(frame)
+        self.time_var.set("09:00")  # Default value
+
+        tk.Label(frame, text="Введите время (чч:мм)").grid(row=3, column=4, pady=10)
+        tk.Entry(frame, textvariable=self.time_var).grid(row=4, column=4, pady=10)
+        month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
+        month_menu.configure(width=dropdown_width)
+        month_menu.grid(row=3, column=2, pady=10)
+
+        # Day dropdown
+        self.day_var = tk.StringVar(frame)
+        self.day_var.set(str(self.today_date.day))  # Default to current day
+        day_options = [str(day) for day in range(1, 32)]
+        day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
+        day_menu.configure(width=dropdown_width)
+        day_menu.grid(row=3, column=3, pady=10)
+
+
+        actuallPayment = tk.IntVar(frame)
+        actuallPayment.set(0)
+
+
+        def calculate_payment():
+            total_price = 0
+            try:
+                #Базовая цена для обычных игр
+                if self.today_date.weekday() >= 4:  # 5 and 6 correspond to Saturday and Sunday 4 is for friday
+                    AWgame_price = 1800  # Increase base price for weekends
+                else:
+                    if datetime.datetime.now().hour >= 16:
+                        AWgame_price  = 1600  # Increase base price for evening hours
+                    else:
+                        AWgame_price  = 1400  # Default base price for weekdays
+
+                #Базовая цена для одиночных игр за 15 минут
+                AloneGamePrice = 450
+
+                if self.product_type_var.get() == "Время":
+                    people_count = int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 1
+                    hrsofplaytime = int(self.product_var.get().split(" ")[0]) / 60
+                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
+
+                    total_price = AWgame_price  * people_count * hrsofplaytime
+                    if percentage > 0:
+                        total_price = total_price * (percentage / 100)
+
+                elif self.product_type_var.get() == "Тариф":
+                    self.product_var.get()
+                    people_count = int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 1
+                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
+                    total_price = AWgame_price  * people_count
+                    if percentage > 0:
+                        total_price = total_price * (percentage / 100)
+
+                elif self.product_type_var.get() == "Одиночная игра":
+                    self.product_var.get()
+                    people_count = int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 1
+                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
+                    total_price = AloneGamePrice  * people_count * hrsofplaytime
+                    if percentage > 0:
+                        total_price = total_price * (percentage / 100)
+                elif self.product_type_var.get() == "Абонемент":
+                    subscription_price = int(self.product_var.get().split(" ")[1])  # Extract price from string
+                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
+                    total_price = subscription_price
+                    if percentage > 0:
+                        total_price = total_price * (percentage / 100)
+
+                elif self.product_type_var.get() == "Сертификат":
+                    certificate_price = int(self.product_var.get().split(" ")[1])  # Extract price from string
+                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
+                    total_price = certificate_price
+                    if percentage > 0:
+                        total_price = total_price * (percentage / 100)
+                actuallPayment.set(total_price)
+                payLabel.config(text=f"Рассчитанная \n стоимость: {actuallPayment.get()}")
+            except ValueError:
+                payLabel.config(text="Ошибка в расчетах")
+
+        tk.Button(frame, text="Рассчитать", command=calculate_payment).grid(row=7, column=2, columnspan=2, pady=10)
+
+        payLabel = tk.Label(frame, text=f"Рассчитанная \n стоимость: {actuallPayment.get()}", font=("Arial", 20))
+        payLabel.grid(row=0, column=3, pady=10)
+        
+        self.payment_methods = ["Наличные по кассе", "Карта", "QR/СБП", "Н/П"]  # Ensure this list has exactly four elements
         self.payment_entries = []
-        for i in range(3):
-            tk.Label(frame, text=f"Способ {i + 1}").grid(row=6 + i, column=0, pady=5)
+        for i in range(4):
+            tk.Label(frame, text=f"{self.payment_methods[i]}:", anchor="w").grid(row=6 + i, column=0, pady=5,sticky="w")
             payment_var = tk.StringVar(frame)
             tk.Entry(frame, textvariable=payment_var).grid(row=6 + i, column=1, pady=5)
             self.payment_entries.append(payment_var)
@@ -222,13 +347,8 @@ class UIManager:
 
         self.payment_type_var.trace_add("write", update_percentage_visibility)
 
-        tk.Button(frame, text="Далее", command=lambda: self.show_frame("summary_frame")).grid(row=9, column=0, columnspan=2, pady=10)
-
-    def check_payment_type(self):
-        if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
-            print(f"Selected payment type: {self.payment_type_var.get()}")
-        else:
-            print("Selected payment type is not Доплата or Предоплата")
+        tk.Button(frame, text="Далее", command=lambda: self.show_frame("summary_frame")).grid(row=11, column=1, columnspan=2, pady=10)
+        tk.Button(frame, text="Назад", command=self.go_back).grid(row=11, column=0, columnspan=1, pady=10)
 
     def init_summary_frame(self):
         frame = tk.Frame(self.root)
@@ -239,7 +359,7 @@ class UIManager:
         tk.Entry(frame, textvariable=self.comment_var).grid(row=0, column=1, pady=10)
 
         tk.Button(frame, text="Отправить", command=self.submit_data).grid(row=1, column=0, columnspan=2, pady=10)
-
+        tk.Button(frame, text="Назад", command=self.go_back).grid(row=1, column=2, pady=10)
     def show_frame(self, frame_name):
         for frame in self.frames.values():
             frame.grid_remove()  # Скрыть все фреймы
@@ -276,6 +396,24 @@ class UIManager:
         if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
             print("Проценты:", self.percentage_entry_var.get())
         self.show_frame("payment_frame")
+
+    def go_back(self):
+        # Get the current frame
+        current_frame = None
+        for frame_name, frame in self.frames.items():
+            if frame.winfo_ismapped():
+                current_frame = frame_name
+                break
+
+        # Define the navigation order
+        frame_order = ["login_frame", "employee_frame", "payment_frame", "summary_frame"]
+
+        # Find the previous frame in the order
+        if current_frame:
+            current_index = frame_order.index(current_frame)
+            if current_index > 0:
+                previous_frame = frame_order[current_index - 1]
+                self.show_frame(previous_frame)
 
     def openUI(self, root):
         root.mainloop()
