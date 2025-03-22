@@ -8,6 +8,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 
 from OptimizedWindows import OptimizedWindows
 from ui import UIManager
+from updater import Updater
+
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -19,6 +21,7 @@ def resource_path(relative_path):
 
     return os.path.join(base_path, relative_path)
 
+
 if __name__ == "__main__":
     uim = None
 
@@ -27,9 +30,8 @@ if __name__ == "__main__":
 
     SERVICE_ACCOUNT_FILE = json_path
 
-
     SCOPES = ["https://www.googleapis.com/auth/spreadsheets",
-            "https://www.googleapis.com/auth/drive"]
+              "https://www.googleapis.com/auth/drive"]
 
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
         SERVICE_ACCOUNT_FILE, SCOPES)
@@ -46,19 +48,52 @@ if __name__ == "__main__":
 
     non_empty_cells = get_non_empty_cells(sheetWAGES, 'C97:C119')
 
- 
-
     root = tk.Tk()
-    root.resizable(False,False)
+    root.resizable(False, False)
+
+    sheetKOM = None
+    shtKOM_id = "1vAVIeR4UWVAx7KwAR6x23yT_Ha1KTuc8VjcTVjnTM_8"
+    client = client
+    sheetPIK = None
+    shtPIK_id = "1DlRu9fzlzJj4Uor4FvXp9IEwi4FJfKq4bD7cN9GbtW0"
+    sheetJUNE = None
+    shtJUN_id = "17tnMhq5fp9IEatRqLnlyeemhbNP4aGOblGWpJ4_ABYs"
+    sheetLM = None
+    shtLM_id = "1PIICQiP3Tr1gmw4CsQ1bxVbkaU4mOPm_6409W-b7K3E"
+
+    config = {
+        'root': root,
+        'client': client,
+        'Updater': None,  # Placeholder for Updater instance
+        'service': service,
+        'sheetWAGES': sheetWAGES,
+        'shtKOM_id': shtKOM_id,
+        'shtPIK_id': shtPIK_id,
+        'shtJUN_id': shtJUN_id,
+        'shtLM_id': shtLM_id,
+        'ui': None,  # Placeholder for UIManager instance
+        'list_employee': non_empty_cells
+    }
+
+    updmanager = Updater(config)
+    uim = UIManager(config)
+
+    # Update config with actual instances
+    config['Updater'] = updmanager
+    config['ui'] = uim
 
     scaling_factor, screen_height, screen_width = OptimizedWindows.checkWindowDPI()
 
-    window_width, window_height, position_x, position_y, scale_factor = OptimizedWindows.adjust_window_size(
-    screen_width, screen_height, 440, 460)
-    root.geometry(f"{460}x{450}+{position_x}+{position_y}")
+    # Calculate position to center the window on the screen
+    position_x = (screen_width - 300) // 2
+    position_y = (screen_height - 300) // 2
+
+    window_width, window_height = 300, 300
+    root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
+
     root.attributes('-topmost', 1)
     root.after(5000, lambda: root.attributes('-topmost', 0))
-    uim = UIManager(root,sheetWAGES,non_empty_cells)
+
     uim.getCellAddrToday(sheetWAGES)
+
     uim.openUI(root)
-    

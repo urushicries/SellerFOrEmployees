@@ -35,7 +35,7 @@ class ffcwp:
                 if pattern.match(value):
                     return row_num
         return None
-    
+
     @staticmethod
     def ffcwp15(sheet):
         """
