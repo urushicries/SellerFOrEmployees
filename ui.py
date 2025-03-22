@@ -288,9 +288,32 @@ class UIManager:
 
                 elif self.product_type_var.get() == "Тариф":
                     self.product_var.get()
-                    people_count = int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 1
+
+                    # Get selected date and time
+                    selected_date = datetime.date(
+                        int(self.year_var.get()),
+                        month_options.index(self.month_var.get()),
+                        int(self.day_var.get())
+                    )
+
+                    selected_time = datetime.datetime.strptime(self.time_var.get(), "%H:%M").time()
+
+                    # Check if the selected date is a weekend
+                    is_weekend = selected_date.weekday() >= 4  # 5 and 6 correspond to Saturday and Sunday
+                    print(selected_date.weekday())
+                    is_evening = selected_time >= datetime.time(16, 0)
+
                     percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in ["Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-                    total_price = AWgame_price  * people_count
+                    # Adjust price based on weekend, evening, and tariff
+                    if self.product_var.get() == "STD":
+                        total_price = 25000 if is_weekend else \
+                                      20000 if is_evening else 15000
+                    elif self.product_var.get() == "HARD":
+                        total_price = 35000 if is_weekend  else \
+                                      27500 if is_evening else 20000
+                    elif self.product_var.get() == "VIP":
+                        total_price = 45000 if is_weekend else \
+                                      35000 if is_evening else 25000
                     if percentage > 0:
                         total_price = total_price * (percentage / 100)
 
@@ -319,7 +342,7 @@ class UIManager:
             except ValueError:
                 payLabel.config(text="Ошибка в расчетах")
 
-        tk.Button(frame, text="Рассчитать", command=calculate_payment).grid(row=7, column=2, columnspan=2, pady=10)
+        tk.Button(frame, text="Рассчитать", command=calculate_payment).grid(row=1, column=4, columnspan=2, pady=10)
 
         payLabel = tk.Label(frame, text=f"Рассчитанная \n стоимость: {actuallPayment.get()}", font=("Arial", 20))
         payLabel.grid(row=0, column=3, pady=10)
