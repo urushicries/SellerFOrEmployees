@@ -1,5 +1,4 @@
 import tkinter as tk
-from FFCWP import ffcwp
 from threading import Timer
 import hashlib
 import datetime
@@ -12,8 +11,7 @@ class UIManager:
         root = config['root']
         sheetwages = config['sheetWAGES']
         employees = config.get('employees', [])
-        updater = config['Updater']
-
+        self.updater = config['Updater']
         employees.append("Пропуск")
         self.resize_timer = None  # Timer for debouncing
         self.sheetwages = sheetwages
@@ -27,6 +25,7 @@ class UIManager:
         self.root.option_add("*Button.relief", "flat")
         self.root.option_add("*Button.highlightThickness",
                              0)  # Remove button border
+
         # Light gray button background
         self.root.option_add("*Button.background", "#E8E8E8")
         # Slightly darker gray for active buttons
@@ -47,7 +46,7 @@ class UIManager:
         self.frames = {}
         self.today_date = datetime.date.today()
         self.address = None
-        self.employee_data = None
+        self.employee_request = None
         # Initialize frames
         self.init_login_frame()
         self.init_employee_frame()
@@ -85,13 +84,13 @@ class UIManager:
             if frame.winfo_ismapped():
                 target_geometry = None
                 if frame_name == "payment_frame":
-                    target_geometry = (1000, 550)
+                    target_geometry = (1000, 650)
                 elif frame_name == "employee_frame":
-                    target_geometry = (580, 310)
+                    target_geometry = (590, 310)
                 elif frame_name == "login_frame":
                     target_geometry = (300, 300)
                 elif frame_name == "summary_frame":
-                    target_geometry = (300, 200)
+                    target_geometry = (480, 180)
 
                 if target_geometry:
                     current_geometry = self.root.geometry()
@@ -101,17 +100,17 @@ class UIManager:
                     target_width, target_height = target_geometry
 
                     # Fewer steps for quicker resizing
-                    width_step = (target_width - current_width) / 20
-                    height_step = (target_height - current_height) / 20
+                    width_step = (target_width - current_width) / 100
+                    height_step = (target_height - current_height) / 100
 
                     def animate_resize(step=0):
-                        if step <= 20:  # Reduce total steps
+                        if step <= 100:  # Reduce total steps
                             new_width = int(current_width + width_step * step)
                             new_height = int(
                                 current_height + height_step * step)
                             self.root.geometry(f"{new_width}x{new_height}")
                             # Slightly longer delay for smoother animation
-                            self.root.after(10, animate_resize, step + 1)
+                            self.root.after(5, animate_resize, step + 1)
 
                     animate_resize()
 
@@ -125,9 +124,9 @@ class UIManager:
         frame.option_add("*Button.highlightThickness",
                          0)  # Remove button border
         # Dark gray button background
-        frame.option_add("*Button.background", "#333333")
+        frame.option_add("*Button.background", "#FFFFFF")
         # White text for buttons
-        frame.option_add("*Button.foreground", "#FFFFFF")
+        frame.option_add("*Button.foreground", "#000000")
         # Slightly lighter gray for active buttons
         frame.option_add("*Button.activeBackground", "#555555")
         # Black background for labels
@@ -258,7 +257,7 @@ class UIManager:
             role_var.set("Оператор")
 
             shift_var = tk.StringVar(frame)
-            shift_var.set("1.0")
+            shift_var.set("1")
 
             employee_menu = tk.OptionMenu(frame, employee_var, *self.employees)
             employee_menu.configure(width=dropdown_width)
@@ -284,26 +283,31 @@ class UIManager:
             workplace_menu.configure(width=dropdown_width)
             workplace_menu.grid(row=5, column=1, pady=10)
 
-        tk.Button(frame, text="Далее", command=lambda: self.get_employee_data()).grid(
+        tk.Button(frame, text="Далее", command=lambda: self.get_employee_request(), fg="black").grid(
             row=6, column=0, columnspan=2, pady=10)
 
-    def get_employee_data(self):
+    def get_employee_request(self):
         """Формирует список данных сотрудников."""
-        employee_data = []
+        employee_request = []
         for i in range(3):
-            employee_data.append([
+            employee_request.append([
                 self.employee_vars[i].get(),
                 self.frames["employee_frame"].grid_slaves(
                     row=i + 2, column=1)[0].cget("text"),
                 self.frames["employee_frame"].grid_slaves(
                     row=i + 2, column=2)[0].cget("text")
             ])
-        employee_data.append(self.workplace_var.get())
-        print(employee_data)
+        employee_request.append(self.workplace_var.get())
+        print(employee_request)
+        employee_request = [
+            item for item in employee_request[:-1]
+            if item[0] not in ["Пропуск", "Выберете работника"]
+        ] + [employee_request[-1]]
         self.show_frame("payment_frame")
-        self.address = self.getCellAddrToday(self.sheetwages)
-        self.employee_data = employee_data
-        return employee_data
+        self.address = self.updater.adress
+        self.employee_request = employee_request
+        self.updater.employee_list = self.employee_request
+        self.updater._update_emp()
 
     def update_employee_options(self, changed_index):
         """Исключает уже выбранных сотрудников в остальных списках."""
@@ -327,13 +331,22 @@ class UIManager:
                 var.set("Выберете работника")
 
     def init_payment_frame(self):
+
         self.root.bind("<Configure>", self.enforce_frame_size)
         dropdown_width = 13
         frame = tk.Frame(self.root, bg="black")
         self.frames["payment_frame"] = frame
+        for i in range(10):  # Adjust the range as needed for the number of rows
+            # Set a fixed height for each row
+            frame.grid_rowconfigure(i, minsize=50)
+        for j in range(10):  # Adjust the range as needed for the number of columns
+            # Set a fixed width for each column
+            frame.grid_columnconfigure(j, minsize=100)
 
         tk.Label(frame, text="Выберите тип оплаты", anchor="w").grid(
             row=2, column=0, pady=10, sticky="w")
+        tk.Label(frame, text="Выберите товар", anchor="w").grid(
+            row=1, column=0, pady=10, sticky="w")
         self.payment_type_var = tk.StringVar(frame)
         self.payment_type_var.set("Тип оплаты")  # Default
         payment_type_menu = tk.OptionMenu(
@@ -408,9 +421,19 @@ class UIManager:
         self.time_var.set("09:00")  # Default value
 
         tk.Label(frame, text="Введите время (чч:мм)").grid(
-            row=3, column=4, pady=10)
-        tk.Entry(frame, textvariable=self.time_var).grid(
-            row=4, column=4, pady=10)
+            row=2, column=4, pady=10)
+
+        self.time_entry = tk.Entry(frame, textvariable=self.time_var)
+        self.time_entry.grid(row=3, column=4, pady=10, padx=10)
+
+        # Button to set today's date
+        tk.Button(frame, text="Сегодня", command=self.set_today_date).grid(
+            row=3, column=5, pady=10)
+
+        # Button to set current time
+        tk.Button(frame, text="Сейчас", command=self.set_current_time).grid(
+            row=2, column=5, pady=10)
+
         month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
         month_menu.configure(width=dropdown_width)
         month_menu.grid(row=3, column=2, pady=10)
@@ -421,10 +444,15 @@ class UIManager:
         day_options = [str(day) for day in range(1, 32)]
         day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
         day_menu.configure(width=dropdown_width)
-        day_menu.grid(row=3, column=3, pady=10)
+        day_menu.grid(row=3, column=3, pady=10, padx=10)
 
-        actuallPayment = tk.IntVar(frame)
-        actuallPayment.set(0)
+        self.actuallPayment = tk.IntVar(frame)
+        self.actuallPayment.set(0)
+
+        tk.Button(frame, text="Далее", command=lambda: self.show_frame(
+            "summary_frame")).grid(row=11, column=5, pady=10)
+        tk.Button(frame, text="Назад", command=lambda: self.show_frame("employee_frame")).grid(
+            row=11, column=0, pady=10)
 
         def calculate_payment():
             total_price = 0
@@ -508,6 +536,7 @@ class UIManager:
                     total_price = AloneGamePrice * people_count * hrsofplaytime
                     if percentage > 0:
                         total_price = total_price * (percentage / 100)
+
                 elif self.product_type_var.get() == "Абонемент":
                     subscription_price = int(self.product_var.get().split(" ")[
                                              1])  # Extract price from string
@@ -525,29 +554,61 @@ class UIManager:
                     total_price = certificate_price
                     if percentage > 0:
                         total_price = total_price * (percentage / 100)
-                actuallPayment.set(total_price)
+                self.actuallPayment.set(total_price)
+
                 payLabel.config(
-                    text=f"Рассчитанная \n стоимость: {actuallPayment.get()}")
-            except ValueError:
+                    text=f"Рассчитанная \n стоимость: {self.actuallPayment.get()}")
+
+            except ValueError as e:
                 payLabel.config(text="Ошибка в расчетах")
+                print(f"Error is {e}")
+
+                def clear_label():
+                    payLabel.config(text="")
+                Timer(1.5, clear_label).start()
 
         tk.Button(frame, text="Рассчитать", command=calculate_payment).grid(
-            row=1, column=4, columnspan=2, pady=10)
+            row=1, column=5, pady=10)
 
         payLabel = tk.Label(
-            frame, text=f"Рассчитанная \n стоимость: {actuallPayment.get()}", font=("Arial", 20))
+            frame, text=f"Рассчитанная \n стоимость: {self.actuallPayment.get()}", font=("Arial", 20))
         payLabel.grid(row=0, column=3, pady=10)
 
-        # Ensure this list has exactly four elements
+        # Define payment methods
         self.payment_methods = ["Наличные по кассе", "Карта", "QR/СБП", "Н/П"]
         self.payment_entries = []
-        for i in range(4):
-            tk.Label(frame, text=f"{self.payment_methods[i]}:", anchor="w").grid(
-                row=6 + i, column=0, pady=5, sticky="w")
-            payment_var = tk.StringVar(frame)
-            tk.Entry(frame, textvariable=payment_var).grid(
-                row=6 + i, column=1, pady=5)
-            self.payment_entries.append(payment_var)
+        self.payment_dropdown_var = tk.StringVar(frame)
+        self.payment_dropdown_var.set(self.payment_methods[0])  # Default value
+
+        def update_payment_method_visibility(*args):
+            if self.split_payment_var.get():  # If split payment is selected
+                # Show multiple entry fields for payment methods
+                for i, method in enumerate(self.payment_methods):
+                    tk.Label(frame, text=f"{method}:", anchor="w").grid(
+                        row=6 + i, column=0, pady=5, sticky="w")
+                    payment_var = tk.StringVar(frame)
+                    tk.Entry(frame, textvariable=payment_var).grid(
+                        row=6 + i, column=1, pady=5)
+                    self.payment_entries.append(payment_var)
+                # Hide the dropdown
+                payment_dropdown.grid_forget()
+            else:  # If split payment is not selected
+                # Hide multiple entry fields
+                for widget in frame.grid_slaves():
+                    if int(widget.grid_info()["row"]) >= 6 and not isinstance(widget, tk.Button):
+                        widget.grid_forget()
+                self.payment_entries.clear()
+            # Show the dropdown
+                payment_dropdown.grid(row=6, column=1, pady=5)
+
+        # Dropdown for single payment method
+        payment_dropdown = tk.OptionMenu(
+            frame, self.payment_dropdown_var, *self.payment_methods)
+        payment_dropdown.configure(width=13)
+        payment_dropdown.grid(row=6, column=1, pady=5)
+        # Trace the split payment checkbox to update visibility
+        self.split_payment_var.trace_add(
+            "write", update_payment_method_visibility)
 
         # Add percentage input for Доплата or Предоплата
         self.percentage_label = tk.Label(frame, text="Проценты")
@@ -559,16 +620,54 @@ class UIManager:
             if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
                 self.percentage_label.grid(row=2, column=2, pady=10)
                 self.percentage_entry.grid(row=2, column=3, pady=10)
+
             else:
                 self.percentage_label.grid_forget()
                 self.percentage_entry.grid_forget()
 
         self.payment_type_var.trace_add("write", update_percentage_visibility)
 
-        tk.Button(frame, text="Далее", command=lambda: self.show_frame(
-            "summary_frame")).grid(row=11, column=1, columnspan=2, pady=10)
-        tk.Button(frame, text="Назад", command=self.go_back).grid(
-            row=11, column=0, columnspan=1, pady=10)
+        def update_date_visibility(*args):
+            if self.product_type_var.get() in ["Сертификат", "Абонемент"]:
+                year_menu.grid_forget()
+                month_menu.grid_forget()
+                day_menu.grid_forget()
+                self.time_entry.grid_forget()
+                self.time_var.set("")  # Clear time input
+                self.date_var.set("")  # Clear date input
+                self.time_var.set("00:00")  # Clear time input
+                # Remove labels for date and time
+                for widget in frame.grid_slaves():
+                    if widget.cget("text") in ["Выберите дату", "Введите время (чч:мм)", "Сегодня", "Сейчас"]:
+                        widget.grid_forget()
+                self.date_var.set("")  # Clear date input
+            else:
+                self.time_entry.grid(row=3, column=4, pady=10, padx=10)
+                tk.Label(frame, text="Выберите дату", anchor="w").grid(
+                    row=3, column=0, pady=10, sticky="w")
+                tk.Label(frame, text="Введите время (чч:мм)").grid(
+                    row=2, column=4, pady=10)
+                year_menu.grid(row=3, column=1, pady=10)
+                month_menu.grid(row=3, column=2, pady=10)
+                day_menu.grid(row=3, column=3, pady=10)
+                # Add "Сегодня" and "Сейчас" buttons
+                tk.Button(frame, text="Сегодня", command=self.set_today_date, fg="black", bg="black").grid(
+                    row=3, column=5, pady=10)
+                tk.Button(frame, text="Сейчас", command=self.set_current_time, fg="black", bg="black").grid(
+                    row=2, column=5, pady=10)
+
+        self.product_type_var.trace_add("write", update_date_visibility)
+
+    def set_today_date(self):
+        """Set the date inputs to today's date."""
+        self.year_var.set(str(self.today_date.year))
+        self.month_var.set(self.month_var.get())
+        self.day_var.set(str(self.today_date.day))
+
+    def set_current_time(self):
+        """Set the time input to the current time."""
+        current_time = datetime.datetime.now().strftime("%H:%M")
+        self.time_var.set(current_time)
 
     def init_summary_frame(self):
         frame = tk.Frame(self.root, bg="black")
@@ -581,13 +680,13 @@ class UIManager:
             row=0, column=1, pady=10)
 
         tk.Button(frame, text="Отправить", command=self.submit_data).grid(
-            row=1, column=0, columnspan=2, pady=10)
+            row=1, column=2, columnspan=2, pady=10)
         tk.Button(frame, text="Назад", command=self.go_back).grid(
-            row=1, column=2, pady=10)
+            row=1, column=0, pady=10)
 
     def show_frame(self, frame_name):
         for frame in self.frames.values():
-            frame.grid_remove()  # Скрыть все фреймы
+            frame.grid_forget()  # Скрыть все фреймы
         frame = self.frames[frame_name]
         frame.grid(row=0, column=0, padx=10, pady=10)  # Показать нужный фрейм
         frame.update_idletasks()  # Обновить интерфейс для плавного отображения
@@ -611,17 +710,20 @@ class UIManager:
         self.product_var.set(new_options[0])
 
     def submit_data(self):
-        print("Комментарий:", self.comment_var.get())
-        print("Тип товара:", self.product_type_var.get())
-        print("Товар:", self.product_var.get())
-        print("Тип оплаты:", self.payment_type_var.get())
-        print("Количество человек:", self.people_count_var.get())
-        print("Способ оплаты:",
-              "Раздельная" if self.split_payment_var.get() else "Обычная")
-        for i, payment_var in enumerate(self.payment_entries):
-            print(f"Способ {i + 1}:", payment_var.get())
-        if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
-            print("Проценты:", self.percentage_entry_var.get())
+        self.data_summary = {
+            "Тип товара": self.product_type_var.get(),
+            "Товар": self.product_var.get(),
+            "Стоимость": self.actuallPayment.get(),
+            "Способ оплаты": self.payment_dropdown_var.get() if not self.split_payment_var.get() else "Раздельная",
+            "Тип оплаты": self.payment_type_var.get(),
+            "Количество человек": self.people_count_var.get(),
+            "Дата": f"{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}",
+            "Время": self.time_var.get(),
+            "Проценты": self.percentage_entry_var.get() if self.payment_type_var.get() in ["Доплата", "Предоплата"] else "100",
+            "Время чека": self.comment_var.get()
+        }
+        print(self.data_summary)
+
         self.show_frame("payment_frame")
 
     def go_back(self):
@@ -645,7 +747,3 @@ class UIManager:
 
     def openUI(self, root):
         root.mainloop()
-
-    def getCellAddrToday(self, sheetwages):
-        addr = ffcwp.find_first_matching_cell(sheetwages, [self.today_date])
-        return addr

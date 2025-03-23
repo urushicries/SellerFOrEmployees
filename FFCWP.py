@@ -1,4 +1,5 @@
 import re
+import gspread
 
 
 class ffcwp:
@@ -19,21 +20,28 @@ class ffcwp:
                     tuple | None: A tuple containing data from the sheets based on the pattern, or None if the pattern is not recognized.
         """
     @staticmethod
-    def find_first_matching_cell(sheet, patterns):
+    def find_first_matching_cell(sheet, patterns=None, date=None):
         """
-        Finds the first cell in the first column that matches any of the given patterns.
+        Finds the first cell in the first column that matches any of the given patterns or a specific date.
         Args:
             sheet (object): The sheet object to search.
             patterns (list): List of compiled regex patterns to match.
+            date (str | None): Specific date to search for in the format 'dd.mm.yyyy'. Defaults to None.
         Returns:
-            int | None: The row number of the first matching cell, or None if no match is found.
+            str | None: The address of the first matching cell, or None if no match is found.
         """
         column_data = sheet.col_values(1)  # Get all values in the first column
-
-        for row_num, value in enumerate(column_data, start=1):
-            for pattern in patterns:
-                if pattern.match(value):
-                    return row_num
+        if date:
+            print(f"date is {date}")
+            for row_num, value in enumerate(column_data, start=1):
+                print(f"doint shit:{row_num}")
+                if value == date[0]:
+                    return f"A{row_num-1}"  # Return the cell address
+        else:
+            for row_num, value in enumerate(column_data, start=1):
+                for pattern in patterns:
+                    if pattern.match(value):
+                        return f"A{row_num-1}"  # Return the cell address
         return None
 
     @staticmethod

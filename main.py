@@ -9,6 +9,8 @@ from oauth2client.service_account import ServiceAccountCredentials
 from OptimizedWindows import OptimizedWindows
 from ui import UIManager
 from updater import Updater
+import calendar
+from datetime import datetime
 
 
 def resource_path(relative_path):
@@ -47,19 +49,29 @@ if __name__ == "__main__":
         return non_empty_cells
 
     non_empty_cells = get_non_empty_cells(sheetWAGES, 'C97:C119')
-
+    non_empty_cells.append("Пропуск")
     root = tk.Tk()
     root.resizable(False, False)
 
-    sheetKOM = None
-    shtKOM_id = "1vAVIeR4UWVAx7KwAR6x23yT_Ha1KTuc8VjcTVjnTM_8"
-    client = client
-    sheetPIK = None
-    shtPIK_id = "1DlRu9fzlzJj4Uor4FvXp9IEwi4FJfKq4bD7cN9GbtW0"
-    sheetJUNE = None
-    shtJUN_id = "17tnMhq5fp9IEatRqLnlyeemhbNP4aGOblGWpJ4_ABYs"
-    sheetLM = None
-    shtLM_id = "1PIICQiP3Tr1gmw4CsQ1bxVbkaU4mOPm_6409W-b7K3E"
+    def get_current_month_name():
+        """Returns the Russian name of the current month."""
+        months_in_russian = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ]
+        current_month = datetime.now().month
+        return months_in_russian[current_month - 1]
+
+    # Example usage
+    current_month_name = get_current_month_name()
+    print(f"Текущий месяц: {current_month_name}")
+
+    sheetPIK = client.open("Пик отчет").worksheet(
+        f"{get_current_month_name()}25")
+    sheetJUN = client.open("Июнь отчет").worksheet(
+        f"{get_current_month_name()}25")
+    sheetLM = client.open("Лондон отчет").worksheet(
+        f"{get_current_month_name()}25")
 
     config = {
         'root': root,
@@ -67,21 +79,21 @@ if __name__ == "__main__":
         'Updater': None,  # Placeholder for Updater instance
         'service': service,
         'sheetWAGES': sheetWAGES,
-        'shtKOM_id': shtKOM_id,
-        'shtPIK_id': shtPIK_id,
-        'shtJUN_id': shtJUN_id,
-        'shtLM_id': shtLM_id,
+        'sheetPIK': sheetPIK,
+        'sheetJUN': sheetJUN,
+        'sheetLM': sheetLM,
         'ui': None,  # Placeholder for UIManager instance
         'list_employee': non_empty_cells
     }
 
-    updmanager = Updater(config)
+    # Create the UIManager instance first
     uim = UIManager(config)
+    config['ui'] = uim  # Assign the UIManager instance to the config
 
-    # Update config with actual instances
-    config['Updater'] = updmanager
-    config['ui'] = uim
-
+    # Now create the Updater instance
+    updmanager = Updater(config)
+    config['Updater'] = updmanager  # Assign the Updater instance to the config
+    uim.updater = updmanager
     scaling_factor, screen_height, screen_width = OptimizedWindows.checkWindowDPI()
 
     # Calculate position to center the window on the screen
@@ -93,7 +105,5 @@ if __name__ == "__main__":
 
     root.attributes('-topmost', 1)
     root.after(5000, lambda: root.attributes('-topmost', 0))
-
-    uim.getCellAddrToday(sheetWAGES)
 
     uim.openUI(root)
