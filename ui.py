@@ -52,7 +52,7 @@ class UIManager:
         self.init_employee_frame()
         self.init_payment_frame()
         self.init_summary_frame()
-        self.show_frame("login_frame")
+        self.show_frame("employee_frame")
         self.wrongAttempts = 0
 
     def on_close(self):
@@ -100,11 +100,11 @@ class UIManager:
                     target_width, target_height = target_geometry
 
                     # Fewer steps for quicker resizing
-                    width_step = (target_width - current_width) / 100
-                    height_step = (target_height - current_height) / 100
+                    width_step = (target_width - current_width) / 50
+                    height_step = (target_height - current_height) / 50
 
                     def animate_resize(step=0):
-                        if step <= 100:  # Reduce total steps
+                        if step <= 50:  # Reduce total steps
                             new_width = int(current_width + width_step * step)
                             new_height = int(
                                 current_height + height_step * step)
@@ -348,7 +348,7 @@ class UIManager:
         tk.Label(frame, text="Выберите товар", anchor="w").grid(
             row=1, column=0, pady=10, sticky="w")
         self.payment_type_var = tk.StringVar(frame)
-        self.payment_type_var.set("Тип оплаты")  # Default
+        self.payment_type_var.set("Полная оплата")  # Default
         payment_type_menu = tk.OptionMenu(
             frame, self.payment_type_var, "Доплата", "Предоплата", "Полная оплата")
         payment_type_menu.configure(width=dropdown_width)
@@ -616,6 +616,56 @@ class UIManager:
         self.percentage_entry = tk.Entry(
             frame, textvariable=self.percentage_entry_var)
 
+        def calculate_remaining_balance():
+            try:
+                # Calculate the total entered amount
+                total_entered = sum(
+                    int(entry.get()) for entry in self.payment_entries if entry.get().isdigit()
+                )
+                # Calculate the remaining balance
+                remaining_balance = self.actuallPayment.get() - total_entered
+                self.error_label = tk.Label(
+                    frame, text="", fg="red")
+                self.error_label.grid(row=12, column=0,
+                                      columnspan=2, pady=5)
+                if any(entry.get().isdigit() for entry in self.payment_entries):
+                    if remaining_balance < 0:
+                        # Highlight entries in red and show error message
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.configure(bg="red", fg="white")
+                            self.error_label.configure(
+                                text="Сумма превышает рассчитанную стоимость!", fg="red")
+                            self.root.after(2000, lambda: [frame.grid_slaves(row=6 + j, column=1)[0].configure(
+                                bg="white", fg="black") for j in range(len(self.payment_entries))])
+                    elif remaining_balance != 0:
+                        # Reset entry background to white
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.configure(bg="white", fg="black")
+                            self.error_label.configure(
+                                text=f"Остаток: {remaining_balance}", fg="red")
+                            self.root.after(2000, lambda: [frame.grid_slaves(row=6 + j, column=1)[0].configure(
+                                bg="white", fg="black") for j in range(len(self.payment_entries))])
+                    else:
+                        # Reset entry background to white
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.configure(bg="white", fg="black")
+                        self.error_label.configure(
+                            text="Оплата успешно рассчитана!", fg="green")
+                else:
+                    print("Нет введенных данных для проверки остатка.")
+            except ValueError:
+                pass  # Handle invalid input gracefully
+
+        tk.Button(frame, text="Проверить остаток", command=calculate_remaining_balance).grid(
+            row=11, column=3, pady=10
+        )
+
         def update_percentage_visibility(*args):
             if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
                 self.percentage_label.grid(row=2, column=2, pady=10)
@@ -716,14 +766,22 @@ class UIManager:
             "Стоимость": self.actuallPayment.get(),
             "Способ оплаты": self.payment_dropdown_var.get() if not self.split_payment_var.get() else "Раздельная",
             "Тип оплаты": self.payment_type_var.get(),
-            "Количество человек": self.people_count_var.get(),
+            "Количество человек": int(self.people_count_var.get()),
             "Дата": f"{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}",
             "Время": self.time_var.get(),
             "Проценты": self.percentage_entry_var.get() if self.payment_type_var.get() in ["Доплата", "Предоплата"] else "100",
-            "Время чека": self.comment_var.get()
+            "Время чека": self.comment_var.get(),
+            "НП": self.payment_entries[self.payment_methods.index("Н/П")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Н/П")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Н/П" else 0),
+            "Наличные по кассе": self.payment_entries[self.payment_methods.index("Наличные по кассе")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Наличные по кассе")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Наличные по кассе" else 0),
+            "Карта": self.payment_entries[self.payment_methods.index("Карта")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Карта")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Карта" else 0),
+            "QR/СБП": self.payment_entries[self.payment_methods.index("QR/СБП")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("QR/СБП")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "QR/СБП" else 0),
+            "Игра AW": 0 if self.payment_type_var.get() == "Предоплата" else (
+                self.actuallPayment.get() * (100 / int(self.percentage_entry_var.get())) if self.payment_type_var.get(
+                ) == "Доплата" and self.percentage_entry_var.get().isdigit() else self.actuallPayment.get()
+            )
         }
         print(self.data_summary)
-
+        self.updater.catch_req_sell(self.data_summary)
         self.show_frame("payment_frame")
 
     def go_back(self):

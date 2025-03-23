@@ -21,6 +21,7 @@ class Updater:
         sheets, preparing text based on employee data, and updating specific cells in the sheet.)
     """
     sheetweneed = None  # Initialize sheetweneed here
+    current_row = 0
 
     def __init__(self, config):
         self.client = config['client']
@@ -32,6 +33,7 @@ class Updater:
         self.employee_list = None
         self.adress = None
         self.today_date = datetime.now()
+        self.current_row = 0
 
     def getCellAddrToday(self, sheetweneed):
         # Format the date as "01.03.2025" to match the cell content
@@ -121,6 +123,10 @@ class Updater:
         # Write the text to the specified cell address
         sheet.update(adress, [[text]])
 
+    def catch_req_sell(self, payment_req):
+        self.add_new_sell(sheet_we_need=Updater.sheetweneed,
+                          adress=self.getCellAddrToday(Updater.sheetweneed), payment_request=payment_req)
+
     def add_new_sell(self, sheet_we_need, adress, payment_request):
         """
         Adds a new sell entry to the specified Google Sheet with employee shift information and payment details.
@@ -132,44 +138,46 @@ class Updater:
             adress (str): The cell address where the text should be written.
             payment_request (dict): A dictionary containing payment details to be added to the sheet.
         """
-        # Prepare the text to write for employee sales
-        text = "Продажи: "
-        # Remove the trailing space
-        text = text.rstrip(" ")
-
-        # Write the text to the specified cell address
-        sheet_we_need.update(adress, [[text]])
 
         # Extract payment details and write them to the same row as the address
         payment_details = [
-            str(payment_request.get('Тип товара', '')) +
-            ', ' + str(payment_request.get('Товар', '')),
-            str(payment_request.get('Время чека', '')),
-            str(payment_request.get('Количество человек', '')),
-            str(payment_request.get('По карте', '')),
-            str(payment_request.get('Наличные', '')),
-            str(payment_request.get('НП', '')),
-            str(payment_request.get('QR', '')),
-            str(payment_request.get('Способ оплаты', '')),
-            str(payment_request.get('Тип оплаты', '')),
-            str(payment_request.get('Дата', '')),
-            str(payment_request.get('Проценты', '')),
-
+            f"{payment_request.get('Тип товара', '')}, {payment_request.get('Товар', '')}",
+            payment_request.get('Время чека', ''),
+            payment_request.get('Количество человек', '1'),
+            payment_request.get('Карта', ''),
+            payment_request.get('QR/СБП', ''),
+            payment_request.get('Наличные по кассе', ''),
+            payment_request.get('НП', ''),
+            payment_request.get('Игра AW', ''),
+            '', '', f"Проданный товар:{payment_request.get('Тип товара')},{payment_request.get('Товар')}\nПо стоимости:{payment_request.get('Стоимость')}\nДата: {payment_request.get('Дата игры', 'Сегодня')} \nТип оплаты:{payment_request.get(
+                'Тип оплаты', 'Полная оплата')} \nПроценты: {payment_request.get('Проценты', '')}% \nЧеловек: {payment_request.get('Количество человек', '1')} \nИгра AW: {payment_request.get('Игра AW')}"
         ]
 
         # Determine the row number from the address
         row_number = int(''.join(filter(str.isdigit, adress)))
+        if Updater.current_row == 0:
+            Updater.current_row = row_number + 1
+        else:
+            Updater.current_row += 1
+        self.current_row = Updater.current_row
         print(
             f"Adding payment details at row: {row_number} with details: {payment_details}")
+
         # Write the payment details to the same row, starting from the next column
         # Batch update to work around Google API limitations
         updates = []
+
         # Start from column B (2)
+        if not hasattr(sheet_we_need, 'batch_update'):
+            raise TypeError(
+                "sheet_we_need must be a valid Google Sheets object, not a string.")
+
+        columns = ['B', 'C', 'D', 'E', 'F', 'G', 'H',
+                   'I', 'J', 'K', 'L']  # Columns B to L
         for col, detail in enumerate(payment_details, start=2):
             # Convert column number to letter
-            cell_address = f"{chr(64 + col)}{row_number}"
+            cell_address = f"{columns[col - 2]}{self.current_row}"
             updates.append({'range': cell_address, 'values': [[detail]]})
 
-        # Perform batch update
-        body = {'data': updates, 'valueInputOption': 'USER_ENTERED'}
-        sheet_we_need.batch_update(body)
+        print(updates)
+        sheet_we_need.batch_update(updates)
