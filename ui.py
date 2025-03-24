@@ -41,7 +41,7 @@ class UIManager:
         self.root.option_add("*Entry.foreground", "#000000")
         # Thin border for entry fields
         self.root.option_add("*Entry.highlightThickness", 1)
-        self.root.iconbitmap("aw.ico")
+
         self.root.configure(bg="#F0F0F0")  # Set root background to light gray
         self.root.title("Заполнение отчета")
         self.frames = {}
