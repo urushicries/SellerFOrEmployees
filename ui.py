@@ -3,6 +3,7 @@ from threading import Timer
 import hashlib
 import datetime
 import sys
+from tkinter import messagebox
 
 
 class UIManager:
@@ -27,13 +28,13 @@ class UIManager:
                              0)  # Remove button border
 
         # Light gray button background
-        self.root.option_add("*Button.background", "#E8E8E8")
+        self.root.option_add("*Button.background", "#FFFFFF")
         # Slightly darker gray for active buttons
-        self.root.option_add("*Button.activeBackground", "#D0D0D0")
+        self.root.option_add("*Button.activeBackground", "#000000")
         # Light gray background for labels
-        self.root.option_add("*Label.background", "#F0F0F0")
+        self.root.option_add("*Label.background", "#000000")
         # Black text for labels
-        self.root.option_add("*Label.foreground", "#000000")
+        self.root.option_add("*Label.foreground", "#FFFFFF")
         # White background for entry fields
         self.root.option_add("*Entry.background", "#FFFFFF")
         # Black text for entry fields
@@ -41,7 +42,7 @@ class UIManager:
         # Thin border for entry fields
         self.root.option_add("*Entry.highlightThickness", 1)
         self.root.iconbitmap("aw.ico")
-        self.root.configure(bg="#000000")  # Set root background to light gray
+        self.root.configure(bg="#F0F0F0")  # Set root background to light gray
         self.root.title("Заполнение отчета")
         self.frames = {}
         self.today_date = datetime.date.today()
@@ -54,6 +55,9 @@ class UIManager:
         self.init_summary_frame()
         self.show_frame("employee_frame")
         self.wrongAttempts = 0
+        # Define the navigation order
+        self.frame_order = ["login_frame", "employee_frame",
+                            "payment_frame", "summary_frame"]
 
     def on_close(self):
         """Handle window close event."""
@@ -174,7 +178,7 @@ class UIManager:
 
         password_entry.bind("<Button-3>", show_password_menu)
 
-        tk.Button(frame, text="Войти", command=self.validate_login).grid(
+        tk.Button(frame, text="Войти", command=self.validate_login, bg="white", fg="black").grid(
             row=3, column=0, columnspan=2, pady=10)
 
     def validate_login(self):
@@ -279,12 +283,56 @@ class UIManager:
             self.workplace_var = tk.StringVar(frame)
             self.workplace_var.set("Июнь")  # Default value
             workplace_menu = tk.OptionMenu(
-                frame, self.workplace_var, "Июнь", "Пик", "Лондон Молл")
+                frame, self.workplace_var, "Июнь", "Пик", "Лондон Молл", "Коменда")
             workplace_menu.configure(width=dropdown_width)
             workplace_menu.grid(row=5, column=1, pady=10)
 
-        tk.Button(frame, text="Далее", command=lambda: self.get_employee_request(), fg="black").grid(
+        tk.Button(frame, text="Далее", command=self.preview_employees, bg="white", fg="black").grid(
             row=6, column=0, columnspan=2, pady=10)
+
+    def preview_employees(self):
+        """Preview the selected employees with the last item as 'Арена'."""
+        employee_preview = ["Работники"]
+        for i in range(3):
+            employee_preview.append([
+                self.employee_vars[i].get(),
+                self.frames["employee_frame"].grid_slaves(
+                    row=i + 2, column=1)[0].cget("text"),
+                self.frames["employee_frame"].grid_slaves(
+                    row=i + 2, column=2)[0].cget("text")
+            ])
+        employee_preview.append("На арене:")
+        employee_preview.append(self.workplace_var.get())
+        employee_preview = [
+            item for item in employee_preview[:-1]
+            if item[0] not in ["Пропуск", "Выберете работника"]
+        ] + [employee_preview[-1]]
+
+        preview_window = tk.Toplevel(self.root)
+        preview_window.title("Предварительный просмотр сотрудников")
+        preview_window.geometry("400x400")
+
+        text_widget = tk.Text(preview_window, wrap="word",
+                              font=("Helvetica", 12))
+        text_widget.pack(expand=True, fill="both", padx=10, pady=10)
+
+        # Populate the text widget with the employee preview
+        for employee in employee_preview:
+            if isinstance(employee, list):
+                text_widget.insert(
+                    "end", f"Имя: {employee[0]}, Роль: {employee[1]}, Смена: {employee[2]}\n")
+            else:
+                text_widget.insert("end", f"{employee}\n")
+
+        # Make the text widget read-only
+        text_widget.config(state="disabled")
+        button_frame = tk.Frame(preview_window)
+        button_frame.pack(pady=10)
+
+        tk.Button(button_frame, text="Согласен", command=lambda: self.agreeToDisagree(
+            True, preview_window=preview_window, next_frame="payment_frame", key="emp"), bg="white", fg="black").pack(side="left", padx=10)
+        tk.Button(button_frame, text="Не согласен", command=lambda: self.agreeToDisagree(
+            False, preview_window=preview_window, act_frame="employee_frame", key="emp"), bg="white", fg="black").pack(side="right", padx=10)
 
     def get_employee_request(self):
         """Формирует список данных сотрудников."""
@@ -345,8 +393,10 @@ class UIManager:
 
         tk.Label(frame, text="Выберите тип оплаты", anchor="w").grid(
             row=2, column=0, pady=10, sticky="w")
+
         tk.Label(frame, text="Выберите товар", anchor="w").grid(
             row=1, column=0, pady=10, sticky="w")
+
         self.payment_type_var = tk.StringVar(frame)
         self.payment_type_var.set("Полная оплата")  # Default
         payment_type_menu = tk.OptionMenu(
@@ -418,7 +468,7 @@ class UIManager:
         self.month_var.set(month_options[self.today_date.month - 1])
         # Time input
         self.time_var = tk.StringVar(frame)
-        self.time_var.set("09:00")  # Default value
+        self.time_var.set("10:00")  # Default value
 
         tk.Label(frame, text="Введите время (чч:мм)").grid(
             row=2, column=4, pady=10)
@@ -427,11 +477,11 @@ class UIManager:
         self.time_entry.grid(row=3, column=4, pady=10, padx=10)
 
         # Button to set today's date
-        tk.Button(frame, text="Сегодня", command=self.set_today_date).grid(
+        tk.Button(frame, text="Сегодня", command=self.set_today_date, bg="white", fg="black").grid(
             row=3, column=5, pady=10)
 
         # Button to set current time
-        tk.Button(frame, text="Сейчас", command=self.set_current_time).grid(
+        tk.Button(frame, text="Сейчас", command=self.set_current_time, bg="white", fg="black").grid(
             row=2, column=5, pady=10)
 
         month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
@@ -448,10 +498,15 @@ class UIManager:
 
         self.actuallPayment = tk.IntVar(frame)
         self.actuallPayment.set(0)
+        self.error_label = tk.Label(
+            frame, text="", fg="red")
+        self.error_label.grid(row=12, column=0,
+                              columnspan=2, pady=5)
 
         tk.Button(frame, text="Далее", command=lambda: self.show_frame(
-            "summary_frame")).grid(row=11, column=5, pady=10)
-        tk.Button(frame, text="Назад", command=lambda: self.show_frame("employee_frame")).grid(
+            "summary_frame"), bg="white", fg="black").grid(row=11, column=5, pady=10)
+
+        tk.Button(frame, text="Назад", command=lambda: self.show_frame("employee_frame"), bg="white", fg="black").grid(
             row=11, column=0, pady=10)
 
         def calculate_payment():
@@ -466,7 +521,9 @@ class UIManager:
                 )
                 selected_time = datetime.datetime.strptime(
                     self.time_var.get(), "%H:%M").time()
-
+                # Get the day of the week number (0=Monday, 6=Sunday)
+                day_of_week = selected_date.weekday()
+                print(day_of_week)
                 # Базовая цена для обычных игр
                 if selected_date.weekday() >= 4:  # 5 и 6 соответствуют субботе и воскресенью, 4 — пятница
                     AWgame_price = 1800  # Увеличить базовую цену для выходных
@@ -493,14 +550,6 @@ class UIManager:
 
                 elif self.product_type_var.get() == "Тариф":
                     self.product_var.get()
-
-                    # Get selected date and time
-                    selected_date = datetime.date(
-                        int(self.year_var.get()),
-                        month_options.index(self.month_var.get()),
-                        int(self.day_var.get())
-                    )
-
                     selected_time = datetime.datetime.strptime(
                         self.time_var.get(), "%H:%M").time()
 
@@ -567,7 +616,7 @@ class UIManager:
                     payLabel.config(text="")
                 Timer(1.5, clear_label).start()
 
-        tk.Button(frame, text="Рассчитать", command=calculate_payment).grid(
+        tk.Button(frame, text="Рассчитать", command=calculate_payment, bg="white", fg="black").grid(
             row=1, column=5, pady=10)
 
         payLabel = tk.Label(
@@ -579,6 +628,11 @@ class UIManager:
         self.payment_entries = []
         self.payment_dropdown_var = tk.StringVar(frame)
         self.payment_dropdown_var.set(self.payment_methods[0])  # Default value
+        # Dropdown for single payment method
+        payment_dropdown = tk.OptionMenu(
+            frame, self.payment_dropdown_var, *self.payment_methods)
+        payment_dropdown.configure(width=13)
+        payment_dropdown.grid(row=6, column=1, pady=5)
 
         def update_payment_method_visibility(*args):
             if self.split_payment_var.get():  # If split payment is selected
@@ -601,11 +655,6 @@ class UIManager:
             # Show the dropdown
                 payment_dropdown.grid(row=6, column=1, pady=5)
 
-        # Dropdown for single payment method
-        payment_dropdown = tk.OptionMenu(
-            frame, self.payment_dropdown_var, *self.payment_methods)
-        payment_dropdown.configure(width=13)
-        payment_dropdown.grid(row=6, column=1, pady=5)
         # Trace the split payment checkbox to update visibility
         self.split_payment_var.trace_add(
             "write", update_payment_method_visibility)
@@ -624,45 +673,49 @@ class UIManager:
                 )
                 # Calculate the remaining balance
                 remaining_balance = self.actuallPayment.get() - total_entered
-                self.error_label = tk.Label(
-                    frame, text="", fg="red")
-                self.error_label.grid(row=12, column=0,
-                                      columnspan=2, pady=5)
+
                 if any(entry.get().isdigit() for entry in self.payment_entries):
                     if remaining_balance < 0:
-                        # Highlight entries in red and show error message
+                        self.error_label.config(text="")
                         for i, entry_var in enumerate(self.payment_entries):
                             entry_widget = frame.grid_slaves(
                                 row=6 + i, column=1)[0]
                             entry_widget.configure(bg="red", fg="white")
-                            self.error_label.configure(
-                                text="Сумма превышает рассчитанную стоимость!", fg="red")
-                            self.root.after(2000, lambda: [frame.grid_slaves(row=6 + j, column=1)[0].configure(
-                                bg="white", fg="black") for j in range(len(self.payment_entries))])
+                        self.error_label.config(
+                            text="Сумма превышает рассчитанную стоимость!", fg="red"
+                        )
                     elif remaining_balance != 0:
-                        # Reset entry background to white
+                        self.error_label.config(text="")
                         for i, entry_var in enumerate(self.payment_entries):
                             entry_widget = frame.grid_slaves(
                                 row=6 + i, column=1)[0]
-                            entry_widget.configure(bg="white", fg="black")
-                            self.error_label.configure(
-                                text=f"Остаток: {remaining_balance}", fg="red")
-                            self.root.after(2000, lambda: [frame.grid_slaves(row=6 + j, column=1)[0].configure(
-                                bg="white", fg="black") for j in range(len(self.payment_entries))])
+                            entry_widget.config(bg="white", fg="black")
+                        self.error_label.config(
+                            text=f"Остаток: {remaining_balance}", fg="red"
+                        )
+                        self.root.after(
+                            2000,
+                            lambda: [
+                                frame.grid_slaves(row=6 + j, column=1)[0].configure(
+                                    bg="white", fg="black"
+                                )
+                                for j in range(len(self.payment_entries))
+                            ],
+                        )
                     else:
-                        # Reset entry background to white
+                        self.error_label.config(text="")
                         for i, entry_var in enumerate(self.payment_entries):
                             entry_widget = frame.grid_slaves(
                                 row=6 + i, column=1)[0]
                             entry_widget.configure(bg="white", fg="black")
-                        self.error_label.configure(
-                            text="Оплата успешно рассчитана!", fg="green")
+                        self.error_label.config(
+                            text="Оплата успешно рассчитана!", fg="green"
+                        )
                 else:
                     print("Нет введенных данных для проверки остатка.")
-            except ValueError:
-                pass  # Handle invalid input gracefully
-
-        tk.Button(frame, text="Проверить остаток", command=calculate_remaining_balance).grid(
+            except ValueError as e:
+                print(f"Ошибка: {e}")
+        tk.Button(frame, text="Проверить остаток", command=calculate_remaining_balance, bg="white", fg="black").grid(
             row=11, column=3, pady=10
         )
 
@@ -701,9 +754,9 @@ class UIManager:
                 month_menu.grid(row=3, column=2, pady=10)
                 day_menu.grid(row=3, column=3, pady=10)
                 # Add "Сегодня" and "Сейчас" buttons
-                tk.Button(frame, text="Сегодня", command=self.set_today_date, fg="black", bg="black").grid(
+                tk.Button(frame, text="Сегодня", command=self.set_today_date,  bg="white", fg="black").grid(
                     row=3, column=5, pady=10)
-                tk.Button(frame, text="Сейчас", command=self.set_current_time, fg="black", bg="black").grid(
+                tk.Button(frame, text="Сейчас", command=self.set_current_time,  bg="white", fg="black").grid(
                     row=2, column=5, pady=10)
 
         self.product_type_var.trace_add("write", update_date_visibility)
@@ -729,9 +782,9 @@ class UIManager:
         tk.Entry(frame, textvariable=self.comment_var).grid(
             row=0, column=1, pady=10)
 
-        tk.Button(frame, text="Отправить", command=self.submit_data).grid(
+        tk.Button(frame, text="Отправить", bg="white", fg="black", command=self.make_data).grid(
             row=1, column=2, columnspan=2, pady=10)
-        tk.Button(frame, text="Назад", command=self.go_back).grid(
+        tk.Button(frame, text="Назад", bg="white", fg="black", command=self.go_back).grid(
             row=1, column=0, pady=10)
 
     def show_frame(self, frame_name):
@@ -759,14 +812,75 @@ class UIManager:
                 label=option, command=lambda value=option: self.product_var.set(value))
         self.product_var.set(new_options[0])
 
-    def submit_data(self):
+    def show_preview(self):
+        self.preview_window = tk.Toplevel(self.root)
+        self.preview_window.title("Предварительный просмотр")
+        self.preview_window.geometry("600x500")
+
+        text_widget = tk.Text(self.preview_window, wrap="word",
+                              font=("Helvetica", 12))
+        text_widget.pack(expand=True, fill="both", padx=10, pady=10)
+
+        # Populate the text widget with the data summary
+        for key, value in self.data_summary.items():
+            text_widget.insert("end", f"{key}: {value}\n")
+
+        # Make the text widget read-only
+        text_widget.config(state="disabled")
+        self.isAgreed = False
+        button_frame = tk.Frame(self.preview_window)
+        button_frame.pack(pady=10)
+        tk.Button(button_frame, text="Согласен",
+                  command=lambda: self.agreeToDisagree(True, self.preview_window, next_frame="payment_frame"), bg="white", fg="black").pack(side="left", padx=10)
+        tk.Button(button_frame, text="Не согласен",
+                  command=lambda: self.agreeToDisagree(False, self.preview_window, next_frame="payment_frame"), bg="white", fg="black").pack(side="right", padx=10)
+
+    def agreeToDisagree(self, isAgreed, preview_window, act_frame="payment_frame", next_frame="summary_frame", key="sell"):
+        """
+        Handles the user's agreement or disagreement to proceed with a specific action.
+
+            Args:
+                isAgreed (bool): Indicates whether the user agrees (True) or disagrees (False).
+                preview_window (tk.Toplevel): The preview window that will be destroyed after the action.
+                act_frame (str, optional): The name of the current active frame to return to if the user disagrees. Defaults to "payment_frame".
+                next_frame (str, optional): The name of the next frame to navigate to if the user agrees. Defaults to "summary_frame".
+                key (str, optional): "sell" triggers a sell request, while "emp" triggers an employee request. Defaults to "sell".
+            Behavior:
+                - If `isAgreed` is True:
+                    - Executes the appropriate action based on the `key` parameter.
+                    - Displays a success message indicating the request has been sent.
+                    - Navigates to the `next_frame`.
+                    - Closes the `preview_window`.
+                - If `isAgreed` is False:
+                    - Displays a message prompting the user to review and resend the request.
+                    - Navigates back to the `act_frame`.
+                    - Closes the `preview_window`.
+        """
+
+        if isAgreed:
+            if key == "sell":
+                self.updater.catch_req_sell(self.data_summary)
+            elif key == "emp":
+                self.get_employee_request()
+            tk.messagebox.showinfo(
+                "Внимание!", "Запрос отправлен в таблицу!")
+            self.show_frame(next_frame)
+            preview_window.destroy()
+        else:
+            tk.messagebox.showinfo(
+                "Внимание!", "Уточните детали и отправьте запрос еще раз!")
+            self.show_frame(act_frame)
+            preview_window.destroy()
+
+    def make_data(self):
+
         self.data_summary = {
             "Тип товара": self.product_type_var.get(),
             "Товар": self.product_var.get(),
             "Стоимость": self.actuallPayment.get(),
             "Способ оплаты": self.payment_dropdown_var.get() if not self.split_payment_var.get() else "Раздельная",
             "Тип оплаты": self.payment_type_var.get(),
-            "Количество человек": int(self.people_count_var.get()),
+            "Количество человек": 8 if self.product_type_var.get() in ["Тариф"] and self.product_var.get() in ["STD"] else 12 if self.product_type_var.get() in ["Тариф"] and self.product_var.get() in ["HARD"] else 16 if self.product_type_var.get() in ["Тариф"] and self.product_var.get() in ["VIP"] else int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 0,
             "Дата": f"{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}",
             "Время": self.time_var.get(),
             "Проценты": self.percentage_entry_var.get() if self.payment_type_var.get() in ["Доплата", "Предоплата"] else "100",
@@ -780,9 +894,8 @@ class UIManager:
                 ) == "Доплата" and self.percentage_entry_var.get().isdigit() else self.actuallPayment.get()
             )
         }
-        print(self.data_summary)
-        self.updater.catch_req_sell(self.data_summary)
-        self.show_frame("payment_frame")
+
+        self.show_preview()
 
     def go_back(self):
         # Get the current frame
@@ -792,15 +905,11 @@ class UIManager:
                 current_frame = frame_name
                 break
 
-        # Define the navigation order
-        frame_order = ["login_frame", "employee_frame",
-                       "payment_frame", "summary_frame"]
-
         # Find the previous frame in the order
         if current_frame:
-            current_index = frame_order.index(current_frame)
+            current_index = self.frame_order.index(current_frame)
             if current_index > 0:
-                previous_frame = frame_order[current_index - 1]
+                previous_frame = self.frame_order[current_index - 1]
                 self.show_frame(previous_frame)
 
     def openUI(self, root):

@@ -9,7 +9,6 @@ from oauth2client.service_account import ServiceAccountCredentials
 from OptimizedWindows import OptimizedWindows
 from ui import UIManager
 from updater import Updater
-import calendar
 from datetime import datetime
 
 
@@ -72,6 +71,8 @@ if __name__ == "__main__":
         f"{get_current_month_name()}25")
     sheetLM = client.open("Лондон отчет").worksheet(
         f"{get_current_month_name()}25")
+    sheetKOM = client.open("Коменда отчет").worksheet(
+        f"{get_current_month_name()}25")
 
     config = {
         'root': root,
@@ -82,6 +83,7 @@ if __name__ == "__main__":
         'sheetPIK': sheetPIK,
         'sheetJUN': sheetJUN,
         'sheetLM': sheetLM,
+        'sheetKOM': sheetKOM,
         'ui': None,  # Placeholder for UIManager instance
         'list_employee': non_empty_cells
     }

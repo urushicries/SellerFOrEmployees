@@ -28,6 +28,7 @@ class Updater:
         self.sheetPIK = config['sheetPIK']
         self.sheetJUN = config['sheetJUN']
         self.sheetLM = config['sheetLM']
+        self.sheetKom = config['sheetKOM']
         self.ui = config['ui']
         self.sheetwages = config['sheetWAGES']
         self.employee_list = None
@@ -52,6 +53,8 @@ class Updater:
             return self.sheetPIK
         elif last_item == 'Лондон молл':
             return self.sheetLM
+        elif last_item == 'Коменда':
+            return self.sheetKom
         else:
             return None
 
@@ -111,10 +114,10 @@ class Updater:
                     role_letter = "О"
                 elif "Администратор" in role:
                     role_letter = "А"
-                elif "стажер" in role:
+                elif "Стажер" in role:
                     role_letter = "С"
                 else:
-                    role_letter = ""
+                    role_letter = "С"
                 text += f"{name}({hours};{role_letter}) "
 
                 # Remove the trailing comma and space
@@ -144,12 +147,12 @@ class Updater:
             f"{payment_request.get('Тип товара', '')}, {payment_request.get('Товар', '')}",
             payment_request.get('Время чека', ''),
             payment_request.get('Количество человек', '1'),
-            payment_request.get('Карта', ''),
-            payment_request.get('QR/СБП', ''),
-            payment_request.get('Наличные по кассе', ''),
-            payment_request.get('НП', ''),
-            payment_request.get('Игра AW', ''),
-            '', '', f"Проданный товар:{payment_request.get('Тип товара')},{payment_request.get('Товар')}\nПо стоимости:{payment_request.get('Стоимость')}\nДата: {payment_request.get('Дата игры', 'Сегодня')} \nТип оплаты:{payment_request.get(
+            float(payment_request.get('Карта', '')),
+            float(payment_request.get('QR/СБП', '')),
+            float(payment_request.get('Наличные по кассе', '')),
+            float(payment_request.get('НП', '')),
+            float(payment_request.get('Игра AW', '')),
+            '', '', f"Проданный товар: {payment_request.get('Тип товара')} , {payment_request.get('Товар')} \nПо стоимости: {payment_request.get('Стоимость')}\nДата: {payment_request.get('Дата игры', 'Сегодня')}\nВремя: {payment_request.get('Время')} \nТип оплаты: {payment_request.get(
                 'Тип оплаты', 'Полная оплата')} \nПроценты: {payment_request.get('Проценты', '')}% \nЧеловек: {payment_request.get('Количество человек', '1')} \nИгра AW: {payment_request.get('Игра AW')}"
         ]
 
