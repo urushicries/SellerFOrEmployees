@@ -118,6 +118,15 @@ class UIManager:
 
                     animate_resize()
 
+    def get_current_month_name(self):
+        """Returns the Russian name of the current month."""
+        months_in_russian = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ]
+        current_month = datetime.datetime.now().month
+        return months_in_russian[current_month - 1]
+
     def init_login_frame(self):
         frame = tk.Frame(self.root)
         self.frames["login_frame"] = frame
@@ -168,7 +177,7 @@ class UIManager:
                 clipboard_content = self.root.clipboard_get()
                 self.password_var.set(clipboard_content)
             except tk.TclError:
-                pass  # Handle empty clipboard gracefully
+                pass
 
         password_menu = tk.Menu(self.root, tearoff=0)
         password_menu.add_command(label="Paste", command=paste_password)
@@ -184,16 +193,12 @@ class UIManager:
     def validate_login(self):
         username = self.username_var.get()
         password = self.password_var.get()
-        # Store credentials securely using a hashed password
 
-        # Replace these with your actual username and hashed password
         usernamer = "spb-aw"
         passwordr = "fc17f007ddcf314128317bbed059ae8b253176d0dd846243627492f215121a5c"
 
-        # Hash the input password
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
-        # Placeholder for actual login validation logic
         if username == usernamer and hashed_password == passwordr:
             self.show_frame("employee_frame")
         else:
@@ -204,10 +209,10 @@ class UIManager:
             error_message.grid(row=4, column=0, columnspan=2, pady=5)
             self.root.after(1500, error_message.destroy)
             self.wrongAttempts += 1
-            attempts_left = 3 - self.wrongAttempts
+            attempts_left = 5 - self.wrongAttempts
             tk.Label(self.frames["login_frame"], text=f"Осталось попыток: {attempts_left}", fg="red").grid(
                 row=5, column=0, columnspan=2, pady=5)
-            if self.wrongAttempts == 3:
+            if self.wrongAttempts == 5:
                 self.on_close()
 
     def init_employee_frame(self):
@@ -292,7 +297,7 @@ class UIManager:
 
     def preview_employees(self):
         """Preview the selected employees with the last item as 'Арена'."""
-        employee_preview = ["Работники"]
+        employee_preview = []
         for i in range(3):
             employee_preview.append([
                 self.employee_vars[i].get(),
@@ -310,19 +315,33 @@ class UIManager:
 
         preview_window = tk.Toplevel(self.root)
         preview_window.title("Предварительный просмотр сотрудников")
-        preview_window.geometry("400x400")
+        preview_window.geometry("400x500")
 
         text_widget = tk.Text(preview_window, wrap="word",
                               font=("Helvetica", 12))
         text_widget.pack(expand=True, fill="both", padx=10, pady=10)
 
-        # Populate the text widget with the employee preview
+        # Populate the text widget with the employee preview in a table-like format
+        # Calculate column widths based on the longest text in each column
+        col_widths = [max(len(str(employee[i])) for employee in employee_preview if isinstance(
+            employee, list)) + 2 for i in range(3)]
+        # Add a default width for the last "На арене" row
+        col_widths.append(20)
+
+        # Insert header row with dynamic column widths
+        text_widget.insert(
+            "end", f"{'Имя':<{col_widths[0]}}{'Тип':<{col_widths[1]}}{'Смена':<{col_widths[2]}}\n")
+        text_widget.insert("end", "-" * sum(col_widths) + "\n")
+
+        # Insert employee data rows
         for employee in employee_preview:
             if isinstance(employee, list):
                 text_widget.insert(
-                    "end", f"Имя: {employee[0]}, Роль: {employee[1]}, Смена: {employee[2]}\n")
+                    "end", f"{employee[0]:<{col_widths[0]}}{employee[1]:<{col_widths[1]}}{employee[2]:<{col_widths[2]}}\n"
+                )
             else:
-                text_widget.insert("end", f"{employee}\n")
+                text_widget.insert(
+                    "end", f"\n{employee.center(sum(col_widths))}\n")
 
         # Make the text widget read-only
         text_widget.config(state="disabled")
@@ -381,7 +400,7 @@ class UIManager:
     def init_payment_frame(self):
 
         self.root.bind("<Configure>", self.enforce_frame_size)
-        dropdown_width = 13
+        dropdown_width = 18
         frame = tk.Frame(self.root, bg="black")
         self.frames["payment_frame"] = frame
         for i in range(10):  # Adjust the range as needed for the number of rows
@@ -631,7 +650,7 @@ class UIManager:
         # Dropdown for single payment method
         payment_dropdown = tk.OptionMenu(
             frame, self.payment_dropdown_var, *self.payment_methods)
-        payment_dropdown.configure(width=13)
+        payment_dropdown.configure(width=dropdown_width)
         payment_dropdown.grid(row=6, column=1, pady=5)
 
         def update_payment_method_visibility(*args):
@@ -764,7 +783,7 @@ class UIManager:
     def set_today_date(self):
         """Set the date inputs to today's date."""
         self.year_var.set(str(self.today_date.year))
-        self.month_var.set(self.month_var.get())
+        self.month_var.set(str(self.get_current_month_name()))
         self.day_var.set(str(self.today_date.day))
 
     def set_current_time(self):
