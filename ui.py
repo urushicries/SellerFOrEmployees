@@ -53,7 +53,7 @@ class UIManager:
         self.init_employee_frame()
         self.init_payment_frame()
         self.init_summary_frame()
-        self.show_frame("employee_frame")
+        self.show_frame("payment_frame")
         self.wrongAttempts = 0
         # Define the navigation order
         self.frame_order = ["login_frame", "employee_frame",
@@ -88,7 +88,7 @@ class UIManager:
             if frame.winfo_ismapped():
                 target_geometry = None
                 if frame_name == "payment_frame":
-                    target_geometry = (1000, 650)
+                    target_geometry = (1100, 650)
                 elif frame_name == "employee_frame":
                     target_geometry = (590, 310)
                 elif frame_name == "login_frame":
@@ -245,7 +245,7 @@ class UIManager:
         frame.option_add("*Entry.highlightThickness", 1)
 
         tk.Label(frame, text="Выберете сотрудников на смене").grid(
-            row=0, column=1, columnspan=3, pady=10)
+            row=0, column=1, pady=10)
         tk.Label(frame, text="Имя работника").grid(
             row=1, column=0, columnspan=1, pady=10)
         tk.Label(frame, text="Тип работника ").grid(
@@ -293,7 +293,7 @@ class UIManager:
             workplace_menu.grid(row=5, column=1, pady=10)
 
         tk.Button(frame, text="Далее", command=self.preview_employees, bg="white", fg="black").grid(
-            row=6, column=0, columnspan=2, pady=10)
+            row=6, column=1, pady=10)
 
     def preview_employees(self):
         """Preview the selected employees with the last item as 'Арена'."""
@@ -497,11 +497,11 @@ class UIManager:
 
         # Button to set today's date
         tk.Button(frame, text="Сегодня", command=self.set_today_date, bg="white", fg="black").grid(
-            row=3, column=5, pady=10)
+            row=7, column=5, pady=10)
 
         # Button to set current time
         tk.Button(frame, text="Сейчас", command=self.set_current_time, bg="white", fg="black").grid(
-            row=2, column=5, pady=10)
+            row=8, column=5, pady=10)
 
         month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
         month_menu.configure(width=dropdown_width)
@@ -766,12 +766,12 @@ class UIManager:
             else:
                 self.time_entry.grid(row=3, column=4, pady=10, padx=10)
                 tk.Label(frame, text="Выберите дату", anchor="w").grid(
-                    row=3, column=0, pady=10, sticky="w")
+                    row=2, column=3, pady=10, sticky="w")
                 tk.Label(frame, text="Введите время (чч:мм)").grid(
                     row=2, column=4, pady=10)
-                year_menu.grid(row=3, column=1, pady=10)
-                month_menu.grid(row=3, column=2, pady=10)
-                day_menu.grid(row=3, column=3, pady=10)
+                year_menu.grid(row=3, column=4, pady=10)
+                month_menu.grid(row=4, column=4, pady=10)
+                day_menu.grid(row=5, column=4, pady=10)
                 # Add "Сегодня" and "Сейчас" buttons
                 tk.Button(frame, text="Сегодня", command=self.set_today_date,  bg="white", fg="black").grid(
                     row=3, column=5, pady=10)
