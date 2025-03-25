@@ -20,27 +20,32 @@ class UIManager:
         self.root = root
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         # Adjust scaling for better appearance
-        self.root.tk.call("tk", "scaling", 1.0)
-        self.root.option_add("*Font", "Helvetica 14")  # Set default font
+        self.root.tk.call("tk", "scaling", 1.1)
+        # Use macOS system font
+        self.root.option_add("*Font", "San Francisco 14")
         # Flat buttons for macOS look
         self.root.option_add("*Button.relief", "flat")
         self.root.option_add("*Button.highlightThickness",
                              0)  # Remove button border
-
+        self.use_item = False
         # Light gray button background
-        self.root.option_add("*Button.background", "#FFFFFF")
+        self.root.option_add("*Button.background", "#E5E5E5")
         # Slightly darker gray for active buttons
-        self.root.option_add("*Button.activeBackground", "#000000")
+        self.root.option_add("*Button.activeBackground", "#D4D4D4")
+        # White text for buttons
+        self.root.option_add("*Button.foreground", "#000000")
         # Light gray background for labels
-        self.root.option_add("*Label.background", "#000000")
+        self.root.option_add("*Label.background", "#F9F9F9")
         # Black text for labels
-        self.root.option_add("*Label.foreground", "#FFFFFF")
+        self.root.option_add("*Label.foreground", "#000000")
         # White background for entry fields
         self.root.option_add("*Entry.background", "#FFFFFF")
         # Black text for entry fields
         self.root.option_add("*Entry.foreground", "#000000")
         # Thin border for entry fields
         self.root.option_add("*Entry.highlightThickness", 1)
+        # Rounded corners for buttons (macOS-like)
+        self.root.option_add("*Button.borderRadius", 5)
 
         self.root.configure(bg="#F0F0F0")  # Set root background to light gray
         self.root.title("Заполнение отчета")
@@ -440,13 +445,20 @@ class UIManager:
         self.product_type_var.trace_add("write", self.update_dropdown)
 
         def update_people_count_visibility(*args):
+            def fade_in(widget):
+                widget.grid()  # Show the widget
+
+            def fade_out(widget):
+                widget.grid_forget()  # Hide the widget
 
             if self.product_type_var.get() in ["Время", "Одиночная игра"]:
                 people_count_label.grid(row=4, column=0, pady=10, sticky="w")
                 people_count_entry.grid(row=4, column=1, pady=10)
+                fade_in(people_count_label)
+                fade_in(people_count_entry)
             else:
-                people_count_label.grid_forget()
-                people_count_entry.grid_forget()
+                fade_out(people_count_label)
+                fade_out(people_count_entry)
 
         people_count_label = tk.Label(
             frame, text="Количество человек", anchor="w")
@@ -460,11 +472,35 @@ class UIManager:
         tk.Label(frame, text="Способ оплаты", anchor="w").grid(
             row=5, column=0, pady=10, sticky="w")
         self.split_payment_var = tk.BooleanVar(frame)
+        self.use_abo_cert_var = tk.BooleanVar(frame)
         tk.Checkbutton(frame, text="Раздельная оплата",
                        variable=self.split_payment_var).grid(row=5, column=1, pady=10)
 
+        useABOcERT = tk.Checkbutton(
+            frame, text=f"", variable=self.use_abo_cert_var)
+        useABOcERT.grid(row=0, column=2)
+        useABOcERT.grid_forget()
+
+        def update_use_abo_cert_visibility(*args):
+            if self.product_type_var.get() in ["Абонемент", "Сертификат"]:
+                useABOcERT.grid(padx=10, row=0, column=2)
+                useABOcERT.config(
+                    text=f"Использовать \n{self.product_type_var.get()}?")
+            else:
+                useABOcERT.grid_forget()
+
+        def update_use_var(*args):
+            if self.use_abo_cert_var.get():
+                self.use_item = True
+            else:
+                self.use_item = False
+
+        self.use_abo_cert_var.trace_add("write", update_use_var)
+
+        self.product_type_var.trace_add(
+            "write", update_use_abo_cert_visibility)
         tk.Label(frame, text="Выберите дату", anchor="w").grid(
-            row=3, column=0, pady=10, sticky="w")
+            row=2, column=3, pady=10, sticky="w")
         self.date_var = tk.StringVar(frame)
 
         # Year dropdown
@@ -474,7 +510,7 @@ class UIManager:
                         for year in range(self.today_date.year, 2027)]
         year_menu = tk.OptionMenu(frame, self.year_var, *year_options)
         year_menu.configure(width=dropdown_width)
-        year_menu.grid(row=3, column=1, pady=10)
+        year_menu.grid(row=3, column=3, pady=10)
 
         # Month dropdown
         self.month_var = tk.StringVar(frame)
@@ -505,7 +541,7 @@ class UIManager:
 
         month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
         month_menu.configure(width=dropdown_width)
-        month_menu.grid(row=3, column=2, pady=10)
+        month_menu.grid(row=4, column=3, pady=10)
 
         # Day dropdown
         self.day_var = tk.StringVar(frame)
@@ -513,7 +549,7 @@ class UIManager:
         day_options = [str(day) for day in range(1, 32)]
         day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
         day_menu.configure(width=dropdown_width)
-        day_menu.grid(row=3, column=3, pady=10, padx=10)
+        day_menu.grid(row=5, column=3, pady=10, padx=10)
 
         self.actuallPayment = tk.IntVar(frame)
         self.actuallPayment.set(0)
@@ -639,7 +675,8 @@ class UIManager:
             row=1, column=5, pady=10)
 
         payLabel = tk.Label(
-            frame, text=f"Рассчитанная \n стоимость: {self.actuallPayment.get()}", font=("Arial", 20))
+            frame, text=f"Рассчитанная \n стоимость: {self.actuallPayment.get()}", font=("Arial", 20),
+            bg="black", relief="solid", borderwidth=2)
         payLabel.grid(row=0, column=3, pady=10)
 
         # Define payment methods
@@ -769,9 +806,9 @@ class UIManager:
                     row=2, column=3, pady=10, sticky="w")
                 tk.Label(frame, text="Введите время (чч:мм)").grid(
                     row=2, column=4, pady=10)
-                year_menu.grid(row=3, column=4, pady=10)
-                month_menu.grid(row=4, column=4, pady=10)
-                day_menu.grid(row=5, column=4, pady=10)
+                year_menu.grid(row=3, column=3, pady=10)
+                month_menu.grid(row=4, column=3, pady=10)
+                day_menu.grid(row=5, column=3, pady=10)
                 # Add "Сегодня" and "Сейчас" buttons
                 tk.Button(frame, text="Сегодня", command=self.set_today_date,  bg="white", fg="black").grid(
                     row=3, column=5, pady=10)
@@ -908,7 +945,7 @@ class UIManager:
             "Наличные по кассе": self.payment_entries[self.payment_methods.index("Наличные по кассе")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Наличные по кассе")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Наличные по кассе" else 0),
             "Карта": self.payment_entries[self.payment_methods.index("Карта")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Карта")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Карта" else 0),
             "QR/СБП": self.payment_entries[self.payment_methods.index("QR/СБП")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("QR/СБП")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "QR/СБП" else 0),
-            "Игра AW": 0 if self.payment_type_var.get() == "Предоплата" else (
+            "Игра AW": 0 if self.payment_type_var.get() == "Предоплата" or self.product_type_var.get() in ["Абонемент", "Сертификат"] else (
                 self.actuallPayment.get() * (100 / int(self.percentage_entry_var.get())) if self.payment_type_var.get(
                 ) == "Доплата" and self.percentage_entry_var.get().isdigit() else self.actuallPayment.get()
             )

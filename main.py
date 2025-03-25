@@ -61,10 +61,6 @@ if __name__ == "__main__":
         current_month = datetime.now().month
         return months_in_russian[current_month - 1]
 
-    # Example usage
-    current_month_name = get_current_month_name()
-    print(f"Текущий месяц: {current_month_name}")
-
     sheetPIK = client.open("Пик отчет").worksheet(
         f"{get_current_month_name()}25")
     sheetJUN = client.open("Июнь отчет").worksheet(
