@@ -945,9 +945,9 @@ class UIManager:
             "Наличные по кассе": self.payment_entries[self.payment_methods.index("Наличные по кассе")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Наличные по кассе")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Наличные по кассе" else 0),
             "Карта": self.payment_entries[self.payment_methods.index("Карта")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Карта")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Карта" else 0),
             "QR/СБП": self.payment_entries[self.payment_methods.index("QR/СБП")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("QR/СБП")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "QR/СБП" else 0),
-            "Игра AW": 0 if self.payment_type_var.get() == "Предоплата" or self.product_type_var.get() in ["Абонемент", "Сертификат"] else (
+            "Игра AW": 0 if self.payment_type_var.get() == "Предоплата" or self.product_type_var.get() in ["Абонемент", "Сертификат"] and not self.use_abo_cert_var.get() else (
                 self.actuallPayment.get() * (100 / int(self.percentage_entry_var.get())) if self.payment_type_var.get(
-                ) == "Доплата" and self.percentage_entry_var.get().isdigit() else self.actuallPayment.get()
+                ) == "Доплата" and self.percentage_entry_var.get().isdigit() and not self.use_abo_cert_var.get() else self.actuallPayment.get()
             )
         }
 
