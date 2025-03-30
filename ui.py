@@ -4,6 +4,7 @@ import hashlib
 import datetime
 import sys
 from tkinter import messagebox
+from tkinter import ttk
 
 
 class UIManager:
@@ -58,11 +59,12 @@ class UIManager:
         self.init_employee_frame()
         self.init_payment_frame()
         self.init_summary_frame()
-        self.show_frame("payment_frame")
+        self.init_closeShift_frame()
+        self.show_frame("employee_frame")
         self.wrongAttempts = 0
         # Define the navigation order
         self.frame_order = ["login_frame", "employee_frame",
-                            "payment_frame", "summary_frame"]
+                            "payment_frame", "summary_frame", "closeShift_frame"]
 
     def on_close(self):
         """Handle window close event."""
@@ -100,7 +102,8 @@ class UIManager:
                     target_geometry = (300, 300)
                 elif frame_name == "summary_frame":
                     target_geometry = (480, 180)
-
+                elif frame_name == "closeShift_frame":
+                    target_geometry = (1600, 900)
                 if target_geometry:
                     current_geometry = self.root.geometry()
                     # Extract width and height, ignoring position offsets
@@ -500,7 +503,7 @@ class UIManager:
         self.product_type_var.trace_add(
             "write", update_use_abo_cert_visibility)
         tk.Label(frame, text="Выберите дату", anchor="w").grid(
-            row=2, column=3, pady=10, sticky="w")
+            row=3, column=3, pady=10, sticky="w")
         self.date_var = tk.StringVar(frame)
 
         # Year dropdown
@@ -510,7 +513,7 @@ class UIManager:
                         for year in range(self.today_date.year, 2027)]
         year_menu = tk.OptionMenu(frame, self.year_var, *year_options)
         year_menu.configure(width=dropdown_width)
-        year_menu.grid(row=3, column=3, pady=10)
+        year_menu.grid(row=4, column=3, pady=10)
 
         # Month dropdown
         self.month_var = tk.StringVar(frame)
@@ -526,22 +529,22 @@ class UIManager:
         self.time_var.set("10:00")  # Default value
 
         tk.Label(frame, text="Введите время (чч:мм)").grid(
-            row=2, column=4, pady=10)
+            row=3, column=4, pady=10)
 
         self.time_entry = tk.Entry(frame, textvariable=self.time_var)
-        self.time_entry.grid(row=3, column=4, pady=10, padx=10)
+        self.time_entry.grid(row=4, column=4, pady=10, padx=10)
 
         # Button to set today's date
         tk.Button(frame, text="Сегодня", command=self.set_today_date, bg="white", fg="black").grid(
-            row=7, column=5, pady=10)
+            row=4, column=5, pady=10)
 
         # Button to set current time
         tk.Button(frame, text="Сейчас", command=self.set_current_time, bg="white", fg="black").grid(
-            row=8, column=5, pady=10)
+            row=3, column=5, pady=10)
 
         month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
         month_menu.configure(width=dropdown_width)
-        month_menu.grid(row=4, column=3, pady=10)
+        month_menu.grid(row=5, column=3, pady=10)
 
         # Day dropdown
         self.day_var = tk.StringVar(frame)
@@ -549,7 +552,7 @@ class UIManager:
         day_options = [str(day) for day in range(1, 32)]
         day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
         day_menu.configure(width=dropdown_width)
-        day_menu.grid(row=5, column=3, pady=10, padx=10)
+        day_menu.grid(row=6, column=3, pady=10, padx=10)
 
         self.actuallPayment = tk.IntVar(frame)
         self.actuallPayment.set(0)
@@ -705,16 +708,19 @@ class UIManager:
             else:  # If split payment is not selected
                 # Hide multiple entry fields
                 for widget in frame.grid_slaves():
-                    if int(widget.grid_info()["row"]) >= 6 and not isinstance(widget, tk.Button):
+                    if int(widget.grid_info()["row"]) >= 6 and (widget.grid_info()["column"] == 1 or widget.grid_info()["column"] == 0) and not isinstance(widget, tk.Button):
                         widget.grid_forget()
                 self.payment_entries.clear()
             # Show the dropdown
                 payment_dropdown.grid(row=6, column=1, pady=5)
+                self.payment_dropdown_var.set(self.payment_methods[0])
 
         # Trace the split payment checkbox to update visibility
         self.split_payment_var.trace_add(
             "write", update_payment_method_visibility)
 
+        tk.Button(frame, text="Закрытие смены", command=self.open_CSF, bg="white", fg="black").grid(
+            row=11, column=4, pady=10)
         # Add percentage input for Доплата or Предоплата
         self.percentage_label = tk.Label(frame, text="Проценты")
         self.percentage_entry_var = tk.StringVar(frame)
@@ -768,9 +774,13 @@ class UIManager:
                             text="Оплата успешно рассчитана!", fg="green"
                         )
                 else:
-                    print("Нет введенных данных для проверки остатка.")
+                    self.error_label.config(text="")
+                    self.error_label.config(
+                        text="Нет введенных данных для проверки остатка.", fg="yellow")
             except ValueError as e:
-                print(f"Ошибка: {e}")
+                self.error_label.config(text="")
+                self.error_label.config(text=f"Ошибка: {e}", fg="red")
+
         tk.Button(frame, text="Проверить остаток", command=calculate_remaining_balance, bg="white", fg="black").grid(
             row=11, column=3, pady=10
         )
@@ -794,26 +804,26 @@ class UIManager:
                 self.time_entry.grid_forget()
                 self.time_var.set("")  # Clear time input
                 self.date_var.set("")  # Clear date input
-                self.time_var.set("00:00")  # Clear time input
+                self.time_var.set("10:00")  # Clear time input
                 # Remove labels for date and time
                 for widget in frame.grid_slaves():
                     if widget.cget("text") in ["Выберите дату", "Введите время (чч:мм)", "Сегодня", "Сейчас"]:
                         widget.grid_forget()
                 self.date_var.set("")  # Clear date input
             else:
-                self.time_entry.grid(row=3, column=4, pady=10, padx=10)
+                self.time_entry.grid(row=4, column=4, pady=10, padx=10)
                 tk.Label(frame, text="Выберите дату", anchor="w").grid(
-                    row=2, column=3, pady=10, sticky="w")
+                    row=3, column=3, pady=10, sticky="w")
                 tk.Label(frame, text="Введите время (чч:мм)").grid(
-                    row=2, column=4, pady=10)
-                year_menu.grid(row=3, column=3, pady=10)
-                month_menu.grid(row=4, column=3, pady=10)
-                day_menu.grid(row=5, column=3, pady=10)
+                    row=3, column=4, pady=10)
+                year_menu.grid(row=4, column=3, pady=10)
+                month_menu.grid(row=5, column=3, pady=10)
+                day_menu.grid(row=6, column=3, pady=10)
                 # Add "Сегодня" and "Сейчас" buttons
                 tk.Button(frame, text="Сегодня", command=self.set_today_date,  bg="white", fg="black").grid(
-                    row=3, column=5, pady=10)
+                    row=4, column=5, pady=10)
                 tk.Button(frame, text="Сейчас", command=self.set_current_time,  bg="white", fg="black").grid(
-                    row=2, column=5, pady=10)
+                    row=3, column=5, pady=10)
 
         self.product_type_var.trace_add("write", update_date_visibility)
 
@@ -832,7 +842,7 @@ class UIManager:
         frame = tk.Frame(self.root, bg="black")
         self.frames["summary_frame"] = frame
 
-        tk.Label(frame, text="Комментарий к продаже").grid(
+        tk.Label(frame, text="Укажите время чека:").grid(
             row=0, column=0, pady=10)
         self.comment_var = tk.StringVar(frame)
         tk.Entry(frame, textvariable=self.comment_var).grid(
@@ -842,6 +852,69 @@ class UIManager:
             row=1, column=2, columnspan=2, pady=10)
         tk.Button(frame, text="Назад", bg="white", fg="black", command=self.go_back).grid(
             row=1, column=0, pady=10)
+
+    def init_closeShift_frame(self):
+        frame = tk.Frame(self.root, bg="black")
+        self.frames["closeShift_frame"] = frame
+
+        tk.Label(frame, text="Закрытие смены", font=("Helvetica", 16), bg="black", fg="white").grid(
+            row=0, column=0, columnspan=2, pady=10)
+
+        # Create a treeview widget to display all requests
+        self.requests_tree = tk.ttk.Treeview(frame, columns=(
+            "Тип товара", "Товар", "Время чека", "Количество человек", "Карта",
+            "QR/СБП", "Наличные по кассе", "НП", "Игра AW", "Стоимость",
+            "Дата игры", "Время", "Тип оплаты", "Проценты"
+        ), show="headings", height=15)
+
+        # Define column headings and widths
+        for col in self.requests_tree["columns"]:
+            self.requests_tree.heading(col, text=col)
+            self.requests_tree.column(col, width=120, anchor="center")
+
+        self.requests_tree.grid(
+            row=1, column=0, columnspan=2, padx=10, pady=10)
+
+        # Populate the treeview with all made requests
+        self.update_requests_tree()
+
+        # Buttons for actions
+        tk.Button(frame, text="Закрыть смену", command=self.close_shift, bg="white", fg="black").grid(
+            row=2, column=0, pady=10)
+        tk.Button(frame, text="Назад", command=lambda: self.show_frame("summary_frame"), bg="white", fg="black").grid(
+            row=2, column=1, pady=10)
+
+    def update_requests_tree(self):
+        """Update the treeview widget with all made requests."""
+        # Clear the treeview
+        for item in self.requests_tree.get_children():
+            self.requests_tree.delete(item)
+
+        if not self.updater.all_requests.empty:
+            # Populate the treeview rows
+            for _, request in self.updater.all_requests.iterrows():
+                self.requests_tree.insert("", "end", values=(
+                    request["Тип товара"], request["Товар"], request["Время чека"],
+                    request["Количество человек"], request["Карта"], request["QR/СБП"],
+                    request["Наличные по кассе"], request["НП"], request["Игра AW"],
+                    request["Стоимость"], request["Дата игры"], request["Время"],
+                    request["Тип оплаты"], request["Проценты"]
+                ))
+        else:
+            # Add a placeholder row if there are no requests
+            self.requests_tree.insert("", "end", values=(
+                "Нет данных",) * len(self.requests_tree["columns"]))
+
+    def open_CSF(self):
+        self.update_requests_tree()
+        self.show_frame("closeShift_frame")
+
+    def close_shift(self):
+        """Handle the close shift action."""
+        if tk.messagebox.askyesno("Подтверждение", "Вы уверены, что хотите закрыть смену?"):
+            # Perform any necessary cleanup or final actions
+            tk.messagebox.showinfo("Закрытие смены", "Смена успешно закрыта!")
+            self.on_close()
 
     def show_frame(self, frame_name):
         for frame in self.frames.values():

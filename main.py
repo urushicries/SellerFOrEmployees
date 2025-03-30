@@ -83,15 +83,12 @@ if __name__ == "__main__":
         'ui': None,  # Placeholder for UIManager instance
         'list_employee': non_empty_cells
     }
-
-    # Create the UIManager instance first
-    uim = UIManager(config)
-    config['ui'] = uim  # Assign the UIManager instance to the config
-
     # Now create the Updater instance
     updmanager = Updater(config)
-    config['Updater'] = updmanager  # Assign the Updater instance to the config
-    uim.updater = updmanager
+    config['Updater'] = updmanager
+    # Create the UIManager instance first
+    uim = UIManager(config)
+    updmanager.ui = uim
     scaling_factor, screen_height, screen_width = OptimizedWindows.checkWindowDPI()
 
     # Calculate position to center the window on the screen

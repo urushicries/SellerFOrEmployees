@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refactored UI Project</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Добро пожаловать в Refactored UI Project</h1>
+    </header>
+    <main>
+        <section id="payment-frame">
+            <h2>Форма оплаты</h2>
+            <label for="product-type">Тип товара:</label>
+            <select id="product-type" name="product-type">
+                <option value="Тариф">Тариф</option>
+                <option value="Время">Время</option>
+                <option value="Одиночная игра">Одиночная игра</option>
+                <option value="Сертификат">Сертификат</option>
+                <option value="Абонемент">Абонемент</option>
+            </select>
+
+            <label for="product">Товар:</label>
+            <select id="product" name="product"></select>
+
+            <label for="actual-payment">Стоимость:</label>
+            <input type="number" id="actual-payment" name="actual-payment" value="0">
+
+            <label for="payment-method">Способ оплаты:</label>
+            <select id="payment-method" name="payment-method">
+                <option value="Наличные по кассе">Наличные по кассе</option>
+                <option value="Карта">Карта</option>
+                <option value="QR/СБП">QR/СБП</option>
+                <option value="Н/П">Н/П</option>
+            </select>
+
+            <button id="calculate-button">Рассчитать</button>
+            <button id="next-button">Далее</button>
+            <button id="back-button">Назад</button>
+        </section>
+
+        <section id="summary-frame" style="display:none;">
+            <h2>Комментарий к продаже</h2>
+            <input type="text" id="comment" name="comment">
+            <button id="send-button">Отправить</button>
+            <button id="back-summary-button">Назад</button>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Refactored UI Project</p>
+    </footer>
+</body>
+
+</html>
