@@ -5,6 +5,7 @@ import datetime
 import sys
 from tkinter import messagebox
 from tkinter import ttk
+from Model.model import Model
 
 
 class UIManager:
@@ -97,13 +98,13 @@ class UIManager:
                 if frame_name == "payment_frame":
                     target_geometry = (1100, 650)
                 elif frame_name == "employee_frame":
-                    target_geometry = (590, 310)
+                    target_geometry = (660, 310)
                 elif frame_name == "login_frame":
                     target_geometry = (300, 300)
                 elif frame_name == "summary_frame":
                     target_geometry = (480, 180)
                 elif frame_name == "closeShift_frame":
-                    target_geometry = (1600, 900)
+                    target_geometry = (1300, 500)
                 if target_geometry:
                     current_geometry = self.root.geometry()
                     # Extract width and height, ignoring position offsets
@@ -199,6 +200,38 @@ class UIManager:
             row=3, column=0, columnspan=2, pady=10)
 
     def validate_login(self):
+        """
+        Validates the login credentials entered by the user.
+
+        This method retrieves the username and password from the respective input fields,
+        hashes the entered password using SHA-256, and compares the credentials with the
+        predefined username and hashed password. If the credentials are correct, the user
+        is redirected to the "employee_frame". Otherwise, an error message is displayed,
+        and the number of remaining login attempts is shown. If the user exceeds the maximum
+        number of allowed attempts (5), the application is closed.
+
+        Error messages:
+            - "Неверный логин и пароль" (Incorrect username and password)
+            - "Неверный логин" (Incorrect username)
+            - "Неверный пароль" (Incorrect password)
+
+        Side effects:
+            - Displays error messages on the login frame.
+            - Tracks the number of incorrect login attempts.
+            - Closes the application after 5 failed attempts.
+
+        Attributes:
+            username_var (tk.StringVar): Variable holding the entered username.
+            password_var (tk.StringVar): Variable holding the entered password.
+            frames (dict): Dictionary containing the application's frames.
+            root (tk.Tk): The root Tkinter window.
+            wrongAttempts (int): Counter for the number of failed login attempts.
+
+        Predefined credentials:
+            - Username: "spb-aw"
+            - Password (hashed): "fc17f007ddcf314128317bbed059ae8b253176d0dd846243627492f215121a5c"
+        """
+
         username = self.username_var.get()
         password = self.password_var.get()
 
@@ -262,7 +295,7 @@ class UIManager:
             row=1, column=2, columnspan=1, pady=10)
         self.employee_vars = []
         self.employee_menus = []
-        dropdown_width = 16  # Set a consistent width for all dropdowns
+        dropdown_width = 18  # Set a consistent width for all dropdowns
         for i in range(3):
             employee_var = tk.StringVar(frame)
             employee_var.set("Выберете работника")  # Default value
@@ -567,114 +600,7 @@ class UIManager:
         tk.Button(frame, text="Назад", command=lambda: self.show_frame("employee_frame"), bg="white", fg="black").grid(
             row=11, column=0, pady=10)
 
-        def calculate_payment():
-            total_price = 0
-            try:
-                # Получить дату и время из введенных значений
-                selected_date = datetime.date(
-                    int(self.year_var.get()),
-                    # Индексация месяцев начинается с 0
-                    month_options.index(self.month_var.get()) + 1,
-                    int(self.day_var.get())
-                )
-                selected_time = datetime.datetime.strptime(
-                    self.time_var.get(), "%H:%M").time()
-                # Get the day of the week number (0=Monday, 6=Sunday)
-                day_of_week = selected_date.weekday()
-                print(day_of_week)
-                # Базовая цена для обычных игр
-                if selected_date.weekday() >= 4:  # 5 и 6 соответствуют субботе и воскресенью, 4 — пятница
-                    AWgame_price = 1800  # Увеличить базовую цену для выходных
-                else:
-                    if selected_time >= datetime.time(16, 0):
-                        AWgame_price = 1600  # Увеличить базовую цену для вечерних часов
-                    else:
-                        AWgame_price = 1400  # Базовая цена для будних дней
-
-                # Базовая цена для одиночных игр за 15 минут
-                AloneGamePrice = 450
-
-                if self.product_type_var.get() == "Время":
-                    people_count = int(self.people_count_var.get(
-                    )) if self.people_count_var.get().isdigit() else 1
-                    hrsofplaytime = int(
-                        self.product_var.get().split(" ")[0]) / 60
-                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in [
-                        "Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-
-                    total_price = AWgame_price * people_count * hrsofplaytime
-                    if percentage > 0:
-                        total_price = total_price * (percentage / 100)
-
-                elif self.product_type_var.get() == "Тариф":
-                    self.product_var.get()
-                    selected_time = datetime.datetime.strptime(
-                        self.time_var.get(), "%H:%M").time()
-
-                    # Check if the selected date is a weekend
-                    # 5 and 6 correspond to Saturday and Sunday
-                    is_weekend = selected_date.weekday() >= 4
-                    print(selected_date.weekday())
-                    is_evening = selected_time >= datetime.time(16, 0)
-
-                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in [
-                        "Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-                    # Adjust price based on weekend, evening, and tariff
-                    if self.product_var.get() == "STD":
-                        total_price = 25000 if is_weekend else \
-                            20000 if is_evening else 15000
-                    elif self.product_var.get() == "HARD":
-                        total_price = 35000 if is_weekend else \
-                            27500 if is_evening else 20000
-                    elif self.product_var.get() == "VIP":
-                        total_price = 45000 if is_weekend else \
-                            35000 if is_evening else 25000
-                    if percentage > 0:
-                        total_price = total_price * (percentage / 100)
-
-                elif self.product_type_var.get() == "Одиночная игра":
-                    self.product_var.get()
-                    people_count = int(self.people_count_var.get(
-                    )) if self.people_count_var.get().isdigit() else 1
-                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in [
-                        "Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-                    hrsofplaytime = int(
-                        self.product_var.get().split(" ")[0]) / 15
-                    total_price = AloneGamePrice * people_count * hrsofplaytime
-                    if percentage > 0:
-                        total_price = total_price * (percentage / 100)
-
-                elif self.product_type_var.get() == "Абонемент":
-                    subscription_price = int(self.product_var.get().split(" ")[
-                                             1])  # Extract price from string
-                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in [
-                        "Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-                    total_price = subscription_price
-                    if percentage > 0:
-                        total_price = total_price * (percentage / 100)
-
-                elif self.product_type_var.get() == "Сертификат":
-                    certificate_price = int(self.product_var.get().split(" ")[
-                                            1])  # Extract price from string
-                    percentage = int(self.percentage_entry_var.get()) if self.payment_type_var.get() in [
-                        "Доплата", "Предоплата"] and self.percentage_entry_var.get().isdigit() else 0
-                    total_price = certificate_price
-                    if percentage > 0:
-                        total_price = total_price * (percentage / 100)
-                self.actuallPayment.set(total_price)
-
-                payLabel.config(
-                    text=f"Рассчитанная \n стоимость: {self.actuallPayment.get()}")
-
-            except ValueError as e:
-                payLabel.config(text="Ошибка в расчетах")
-                print(f"Error is {e}")
-
-                def clear_label():
-                    payLabel.config(text="")
-                Timer(1.5, clear_label).start()
-
-        tk.Button(frame, text="Рассчитать", command=calculate_payment, bg="white", fg="black").grid(
+        tk.Button(frame, text="Рассчитать", command=lambda: Model.calculate_payment(month_options, self.year_var, self.month_var, self.day_var, self.time_var, self.product_type_var, self.product_var, self.people_count_var, self.percentage_entry_var, self.payment_type_var, self.actuallPayment, payLabel), bg="white", fg="black").grid(
             row=1, column=5, pady=10)
 
         payLabel = tk.Label(
@@ -844,14 +770,20 @@ class UIManager:
 
         tk.Label(frame, text="Укажите время чека:").grid(
             row=0, column=0, pady=10)
-        self.comment_var = tk.StringVar(frame)
-        tk.Entry(frame, textvariable=self.comment_var).grid(
+        self.check_time = tk.StringVar(frame)
+        tk.Entry(frame, textvariable=self.check_time).grid(
             row=0, column=1, pady=10)
 
-        tk.Button(frame, text="Отправить", bg="white", fg="black", command=self.make_data).grid(
-            row=1, column=2, columnspan=2, pady=10)
-        tk.Button(frame, text="Назад", bg="white", fg="black", command=self.go_back).grid(
+        tk.Label(frame, text="Комментарий:").grid(
             row=1, column=0, pady=10)
+        self.comment_var = tk.StringVar(frame)
+        tk.Entry(frame, textvariable=self.comment_var).grid(
+            row=1, column=1, pady=10)
+
+        tk.Button(frame, text="Отправить", bg="white", fg="black", command=self.make_data).grid(
+            row=2, column=2, columnspan=2, pady=10)
+        tk.Button(frame, text="Назад", bg="white", fg="black", command=self.go_back).grid(
+            row=2, column=0, pady=10)
 
     def init_closeShift_frame(self):
         frame = tk.Frame(self.root, bg="black")
@@ -862,9 +794,9 @@ class UIManager:
 
         # Create a treeview widget to display all requests
         self.requests_tree = tk.ttk.Treeview(frame, columns=(
-            "Тип товара", "Товар", "Время чека", "Количество человек", "Карта",
-            "QR/СБП", "Наличные по кассе", "НП", "Игра AW", "Стоимость",
-            "Дата игры", "Время", "Тип оплаты", "Проценты"
+            "Тип товара, Товар", "Время чека", "Количество человек", "Карта",
+            "QR/СБП", "Наличные по кассе", "НП", "Игра AW",
+            "Дата игры", "Время"
         ), show="headings", height=15)
 
         # Define column headings and widths
@@ -885,6 +817,25 @@ class UIManager:
             row=2, column=1, pady=10)
 
     def update_requests_tree(self):
+        """
+        Update the treeview widget with all made requests.
+
+        This method clears the existing rows in the `requests_tree` widget and 
+        populates it with data from `self.updater.all_requests`. If there are no 
+        requests available, a placeholder row with "Нет данных" is added.
+
+        The data displayed in the treeview includes:
+        - Тип товара and Товар (combined into a single string)
+        - Время чека
+        - Количество человек
+        - Карта
+        - QR/СБП
+        - Наличные по кассе
+        - НП
+        - Игра AW
+        - Дата игры
+        - Время
+        """
         """Update the treeview widget with all made requests."""
         # Clear the treeview
         for item in self.requests_tree.get_children():
@@ -894,11 +845,11 @@ class UIManager:
             # Populate the treeview rows
             for _, request in self.updater.all_requests.iterrows():
                 self.requests_tree.insert("", "end", values=(
-                    request["Тип товара"], request["Товар"], request["Время чека"],
+                    str(request["Тип товара"]+" " +
+                        request["Товар"]), request["Время чека"],
                     request["Количество человек"], request["Карта"], request["QR/СБП"],
                     request["Наличные по кассе"], request["НП"], request["Игра AW"],
-                    request["Стоимость"], request["Дата игры"], request["Время"],
-                    request["Тип оплаты"], request["Проценты"]
+                    request["Дата игры"], request["Время"]
                 ))
         else:
             # Add a placeholder row if there are no requests
@@ -1013,7 +964,8 @@ class UIManager:
             "Дата": f"{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}",
             "Время": self.time_var.get(),
             "Проценты": self.percentage_entry_var.get() if self.payment_type_var.get() in ["Доплата", "Предоплата"] else "100",
-            "Время чека": self.comment_var.get(),
+            "Время чека": self.check_time.get(),
+            "Комментарий": self.comment_var.get(),
             "НП": self.payment_entries[self.payment_methods.index("Н/П")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Н/П")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Н/П" else 0),
             "Наличные по кассе": self.payment_entries[self.payment_methods.index("Наличные по кассе")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Наличные по кассе")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Наличные по кассе" else 0),
             "Карта": self.payment_entries[self.payment_methods.index("Карта")].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index("Карта")].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == "Карта" else 0),

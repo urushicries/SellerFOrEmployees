@@ -6,9 +6,9 @@ import gspread
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
-from OptimizedWindows import OptimizedWindows
-from ui import UIManager
-from updater import Updater
+from UI.OptimizedWindows import OptimizedWindows
+from UI.ui import UIManager
+from Update.updater import Updater
 from datetime import datetime
 
 

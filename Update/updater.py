@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 import gspread
 from datetime import datetime
-from FFCWP import ffcwp
+from Model.FFCWP import ffcwp
 import pandas as pd
 
 
@@ -44,6 +45,14 @@ class Updater:
         self.current_row = 0
 
     def getCellAddrToday(self, sheetweneed):
+        """
+        Retrieves the address of the first cell in the given sheet that matches today's date.
+        Args:
+            sheetweneed (object): The sheet object to search for the date.
+        Returns:
+            str: The address of the first cell containing today's date in the format "DD.MM.YYYY".
+        """
+
         # Format the date as "01.03.2025" to match the cell content
         formatted_date = self.today_date.strftime("%d.%m.%Y")
         addr = ffcwp.find_first_matching_cell(
@@ -51,6 +60,25 @@ class Updater:
         return addr
 
     def get_last_item(self, lst):
+        """
+        Retrieves the last item from a given list and returns a corresponding sheet attribute 
+        based on the item's value.
+        Args:
+            lst (list): The list from which the last item will be retrieved.
+        Returns:
+            object: The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK, 
+                    self.sheetLM, self.sheetKom) if the last item matches a predefined value.
+                    Returns None if the list is empty or the last item does not match any 
+                    predefined value.
+        Notes:
+            - Prints the last item in the list and its type for debugging purposes.
+            - Predefined values and their corresponding sheet attributes:
+                - 'Июнь' -> self.sheetJUNE
+                - 'Пик' -> self.sheetPIK
+                - 'Лондон молл' -> self.sheetLM
+                - 'Коменда' -> self.sheetKom
+        """
+
         last_item = lst[-1] if lst else None
         print(
             f"Last item in employee list: {last_item} and type is {type(last_item)}")
@@ -134,6 +162,17 @@ class Updater:
         sheet.update(adress, [[text]])
 
     def catch_req_sell(self, payment_req):
+        """
+        Handles the process of recording a new sales request.
+        This method takes a payment request and adds a new sales entry to the specified sheet.
+        It determines the appropriate cell address for today's date and updates the sheet with
+        the provided payment request details.
+        Args:
+            payment_req (str): The payment request details to be recorded.
+        Returns:
+            None
+        """
+
         self.add_new_sell(sheet_we_need=Updater.sheetweneed,
                           adress=self.getCellAddrToday(Updater.sheetweneed), payment_request=payment_req)
 
@@ -159,8 +198,8 @@ class Updater:
             float(payment_request.get('Наличные по кассе', '')),
             float(payment_request.get('НП', '')),
             float(payment_request.get('Игра AW', '')),
-            '', '', f"Проданный товар: {payment_request.get('Тип товара')} , {payment_request.get('Товар')} \nПо стоимости: {payment_request.get('Стоимость')}\nДата: {payment_request.get('Дата игры', 'Сегодня')}\nВремя: {payment_request.get('Время')} \nТип оплаты: {payment_request.get(
-                'Тип оплаты', 'Полная оплата')} \nПроценты: {payment_request.get('Проценты', '')}% \nЧеловек: {payment_request.get('Количество человек', '1')} \nИгра AW: {payment_request.get('Игра AW')}"
+            '', '',
+            payment_request.get('Комментарий', '')
         ]
 
         # Determine the row number from the address
@@ -204,7 +243,8 @@ class Updater:
             "Дата игры": payment_request.get('Дата игры', 'Сегодня'),
             "Время": payment_request.get('Время', ''),
             "Тип оплаты": payment_request.get('Тип оплаты', 'Полная оплата'),
-            "Проценты": payment_request.get('Проценты', 0)
+            "Проценты": payment_request.get('Проценты', 0),
+            "Комментарий": payment_request.get('Комментарий', '')
         }
         self.all_requests = pd.concat(
             [self.all_requests, pd.DataFrame([new_entry])], ignore_index=True)
