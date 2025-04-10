@@ -27,7 +27,7 @@ if __name__ == "__main__":
     uim = None
 
     # Get the absolute path using resource_path function
-    json_path = resource_path("emp.json")
+    json_path = resource_path("key.json")
 
     SERVICE_ACCOUNT_FILE = json_path
 
