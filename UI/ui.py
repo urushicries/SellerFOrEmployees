@@ -811,7 +811,7 @@ class UIManager:
         self.update_requests_tree()
 
         # Buttons for actions
-        tk.Button(frame, text="Закрыть смену", command=self.close_shift, bg="white", fg="black").grid(
+        tk.Button(frame, text="Открыть предпросмотр отчета", command=self.close_shift, bg="white", fg="black").grid(
             row=2, column=0, pady=10)
         tk.Button(frame, text="Назад", command=lambda: self.show_frame("summary_frame"), bg="white", fg="black").grid(
             row=2, column=1, pady=10)
