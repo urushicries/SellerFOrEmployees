@@ -127,15 +127,6 @@ class UIManager:
 
                     animate_resize()
 
-    def get_current_month_name(self):
-        """Returns the Russian name of the current month."""
-        months_in_russian = [
-            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
-        ]
-        current_month = datetime.datetime.now().month
-        return months_in_russian[current_month - 1]
-
     def init_login_frame(self):
         frame = tk.Frame(self.root)
         self.frames["login_frame"] = frame
@@ -338,21 +329,7 @@ class UIManager:
 
     def preview_employees(self):
         """Preview the selected employees with the last item as 'Арена'."""
-        employee_preview = []
-        for i in range(3):
-            employee_preview.append([
-                self.employee_vars[i].get(),
-                self.frames["employee_frame"].grid_slaves(
-                    row=i + 2, column=1)[0].cget("text"),
-                self.frames["employee_frame"].grid_slaves(
-                    row=i + 2, column=2)[0].cget("text")
-            ])
-        employee_preview.append("На арене:")
-        employee_preview.append(self.workplace_var.get())
-        employee_preview = [
-            item for item in employee_preview[:-1]
-            if item[0] not in ["Пропуск", "Выберете работника"]
-        ] + [employee_preview[-1]]
+        employee_preview = self.get_employee_preview()
 
         preview_window = tk.Toplevel(self.root)
         preview_window.title("Предварительный просмотр сотрудников")
@@ -393,6 +370,25 @@ class UIManager:
             True, preview_window=preview_window, next_frame="payment_frame", key="emp"), bg="white", fg="black").pack(side="left", padx=10)
         tk.Button(button_frame, text="Не согласен", command=lambda: self.agreeToDisagree(
             False, preview_window=preview_window, act_frame="employee_frame", key="emp"), bg="white", fg="black").pack(side="right", padx=10)
+
+    def get_employee_preview(self):
+        """Form a list of selected employees with the last item as 'Арена'."""
+        employee_preview = []
+        for i in range(3):
+            employee_preview.append([
+                self.employee_vars[i].get(),
+                self.frames["employee_frame"].grid_slaves(
+                    row=i + 2, column=1)[0].cget("text"),
+                self.frames["employee_frame"].grid_slaves(
+                    row=i + 2, column=2)[0].cget("text")
+            ])
+        employee_preview.append("На арене:")
+        employee_preview.append(self.workplace_var.get())
+        employee_preview = [
+            item for item in employee_preview[:-1]
+            if item[0] not in ["Пропуск", "Выберете работника"]
+        ] + [employee_preview[-1]]
+        return employee_preview
 
     def get_employee_request(self):
         """Формирует список данных сотрудников."""
@@ -756,7 +752,7 @@ class UIManager:
     def set_today_date(self):
         """Set the date inputs to today's date."""
         self.year_var.set(str(self.today_date.year))
-        self.month_var.set(str(self.get_current_month_name()))
+        self.month_var.set(str(Model.get_current_month_name()))
         self.day_var.set(str(self.today_date.day))
 
     def set_current_time(self):

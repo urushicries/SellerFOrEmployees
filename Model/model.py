@@ -119,3 +119,12 @@ class Model:
             def clear_label():
                 payLabel.config(text="")
             Timer(1.5, clear_label).start()
+
+    def get_current_month_name():
+        """Returns the Russian name of the current month."""
+        months_in_russian = [
+            "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+            "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+        ]
+        current_month = datetime.datetime.now().month
+        return months_in_russian[current_month - 1]
