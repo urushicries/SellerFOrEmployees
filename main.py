@@ -1,7 +1,7 @@
 import os
 import sys
 import tkinter as tk
-
+import shutil
 import gspread
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
@@ -51,7 +51,13 @@ if __name__ == "__main__":
     non_empty_cells.append("Пропуск")
     root = tk.Tk()
     root.resizable(False, False)
+    def remove_pycache(start_path='.'):
+        for root, dirs, files in os.walk(start_path):
+            if '__pycache__' in dirs:
+                pycache_path = os.path.join(root, '__pycache__')
+                shutil.rmtree(pycache_path)
 
+    remove_pycache()
     def get_current_month_name():
         """Returns the Russian name of the current month."""
         months_in_russian = [
@@ -102,3 +108,4 @@ if __name__ == "__main__":
     root.after(5000, lambda: root.attributes('-topmost', 0))
 
     uim.openUI(root)
+

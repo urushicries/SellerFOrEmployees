@@ -3,6 +3,9 @@ from threading import Timer
 
 
 class Model:
+    allowed_macs = ["5e894cf837ed457b3f1debf8cfd911f14df0d05ab27415125d1ec2593a21e2b3"]
+    allowed_hosts = ["Danyas-MacBook-Pro.local"]
+    hashed_password = "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
     def calculate_payment(month_options, year_var, month_var, day_var, time_var, product_type_var, product_var, people_count_var, percentage_entry_var, payment_type_var, actuallPayment, payLabel):
         total_price = 0
         try:
