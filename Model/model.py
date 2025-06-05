@@ -1,6 +1,6 @@
 import datetime
 from threading import Timer
-
+import hashlib
 
 class Model:
     holidays = [
@@ -8,7 +8,7 @@ class Model:
         "05-08", "05-09", "05-10", "05-11"
     ]
 
-    def calculate_payment(month_options, year_var, month_var, day_var, time_var, product_type_var, product_var, people_count_var, percentage_entry_var, payment_type_var, actuallPayment, payLabel):
+    def calculate_payment(month_options, year_var, month_var, day_var, time_var, product_type_var, product_var, people_count_var, percentage_entry_var, payment_type_var, actuallPayment, LinkTopayLabel):
         total_price = 0
         is_holiday = False
         try:
@@ -109,13 +109,31 @@ class Model:
                     total_price = total_price * (percentage / 100)
             actuallPayment.set(total_price)
 
-            payLabel.config(
+            LinkTopayLabel.config(
                 text=f"Рассчитанная \n стоимость: {actuallPayment.get()}")
 
         except ValueError as e:
-            payLabel.config(text="Ошибка в расчетах")
+            LinkTopayLabel.config(text=f"Ошибка в расчетах {e}")
             print(f"Error is {e}")
 
             def clear_label():
-                payLabel.config(text="")
+                LinkTopayLabel.config(text="")
             Timer(1.5, clear_label).start()
+
+    def validate_login(self, username : str, password : str) -> str:
+        
+        username = username
+        password = password
+        usernamer = "spb-aw"
+        passwordr = "fc17f007ddcf314128317bbed059ae8b253176d0dd846243627492f215121a5c"
+
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        if username == usernamer and hashed_password == passwordr:
+            return "cool"
+        elif hashed_password != passwordr and username == usernamer:
+            return "bPass"
+        elif hashed_password == passwordr and username != usernamer:
+            return "bUser"
+        else:
+            return "bBoth"

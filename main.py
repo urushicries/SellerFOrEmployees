@@ -10,7 +10,7 @@ from UI.OptimizedWindows import OptimizedWindows
 from UI.ui import UIManager
 from Update.updater import Updater
 from datetime import datetime
-
+from cntrl.controller import Controller
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -83,12 +83,12 @@ if __name__ == "__main__":
         'ui': None,  # Placeholder for UIManager instance
         'list_employee': non_empty_cells
     }
-    # Now create the Updater instance
+
     updmanager = Updater(config)
     config['Updater'] = updmanager
-    # Create the UIManager instance first
     uim = UIManager(config)
-    updmanager.ui = uim
+    config['ui'] = uim
+    controller = Controller(config)
     scaling_factor, screen_height, screen_width = OptimizedWindows.checkWindowDPI()
 
     # Calculate position to center the window on the screen

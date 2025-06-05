@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 import gspread
 from datetime import datetime
 from Model.FFCWP import ffcwp
@@ -36,13 +36,13 @@ class Updater:
         self.sheetPIK = config['sheetPIK']
         self.sheetJUN = config['sheetJUN']
         self.sheetLM = config['sheetLM']
-        self.sheetKom = config['sheetKOM']
-        self.ui = None
+        self.sheetKom = config['sheetKOM']  
         self.sheetwages = config['sheetWAGES']
         self.employee_list = None
         self.adress = None
         self.today_date = datetime.now()
         self.current_row = 0
+        self.linkToController = None
 
     def getCellAddrToday(self, sheetweneed):
         """
