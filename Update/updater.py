@@ -22,10 +22,16 @@ class Updater:
         (None explicitly defined in the provided code snippet, but the class appears to handle opening
         sheets, preparing text based on employee data, and updating specific cells in the sheet.)
     """
-    sheetweneed = None  # Initialize sheetweneed here
+    sheetweneed = None 
     current_row = 0
-    # Initialize a DataFrame to store all requests
 
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Updater, cls).__new__(cls)
+        return cls._instance
+    
     def __init__(self, config):
         self.all_requests = pd.DataFrame(columns=[
             "Тип товара", "Товар", "Время чека", "Количество человек", "Карта",
