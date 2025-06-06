@@ -1,0 +1,2502 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>SellerFOrEmployees.UI.ui API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>SellerFOrEmployees.UI.ui</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="SellerFOrEmployees.UI.ui.UIManager"><code class="flex name class">
+<span>class <span class="ident">UIManager</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UIManager:
+    &#34;&#34;&#34;
+    UIManager is a singleton class responsible for managing the graphical user interface (GUI) of the SellerForEmployees application.
+    This class orchestrates the creation, configuration, and navigation of multiple frames (views) within a Tkinter-based desktop application. It handles user authentication, employee selection, payment processing, summary display, and shift closure, providing a cohesive workflow for the application&#39;s users.
+
+        Args:
+            _instance (UIManager): Singleton instance of the class.
+            updater: External updater object for data operations.
+            sheetwages: Reference to wage sheet or data source.
+            employees (list): List of employee names for selection.
+            root (tk.Tk): Main Tkinter root window.
+            frames (dict): Dictionary mapping frame names to Tkinter Frame objects.
+            today_date (datetime.date): Current date.
+            address: Address or location information.
+            employee_request: Stores selected employee data.
+            wrongAttempts (int): Counter for failed login attempts.
+            frame_order (list): Ordered list of frame names for navigation.
+            Various Tkinter variables for UI state (e.g., StringVar, IntVar, BooleanVar).
+        ------------------------------------------------------
+        Methods:
+            __new__(cls, *args, **kwargs): Ensures singleton instantiation.
+            __init__(self, config): Initializes UIManager with configuration.
+            on_close(self): Handles application shutdown.
+            enforce_frame_size(self, event): Triggers animated resizing of frames.
+            _apply_frame_size(self): Applies animated resizing to the current frame.
+            get_current_month_name(self): Returns the current month name in Russian.
+            init_login_frame(self): Sets up the login frame UI.
+            validate_login(self): Validates user credentials and access.
+            init_employee_frame(self): Sets up the employee selection frame.
+            preview_employees(self): Shows a preview dialog for selected employees.
+            get_employee_request(self): Collects and processes employee selection data.
+            update_employee_options(self, changed_index): Updates dropdowns to prevent duplicate employee selection.
+            init_payment_frame(self): Sets up the payment processing frame.
+            set_today_date(self): Sets date fields to today&#39;s date.
+            set_current_time(self): Sets time field to current time.
+            init_summary_frame(self): Sets up the summary frame for final review.
+            init_closeShift_frame(self): Sets up the shift closure frame.
+            update_requests_tree(self): Updates the shift closure request table.
+            open_CSF(self): Opens the close shift frame.
+            close_shift(self): Handles shift closure logic and confirmation.
+            show_frame(self, frame_name): Switches the visible frame.
+            update_dropdown(self, *args): Updates product dropdown options based on selection.
+            show_preview(self): Displays a summary preview dialog.
+            agreeToDisagree(self, isAgreed, preview_window, ...): Handles user confirmation dialogs.
+            make_data(self): Collects and summarizes all form data for processing.
+            go_back(self): Navigates to the previous frame.
+            openUI(self, root): Starts the Tkinter main loop.
+        Usage:
+            Instantiate UIManager with a configuration dictionary containing references to the Tkinter root, updater, employee list, and other dependencies. Call openUI(root) to start the application.
+        Note:
+            This class assumes the existence of external classes and modules such as Model, Updater, and various Tkinter widgets.
+        &#34;&#34;&#34;
+
+    _instance = None
+    def __new__(cls, *args, **kwargs):
+        &#34;&#34;&#34;
+        Creates and returns a singleton instance of the UIManager class.
+        This method overrides the default __new__ method to ensure that only one instance
+        of the UIManager class is created (singleton pattern). If an instance already exists,
+        it returns the existing instance; otherwise, it creates a new one.
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+        Returns:
+            UIManager: The singleton instance of the UIManager class.
+        &#34;&#34;&#34;
+
+        if cls._instance is None:
+            cls._instance = super(UIManager, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(self, config):
+        root = config[&#39;root&#39;]
+        sheetwages = config[&#39;sheetWAGES&#39;]
+        employees = config.get(&#39;employees&#39;, [])
+        self.updater = config[&#39;Updater&#39;]
+        employees.append(&#34;Пропуск&#34;)
+        self.resize_timer = None
+        self.sheetwages = sheetwages
+        self.employees = config[&#39;list_employee&#39;]
+        self.root = root
+        self.root.protocol(&#34;WM_DELETE_WINDOW&#34;, self.on_close)
+        self.root.tk.call(&#34;tk&#34;, &#34;scaling&#34;, 1.1)
+        self.root.option_add(&#34;*Font&#34;, &#34;San Francisco 14&#34;)
+        self.root.option_add(&#34;*Button.relief&#34;, &#34;flat&#34;)
+        self.root.option_add(&#34;*Button.highlightThickness&#34;, 0)
+        self.use_item = False
+        self.root.option_add(&#34;*Button.background&#34;, &#34;#E5E5E5&#34;)
+        self.root.option_add(&#34;*Button.activeBackground&#34;, &#34;#D4D4D4&#34;)
+        self.root.option_add(&#34;*Button.foreground&#34;, &#34;#000000&#34;)
+        self.root.option_add(&#34;*Label.background&#34;, &#34;#F9F9F9&#34;)
+        self.root.option_add(&#34;*Label.foreground&#34;, &#34;#000000&#34;)
+        self.root.option_add(&#34;*Entry.background&#34;, &#34;#FFFFFF&#34;)
+        self.root.option_add(&#34;*Entry.foreground&#34;, &#34;#000000&#34;)
+        self.root.option_add(&#34;*Entry.highlightThickness&#34;, 1)
+        self.root.option_add(&#34;*Button.borderRadius&#34;, 5)
+
+        self.root.configure(bg=&#34;#F0F0F0&#34;)
+        self.root.title(&#34;Заполнение отчета&#34;)
+        self.frames = {}
+        self.today_date = datetime.date.today()
+        self.address = None
+        self.employee_request = None
+        self.init_login_frame()
+        self.init_employee_frame()
+        self.init_payment_frame()
+        self.init_summary_frame()
+        self.init_closeShift_frame()
+        self.show_frame(&#34;login_frame&#34;)
+        self.wrongAttempts = 0
+        self.frame_order = [&#34;login_frame&#34;, &#34;employee_frame&#34;,
+                            &#34;payment_frame&#34;, &#34;summary_frame&#34;, &#34;closeShift_frame&#34;]
+
+    def on_close(self):
+        if self.resize_timer:
+            self.resize_timer.cancel()
+        self.root.quit()
+        self.root.destroy()
+        sys.exit(0)
+
+    def enforce_frame_size(self, event):
+        if self.resize_timer:
+            self.resize_timer.cancel()
+        self.resize_timer = Timer(0.1, self._apply_frame_size)
+        self.resize_timer.start()
+
+    def _apply_frame_size(self):
+        for frame_name, frame in self.frames.items():
+            if frame.winfo_ismapped():
+                target_geometry = None
+                if frame_name == &#34;payment_frame&#34;:
+                    target_geometry = (1100, 650)
+                elif frame_name == &#34;employee_frame&#34;:
+                    target_geometry = (660, 310)
+                elif frame_name == &#34;login_frame&#34;:
+                    target_geometry = (300, 300)
+                elif frame_name == &#34;summary_frame&#34;:
+                    target_geometry = (480, 180)
+                elif frame_name == &#34;closeShift_frame&#34;:
+                    target_geometry = (1300, 500)
+                if target_geometry:
+                    current_geometry = self.root.geometry()
+                    current_width, current_height = map(
+                        int, current_geometry.split(&#34;+&#34;)[0].split(&#34;x&#34;))
+                    target_width, target_height = target_geometry
+                    width_step = (target_width - current_width) / 50
+                    height_step = (target_height - current_height) / 50
+
+                    def animate_resize(step=0):
+                        if step &lt;= 50:
+                            new_width = int(current_width + width_step * step)
+                            new_height = int(
+                                current_height + height_step * step)
+                            self.root.geometry(f&#34;{new_width}x{new_height}&#34;)
+                            self.root.after(5, animate_resize, step + 1)
+
+                    animate_resize()
+
+    def get_current_month_name(self):
+        months_in_russian = [
+            &#34;Январь&#34;, &#34;Февраль&#34;, &#34;Март&#34;, &#34;Апрель&#34;, &#34;Май&#34;, &#34;Июнь&#34;,
+            &#34;Июль&#34;, &#34;Август&#34;, &#34;Сентябрь&#34;, &#34;Октябрь&#34;, &#34;Ноябрь&#34;, &#34;Декабрь&#34;
+        ]
+        current_month = datetime.datetime.now().month
+        return months_in_russian[current_month - 1]
+
+    def init_login_frame(self):
+        frame = tk.Frame(self.root)
+        self.frames[&#34;login_frame&#34;] = frame
+        frame.configure(bg=&#34;#000000&#34;)
+        frame.option_add(&#34;*Font&#34;, &#34;Helvetica 14&#34;)
+        frame.option_add(&#34;*Button.relief&#34;, &#34;flat&#34;)
+        frame.option_add(&#34;*Button.highlightThickness&#34;, 0)
+        frame.option_add(&#34;*Button.background&#34;, &#34;#FFFFFF&#34;)
+        frame.option_add(&#34;*Button.foreground&#34;, &#34;#000000&#34;)
+        frame.option_add(&#34;*Button.activeBackground&#34;, &#34;#555555&#34;)
+        frame.option_add(&#34;*Label.background&#34;, &#34;#000000&#34;)
+        frame.option_add(&#34;*Label.foreground&#34;, &#34;#FFFFFF&#34;)
+        frame.option_add(&#34;*Entry.background&#34;, &#34;#333333&#34;)
+        frame.option_add(&#34;*Entry.foreground&#34;, &#34;#FFFFFF&#34;)
+        frame.option_add(&#34;*Entry.highlightThickness&#34;, 1)
+        tk.Label(frame, text=&#34;Введите логин и пароль&#34;).grid(
+            row=0, column=0, columnspan=2, pady=10)
+
+        tk.Label(frame, text=&#34;Логин&#34;).grid(row=1, column=0, pady=5)
+        self.username_var = tk.StringVar(frame)
+        tk.Entry(frame, textvariable=self.username_var).grid(
+            row=1, column=1, pady=5)
+
+        tk.Label(frame, text=&#34;Пароль&#34;).grid(row=2, column=0, pady=5)
+        self.password_var = tk.StringVar(frame)
+        password_entry = tk.Entry(
+            frame, textvariable=self.password_var, show=&#34;*&#34;)
+        password_entry.grid(row=2, column=1, pady=5)
+
+        footerLabel = tk.Label(
+            frame, text=&#34;Все довольно просто\n Вводите логин и пароль и кайфуете&#34;, font=(&#34;Helvetica&#34;, 10))
+        footerLabel.grid(row=999, column=0, columnspan=2, pady=5, sticky=&#34;s&#34;)
+        frame.grid_rowconfigure(999, weight=1)
+
+        def paste_password():
+            try:
+                clipboard_content = self.root.clipboard_get()
+                self.password_var.set(clipboard_content)
+            except tk.TclError:
+                pass
+
+        password_menu = tk.Menu(self.root, tearoff=0)
+        password_menu.add_command(label=&#34;Paste&#34;, command=paste_password)
+
+        def show_password_menu(event):
+            password_menu.post(event.x_root, event.y_root)
+
+        password_entry.bind(&#34;&lt;Button-3&gt;&#34;, show_password_menu)
+        tk.Button(frame, text=&#34;Войти&#34;, command=self.validate_login, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=3, column=0, columnspan=2, pady=10)
+
+    def validate_login(self):
+        mac = &#39;:&#39;.join([&#39;{:02x}&#39;.format((uuid.getnode() &gt;&gt; ele) &amp; 0xff)
+                        for ele in range(0, 8*6, 8)][::-1])
+        hostname = socket.gethostname()
+        print(f&#34;MAC: {mac}, Hostname: {hostname}&#34;)
+        if hashlib.sha256(mac.encode()).hexdigest() in Model.allowed_macs and hostname in Model.allowed_hosts:
+            password = self.password_var.get()
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            if hashed_password == Model.hashed_password:
+                self.show_frame(&#34;employee_frame&#34;)
+            else:
+                self.wrongAttempts += 1
+                if self.wrongAttempts &gt;= 3:
+                    messagebox.showerror(
+                        &#34;Ошибка&#34;, &#34;Слишком много неправильных попыток. Приложение будет закрыто.&#34;)
+                    self.root.quit()
+                    self.root.destroy()
+                    sys.exit(0)
+                else:
+                    messagebox.showerror(
+                        &#34;Ошибка&#34;, &#34;Неверный логин или пароль. Попробуйте еще раз.&#34;)
+        else: 
+            print(&#34;Unauthorized access attempt detected.&#34;)
+        
+
+
+    def init_employee_frame(self):
+        frame = tk.Frame(self.root, bg=&#34;#000000&#34;)
+        self.frames[&#34;employee_frame&#34;] = frame
+        frame.configure(bg=&#34;#000000&#34;)
+        self.root.configure(bg=&#34;#000000&#34;)
+        tk.Label(frame, text=&#34;Выберете сотрудников на смене&#34;).grid(
+            row=0, column=1, pady=10)
+        tk.Label(frame, text=&#34;Имя работника&#34;).grid(
+            row=1, column=0, columnspan=1, pady=10)
+        tk.Label(frame, text=&#34;Тип работника &#34;).grid(
+            row=1, column=1, columnspan=1, pady=10)
+        tk.Label(frame, text=&#34;Тип смены&#34;).grid(
+            row=1, column=2, columnspan=1, pady=10)
+        self.employee_vars = []
+        self.employee_menus = []
+        dropdown_width = 18
+        for i in range(3):
+            employee_var = tk.StringVar(frame)
+            employee_var.set(&#34;Выберете работника&#34;)
+            employee_var.trace_add(&#34;write&#34;, lambda *args,
+                                   idx=i: self.update_employee_options(idx))
+            self.employee_vars.append(employee_var)
+
+            role_var = tk.StringVar(frame)
+            role_var.set(&#34;Оператор&#34;)
+
+            shift_var = tk.StringVar(frame)
+            shift_var.set(&#34;1&#34;)
+
+            employee_menu = tk.OptionMenu(frame, employee_var, *self.employees)
+            employee_menu.configure(width=dropdown_width)
+            employee_menu.grid(row=i + 2, column=0, padx=10, pady=5)
+            self.employee_menus.append(employee_menu)
+
+            role_menu = tk.OptionMenu(frame, role_var, &#34;Оператор&#34;,
+                                      &#34;Администратор&#34;, &#34;Стажер&#34;)
+            role_menu.configure(width=dropdown_width)
+            role_menu.grid(row=i + 2, column=1, padx=10, pady=5)
+
+            shift_menu = tk.OptionMenu(frame, shift_var, *
+                                       [f&#34;{i/10}&#34; for i in range(1, 11)])
+            shift_menu.configure(width=dropdown_width)
+            shift_menu.grid(row=i + 2, column=2, padx=10, pady=5)
+
+            tk.Label(frame, text=&#34;Рабочее место&#34;).grid(
+                row=5, column=0, pady=10)
+            self.workplace_var = tk.StringVar(frame)
+            self.workplace_var.set(&#34;Июнь&#34;)
+            workplace_menu = tk.OptionMenu(
+                frame, self.workplace_var, &#34;Июнь&#34;, &#34;Пик&#34;, &#34;Лондон Молл&#34;, &#34;Коменда&#34;)
+            workplace_menu.configure(width=dropdown_width)
+            workplace_menu.grid(row=5, column=1, pady=10)
+
+        tk.Button(frame, text=&#34;Далее&#34;, command=self.preview_employees, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=6, column=1, pady=10)
+
+    def preview_employees(self):
+        &#34;&#34;&#34;
+        Opens a preview window displaying the selected employees and their details.
+        This method collects information about up to three employees from the UI, 
+        filters out entries with placeholder values, and displays a formatted preview 
+        in a new Toplevel window. The preview includes employee name, type, and shift, 
+        as well as the selected workplace. The user can confirm or reject the selection 
+        using provided buttons.
+        UI Elements Created:
+            - Toplevel window with a formatted text widget showing employee details.
+            - Two buttons: &#34;Согласен&#34; (Agree) and &#34;Не согласен&#34; (Disagree), 
+              which trigger the agreeToDisagree method with appropriate arguments.
+        Filtering:
+            - Employees with names &#34;Пропуск&#34; or &#34;Выберете работника&#34; are excluded from the preview.
+        Side Effects:
+            - Opens a new window for preview.
+            - Calls agreeToDisagree based on user interaction.
+        &#34;&#34;&#34;
+        
+        employee_preview = []
+        for i in range(3):
+            employee_preview.append([
+                self.employee_vars[i].get(),
+                self.frames[&#34;employee_frame&#34;].grid_slaves(
+                    row=i + 2, column=1)[0].cget(&#34;text&#34;),
+                self.frames[&#34;employee_frame&#34;].grid_slaves(
+                    row=i + 2, column=2)[0].cget(&#34;text&#34;)
+            ])
+        employee_preview.append(&#34;На арене:&#34;)
+        employee_preview.append(self.workplace_var.get())
+        employee_preview = [
+            item for item in employee_preview[:-1]
+            if item[0] not in [&#34;Пропуск&#34;, &#34;Выберете работника&#34;]
+        ] + [employee_preview[-1]]
+
+        preview_window = tk.Toplevel(self.root)
+        preview_window.title(&#34;Предварительный просмотр сотрудников&#34;)
+        preview_window.geometry(&#34;400x500&#34;)
+
+        text_widget = tk.Text(preview_window, wrap=&#34;word&#34;,
+                              font=(&#34;Helvetica&#34;, 12))
+        text_widget.pack(expand=True, fill=&#34;both&#34;, padx=10, pady=10)
+
+        col_widths = [max(len(str(employee[i])) for employee in employee_preview if isinstance(
+            employee, list)) + 2 for i in range(3)]
+        col_widths.append(20)
+
+        text_widget.insert(
+            &#34;end&#34;, f&#34;{&#39;Имя&#39;:&lt;{col_widths[0]}}{&#39;Тип&#39;:&lt;{col_widths[1]}}{&#39;Смена&#39;:&lt;{col_widths[2]}}\n&#34;)
+        text_widget.insert(&#34;end&#34;, &#34;-&#34; * sum(col_widths) + &#34;\n&#34;)
+
+        for employee in employee_preview:
+            if isinstance(employee, list):
+                text_widget.insert(
+                    &#34;end&#34;, f&#34;{employee[0]:&lt;{col_widths[0]}}{employee[1]:&lt;{col_widths[1]}}{employee[2]:&lt;{col_widths[2]}}\n&#34;
+                )
+            else:
+                text_widget.insert(
+                    &#34;end&#34;, f&#34;\n{employee.center(sum(col_widths))}\n&#34;)
+
+        text_widget.config(state=&#34;disabled&#34;)
+        button_frame = tk.Frame(preview_window)
+        button_frame.pack(pady=10)
+
+        tk.Button(button_frame, text=&#34;Согласен&#34;, command=lambda: self.agreeToDisagree(
+            True, preview_window=preview_window, next_frame=&#34;payment_frame&#34;, key=&#34;emp&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;left&#34;, padx=10)
+        tk.Button(button_frame, text=&#34;Не согласен&#34;, command=lambda: self.agreeToDisagree(
+            False, preview_window=preview_window, act_frame=&#34;employee_frame&#34;, key=&#34;emp&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;right&#34;, padx=10)
+
+    def get_employee_request(self):
+        &#34;&#34;&#34;
+        Collects employee selection data from the UI, processes it, and updates related attributes and frames.
+        This method performs the following steps:
+        1. Gathers employee information from UI variables and widgets for three employees.
+        2. Appends the selected workplace to the employee request list.
+        3. Filters out entries where the employee selection is &#34;Пропуск&#34; or &#34;Выберете работника&#34;.
+        4. Updates the UI to show the payment frame.
+        5. Sets the address and employee request attributes.
+        6. Updates the employee list in the updater and triggers an update.
+        Side Effects:
+            - Prints the raw employee request list.
+            - Changes the current frame to &#34;payment_frame&#34;.
+            - Updates `self.address`, `self.employee_request`, and `self.updater.employee_list`.
+            - Calls `self.updater._update_emp()` to refresh employee data.
+        &#34;&#34;&#34;
+
+        employee_request = []
+        for i in range(3):
+            employee_request.append([
+                self.employee_vars[i].get(),
+                self.frames[&#34;employee_frame&#34;].grid_slaves(
+                    row=i + 2, column=1)[0].cget(&#34;text&#34;),
+                self.frames[&#34;employee_frame&#34;].grid_slaves(
+                    row=i + 2, column=2)[0].cget(&#34;text&#34;)
+            ])
+        employee_request.append(self.workplace_var.get())
+        print(employee_request)
+        employee_request = [
+            item for item in employee_request[:-1]
+            if item[0] not in [&#34;Пропуск&#34;, &#34;Выберете работника&#34;]
+        ] + [employee_request[-1]]
+        self.show_frame(&#34;payment_frame&#34;)
+        self.address = self.updater.adress
+        self.employee_request = employee_request
+        self.updater.employee_list = self.employee_request
+        self.updater._update_emp()
+
+    def update_employee_options(self, changed_index):
+        selected = [
+            var.get() for var in self.employee_vars
+            if var.get() != &#34;Выберете работника&#34; and var.get() != &#34;Пропуск&#34;
+        ]
+        for i, (var, menu_widget) in enumerate(zip(self.employee_vars, self.employee_menus)):
+            menu = menu_widget[&#34;menu&#34;]
+            menu.delete(0, &#34;end&#34;)
+            for emp in self.employees:
+                if emp not in selected or emp == var.get():
+                    menu.add_command(
+                        label=emp,
+                        command=lambda value=emp, v=var: v.set(value)
+                    )
+            if var.get() not in [emp for emp in self.employees if emp not in selected or emp == var.get()]:
+                var.set(&#34;Выберете работника&#34;)
+
+    def init_payment_frame(self):
+        &#34;&#34;&#34;
+        Initializes and configures the payment frame UI for the application.
+
+        This method sets up all widgets and layout for the payment process, including:
+        - Dropdowns for payment type, product type, and product selection.
+        - Dynamic visibility of widgets based on selected product type (e.g., people count, use of certificate/abonement).
+        - Date and time selection widgets with options to set to current date/time.
+        - Payment method selection, including support for split payments and dynamic entry fields.
+        - Calculation and validation of payment amounts, with error and status feedback.
+        - Navigation buttons for proceeding to summary, returning to employee frame, and closing the shift.
+        - Percentage entry for partial/pre-payment types.
+        - All widgets are arranged using a grid layout and are dynamically shown/hidden based on user interaction.
+
+        Traces and event handlers are set up to update the UI in response to user input.
+        &#34;&#34;&#34;
+
+        self.root.bind(&#34;&lt;Configure&gt;&#34;, self.enforce_frame_size)
+        dropdown_width = 18
+        frame = tk.Frame(self.root, bg=&#34;black&#34;)
+        self.frames[&#34;payment_frame&#34;] = frame
+        for i in range(10):
+            frame.grid_rowconfigure(i, minsize=50)
+        for j in range(10):
+            frame.grid_columnconfigure(j, minsize=100)
+
+        tk.Label(frame, text=&#34;Выберите тип оплаты&#34;, anchor=&#34;w&#34;).grid(
+            row=2, column=0, pady=10, sticky=&#34;w&#34;)
+
+        tk.Label(frame, text=&#34;Выберите товар&#34;, anchor=&#34;w&#34;).grid(
+            row=1, column=0, pady=10, sticky=&#34;w&#34;)
+
+        self.payment_type_var = tk.StringVar(frame)
+        self.payment_type_var.set(&#34;Полная оплата&#34;)
+        payment_type_menu = tk.OptionMenu(
+            frame, self.payment_type_var, &#34;Доплата&#34;, &#34;Предоплата&#34;, &#34;Полная оплата&#34;)
+        payment_type_menu.configure(width=dropdown_width)
+        payment_type_menu.grid(row=2, column=1, pady=10)
+
+        tk.Label(frame, text=&#34;Выберите Тип товара&#34;, anchor=&#34;w&#34;).grid(
+            row=0, column=0, pady=10, sticky=&#34;w&#34;)
+        self.product_type_var = tk.StringVar(frame)
+        self.product_type_var.set(&#34;Тип товара&#34;)
+        product_type_menu = tk.OptionMenu(
+            frame, self.product_type_var, &#34;Тариф&#34;, &#34;Время&#34;, &#34;Одиночная игра&#34;, &#34;Абонемент&#34;, &#34;Сертификат&#34;)
+        product_type_menu.configure(width=dropdown_width)
+        product_type_menu.grid(row=0, column=1, pady=10)
+
+        self.product_var = tk.StringVar(frame)
+        self.product_dropdown = tk.OptionMenu(
+            frame, self.product_var, &#34;тут будут продукты&#34;)
+        self.product_dropdown.configure(width=dropdown_width)
+        self.product_dropdown.grid(row=1, column=1, pady=10)
+        self.product_type_var.trace_add(&#34;write&#34;, self.update_dropdown)
+
+        def update_people_count_visibility(*args):
+            &#34;&#34;&#34;
+            Updates the visibility of the people count label and entry widgets based on the selected product type.
+            If the selected product type is &#34;Время&#34; (Time) or &#34;Одиночная игра&#34; (Single Game), the people count label and entry are shown.
+            Otherwise, they are hidden.
+            Args:
+                *args: Variable length argument list, typically used for Tkinter trace callbacks.
+            &#34;&#34;&#34;
+
+            def fade_in(widget):
+                widget.grid()
+            def fade_out(widget):
+                widget.grid_forget()
+            if self.product_type_var.get() in [&#34;Время&#34;, &#34;Одиночная игра&#34;]:
+                people_count_label.grid(row=4, column=0, pady=10, sticky=&#34;w&#34;)
+                people_count_entry.grid(row=4, column=1, pady=10)
+                fade_in(people_count_label)
+                fade_in(people_count_entry)
+            else:
+                fade_out(people_count_label)
+                fade_out(people_count_entry)
+
+        people_count_label = tk.Label(
+            frame, text=&#34;Количество человек&#34;, anchor=&#34;w&#34;)
+        self.people_count_var = tk.StringVar(frame)
+        people_count_entry = tk.Entry(
+            frame, textvariable=self.people_count_var)
+
+        self.product_type_var.trace_add(
+            &#34;write&#34;, update_people_count_visibility)
+
+        tk.Label(frame, text=&#34;Способ оплаты&#34;, anchor=&#34;w&#34;).grid(
+            row=5, column=0, pady=10, sticky=&#34;w&#34;)
+        self.split_payment_var = tk.BooleanVar(frame)
+        self.use_abo_cert_var = tk.BooleanVar(frame)
+        tk.Checkbutton(frame, text=&#34;Раздельная оплата&#34;,
+                       variable=self.split_payment_var).grid(row=5, column=1, pady=10)
+
+        useABOcERT = tk.Checkbutton(
+            frame, text=f&#34;&#34;, variable=self.use_abo_cert_var)
+        useABOcERT.grid(row=0, column=2)
+        useABOcERT.grid_forget()
+
+        def update_use_abo_cert_visibility(*args):
+            &#34;&#34;&#34;
+            Updates the visibility and label of the &#39;useABOcERT&#39; widget based on the selected product type.
+
+            If the selected product type is either &#34;Абонемент&#34; or &#34;Сертификат&#34;, the widget is displayed with a label
+            prompting the user to use the selected product type. Otherwise, the widget is hidden.
+
+            Args:
+                *args: Variable length argument list, typically used for Tkinter trace callbacks.
+            &#34;&#34;&#34;
+            if self.product_type_var.get() in [&#34;Абонемент&#34;, &#34;Сертификат&#34;]:
+                useABOcERT.grid(padx=10, row=0, column=2)
+                useABOcERT.config(
+                    text=f&#34;Использовать \n{self.product_type_var.get()}?&#34;)
+            else:
+                useABOcERT.grid_forget()
+
+        def update_use_var(*args):
+            if self.use_abo_cert_var.get():
+                self.use_item = True
+            else:
+                self.use_item = False
+
+        self.use_abo_cert_var.trace_add(&#34;write&#34;, update_use_var)
+
+        self.product_type_var.trace_add(
+            &#34;write&#34;, update_use_abo_cert_visibility)
+        tk.Label(frame, text=&#34;Выберите дату&#34;, anchor=&#34;w&#34;).grid(
+            row=3, column=3, pady=10, sticky=&#34;w&#34;)
+        self.date_var = tk.StringVar(frame)
+
+        self.year_var = tk.StringVar(frame)
+        self.year_var.set(str(self.today_date.year))
+        year_options = [str(year)
+                        for year in range(self.today_date.year, 2027)]
+        year_menu = tk.OptionMenu(frame, self.year_var, *year_options)
+        year_menu.configure(width=dropdown_width)
+        year_menu.grid(row=4, column=3, pady=10)
+
+        self.month_var = tk.StringVar(frame)
+        month_options = [
+            &#34;Январь&#34;, &#34;Февраль&#34;, &#34;Март&#34;, &#34;Апрель&#34;, &#34;Май&#34;, &#34;Июнь&#34;,
+            &#34;Июль&#34;, &#34;Август&#34;, &#34;Сентябрь&#34;, &#34;Октябрь&#34;, &#34;Ноябрь&#34;, &#34;Декабрь&#34;
+        ]
+        self.month_var.set(month_options[self.today_date.month - 1])
+        self.time_var = tk.StringVar(frame)
+        self.time_var.set(&#34;10:00&#34;)
+
+        tk.Label(frame, text=&#34;Введите время (чч:мм)&#34;).grid(
+            row=3, column=4, pady=10)
+
+        self.time_entry = tk.Entry(frame, textvariable=self.time_var)
+        self.time_entry.grid(row=4, column=4, pady=10, padx=10)
+
+        tk.Button(frame, text=&#34;Сегодня&#34;, command=self.set_today_date, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=4, column=5, pady=10)
+
+        tk.Button(frame, text=&#34;Сейчас&#34;, command=self.set_current_time, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=3, column=5, pady=10)
+
+        month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
+        month_menu.configure(width=dropdown_width)
+        month_menu.grid(row=5, column=3, pady=10)
+
+        self.day_var = tk.StringVar(frame)
+        self.day_var.set(str(self.today_date.day))
+        day_options = [str(day) for day in range(1, 32)]
+        day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
+        day_menu.configure(width=dropdown_width)
+        day_menu.grid(row=6, column=3, pady=10, padx=10)
+
+        self.actuallPayment = tk.IntVar(frame)
+        self.actuallPayment.set(0)
+        self.error_label = tk.Label(
+            frame, text=&#34;&#34;, fg=&#34;red&#34;)
+        self.error_label.grid(row=12, column=0,
+                              columnspan=2, pady=5)
+
+        tk.Button(frame, text=&#34;Далее&#34;, command=lambda: self.show_frame(
+            &#34;summary_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(row=11, column=5, pady=10)
+
+        tk.Button(frame, text=&#34;Назад&#34;, command=lambda: self.show_frame(&#34;employee_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=11, column=0, pady=10)
+
+        tk.Button(frame, text=&#34;Рассчитать&#34;, command=lambda: Model.calculate_payment(month_options, self.year_var, self.month_var, self.day_var, self.time_var, self.product_type_var, self.product_var, self.people_count_var, self.percentage_entry_var, self.payment_type_var, self.actuallPayment, payLabel), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=1, column=5, pady=10)
+
+        payLabel = tk.Label(
+            frame, text=f&#34;Рассчитанная \n стоимость: {self.actuallPayment.get()}&#34;, font=(&#34;Arial&#34;, 20),
+            bg=&#34;black&#34;, relief=&#34;solid&#34;, borderwidth=2)
+        payLabel.grid(row=0, column=3, pady=10)
+
+        self.payment_methods = [&#34;Наличные по кассе&#34;, &#34;Карта&#34;, &#34;QR/СБП&#34;, &#34;Н/П&#34;]
+        self.payment_entries = []
+        self.payment_dropdown_var = tk.StringVar(frame)
+        self.payment_dropdown_var.set(self.payment_methods[0])
+        payment_dropdown = tk.OptionMenu(
+            frame, self.payment_dropdown_var, *self.payment_methods)
+        payment_dropdown.configure(width=dropdown_width)
+        payment_dropdown.grid(row=6, column=1, pady=5)
+
+        def update_payment_method_visibility(*args):
+            &#34;&#34;&#34;
+            Updates the visibility and layout of payment method input fields based on the state of the split payment option.
+            If the split payment option is enabled (`self.split_payment_var.get()` is True), dynamically creates and displays
+            entry fields for each payment method in `self.payment_methods`, allowing the user to input amounts for each method.
+            Hides the single payment method dropdown.
+            If the split payment option is disabled, removes the dynamically created payment method entry fields and restores
+            the single payment method dropdown for user selection.
+            Args:
+                *args: Variable length argument list, typically used for Tkinter variable trace callbacks.
+            &#34;&#34;&#34;
+
+            if self.split_payment_var.get():
+                for i, method in enumerate(self.payment_methods):
+                    tk.Label(frame, text=f&#34;{method}:&#34;, anchor=&#34;w&#34;).grid(
+                        row=6 + i, column=0, pady=5, sticky=&#34;w&#34;)
+                    payment_var = tk.StringVar(frame)
+                    tk.Entry(frame, textvariable=payment_var).grid(
+                        row=6 + i, column=1, pady=5)
+                    self.payment_entries.append(payment_var)
+                payment_dropdown.grid_forget()
+            else:
+                for widget in frame.grid_slaves():
+                    if int(widget.grid_info()[&#34;row&#34;]) &gt;= 6 and (widget.grid_info()[&#34;column&#34;] == 1 or widget.grid_info()[&#34;column&#34;] == 0) and not isinstance(widget, tk.Button):
+                        widget.grid_forget()
+                self.payment_entries.clear()
+                payment_dropdown.grid(row=6, column=1, pady=5)
+                self.payment_dropdown_var.set(self.payment_methods[0])
+
+        self.split_payment_var.trace_add(
+            &#34;write&#34;, update_payment_method_visibility)
+
+        tk.Button(frame, text=&#34;Закрытие смены&#34;, command=self.open_CSF, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=11, column=4, pady=10)
+        self.percentage_label = tk.Label(frame, text=&#34;Проценты&#34;)
+        self.percentage_entry_var = tk.StringVar(frame)
+        self.percentage_entry = tk.Entry(
+            frame, textvariable=self.percentage_entry_var)
+
+        def calculate_remaining_balance():
+            &#34;&#34;&#34;
+            Calculates the remaining balance based on user-entered payment amounts and updates the UI accordingly.
+            This function:
+            - Sums all valid integer values entered in the payment entry fields.
+            - Calculates the remaining balance by subtracting the total entered amount from the actual payment amount.
+            - Updates the UI to reflect the payment status:
+                - Highlights entry fields in red and displays an error if the entered sum exceeds the required amount.
+                - Shows the remaining balance in red if the payment is incomplete.
+                - Resets entry field colors and displays a success message if the payment is exact.
+                - Warns the user if no valid data is entered.
+            - Handles invalid input by displaying an error message.
+            Exceptions:
+                ValueError: If any entry contains invalid data that cannot be converted to an integer.
+            &#34;&#34;&#34;
+
+            try:
+                total_entered = sum(
+                    int(entry.get()) for entry in self.payment_entries if entry.get().isdigit()
+                )
+                remaining_balance = self.actuallPayment.get() - total_entered
+
+                if any(entry.get().isdigit() for entry in self.payment_entries):
+                    if remaining_balance &lt; 0:
+                        self.error_label.config(text=&#34;&#34;)
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.configure(bg=&#34;red&#34;, fg=&#34;white&#34;)
+                        self.error_label.config(
+                            text=&#34;Сумма превышает рассчитанную стоимость!&#34;, fg=&#34;red&#34;
+                        )
+                    elif remaining_balance != 0:
+                        self.error_label.config(text=&#34;&#34;)
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.config(bg=&#34;white&#34;, fg=&#34;black&#34;)
+                        self.error_label.config(
+                            text=f&#34;Остаток: {remaining_balance}&#34;, fg=&#34;red&#34;
+                        )
+                        self.root.after(
+                            2000,
+                            lambda: [
+                                frame.grid_slaves(row=6 + j, column=1)[0].configure(
+                                    bg=&#34;white&#34;, fg=&#34;black&#34;
+                                )
+                                for j in range(len(self.payment_entries))
+                            ],
+                        )
+                    else:
+                        self.error_label.config(text=&#34;&#34;)
+                        for i, entry_var in enumerate(self.payment_entries):
+                            entry_widget = frame.grid_slaves(
+                                row=6 + i, column=1)[0]
+                            entry_widget.configure(bg=&#34;white&#34;, fg=&#34;black&#34;)
+                        self.error_label.config(
+                            text=&#34;Оплата успешно рассчитана!&#34;, fg=&#34;green&#34;
+                        )
+                else:
+                    self.error_label.config(text=&#34;&#34;)
+                    self.error_label.config(
+                        text=&#34;Нет введенных данных для проверки остатка.&#34;, fg=&#34;yellow&#34;)
+            except ValueError as e:
+                self.error_label.config(text=&#34;&#34;)
+                self.error_label.config(text=f&#34;Ошибка: {e}&#34;, fg=&#34;red&#34;)
+
+        tk.Button(frame, text=&#34;Проверить остаток&#34;, command=calculate_remaining_balance, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=11, column=3, pady=10
+        )
+
+        def update_percentage_visibility(*args):
+            &#34;&#34;&#34;
+            Updates the visibility of the percentage label and entry widgets based on the selected payment type.
+            If the payment type is either &#34;Доплата&#34; (additional payment) or &#34;Предоплата&#34; (prepayment), 
+            the percentage label and entry widgets are displayed in the UI grid. Otherwise, they are hidden.
+            Args:
+                *args: Variable length argument list to support callback usage (e.g., with Tkinter variable tracing).
+            &#34;&#34;&#34;
+
+            if self.payment_type_var.get() in [&#34;Доплата&#34;, &#34;Предоплата&#34;]:
+                self.percentage_label.grid(row=2, column=2, pady=10)
+                self.percentage_entry.grid(row=2, column=3, pady=10)
+            else:
+                self.percentage_label.grid_forget()
+                self.percentage_entry.grid_forget()
+
+        self.payment_type_var.trace_add(&#34;write&#34;, update_percentage_visibility)
+
+        def update_date_visibility(*args):
+            &#34;&#34;&#34;
+            Updates the visibility and placement of date and time selection widgets based on the selected product type.
+            If the selected product type is &#34;Сертификат&#34; or &#34;Абонемент&#34;, all date and time widgets are hidden and their values are reset.
+            Otherwise, the date and time widgets (year, month, day menus, time entry, and related labels/buttons) are displayed in their respective grid positions.
+            Args:
+                *args: Variable length argument list, used to support callback signatures (e.g., for Tkinter variable tracing).
+            Side Effects:
+                Modifies the visibility and values of various Tkinter widgets related to date and time selection within the UI frame.
+            &#34;&#34;&#34;
+
+            if self.product_type_var.get() in [&#34;Сертификат&#34;, &#34;Абонемент&#34;]:
+                year_menu.grid_forget()
+                month_menu.grid_forget()
+                day_menu.grid_forget()
+                self.time_entry.grid_forget()
+                self.time_var.set(&#34;&#34;)
+                self.date_var.set(&#34;&#34;)
+                self.time_var.set(&#34;10:00&#34;)
+                for widget in frame.grid_slaves():
+                    if widget.cget(&#34;text&#34;) in [&#34;Выберите дату&#34;, &#34;Введите время (чч:мм)&#34;, &#34;Сегодня&#34;, &#34;Сейчас&#34;]:
+                        widget.grid_forget()
+                self.date_var.set(&#34;&#34;)
+            else:
+                self.time_entry.grid(row=4, column=4, pady=10, padx=10)
+                tk.Label(frame, text=&#34;Выберите дату&#34;, anchor=&#34;w&#34;).grid(
+                    row=3, column=3, pady=10, sticky=&#34;w&#34;)
+                tk.Label(frame, text=&#34;Введите время (чч:мм)&#34;).grid(
+                    row=3, column=4, pady=10)
+                year_menu.grid(row=4, column=3, pady=10)
+                month_menu.grid(row=5, column=3, pady=10)
+                day_menu.grid(row=6, column=3, pady=10)
+                tk.Button(frame, text=&#34;Сегодня&#34;, command=self.set_today_date,  bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+                    row=4, column=5, pady=10)
+                tk.Button(frame, text=&#34;Сейчас&#34;, command=self.set_current_time,  bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+                    row=3, column=5, pady=10)
+
+        self.product_type_var.trace_add(&#34;write&#34;, update_date_visibility)
+
+    def set_today_date(self):
+        self.year_var.set(str(self.today_date.year))
+        self.month_var.set(str(self.get_current_month_name()))
+        self.day_var.set(str(self.today_date.day))
+
+    def set_current_time(self):
+        current_time = datetime.datetime.now().strftime(&#34;%H:%M&#34;)
+        self.time_var.set(current_time)
+
+    def init_summary_frame(self):
+        frame = tk.Frame(self.root, bg=&#34;black&#34;)
+        self.frames[&#34;summary_frame&#34;] = frame
+
+        tk.Label(frame, text=&#34;Укажите время чека:&#34;).grid(
+            row=0, column=0, pady=10)
+        self.check_time = tk.StringVar(frame)
+        tk.Entry(frame, textvariable=self.check_time).grid(
+            row=0, column=1, pady=10)
+
+        tk.Label(frame, text=&#34;Комментарий:&#34;).grid(
+            row=1, column=0, pady=10)
+        self.comment_var = tk.StringVar(frame)
+        tk.Entry(frame, textvariable=self.comment_var).grid(
+            row=1, column=1, pady=10)
+
+        tk.Button(frame, text=&#34;Отправить&#34;, bg=&#34;white&#34;, fg=&#34;black&#34;, command=self.make_data).grid(
+            row=2, column=2, columnspan=2, pady=10)
+        tk.Button(frame, text=&#34;Назад&#34;, bg=&#34;white&#34;, fg=&#34;black&#34;, command=self.go_back).grid(
+            row=2, column=0, pady=10)
+
+    def init_closeShift_frame(self):
+        frame = tk.Frame(self.root, bg=&#34;black&#34;)
+        self.frames[&#34;closeShift_frame&#34;] = frame
+
+        tk.Label(frame, text=&#34;Закрытие смены&#34;, font=(&#34;Helvetica&#34;, 16), bg=&#34;black&#34;, fg=&#34;white&#34;).grid(
+            row=0, column=0, columnspan=2, pady=10)
+
+        self.requests_tree = tk.ttk.Treeview(frame, columns=(
+            &#34;Тип товара, Товар&#34;, &#34;Время чека&#34;, &#34;Количество человек&#34;, &#34;Карта&#34;,
+            &#34;QR/СБП&#34;, &#34;Наличные по кассе&#34;, &#34;НП&#34;, &#34;Игра AW&#34;,
+            &#34;Дата игры&#34;, &#34;Время&#34;
+        ), show=&#34;headings&#34;, height=15)
+
+        for col in self.requests_tree[&#34;columns&#34;]:
+            self.requests_tree.heading(col, text=col)
+            self.requests_tree.column(col, width=120, anchor=&#34;center&#34;)
+
+        self.requests_tree.grid(
+            row=1, column=0, columnspan=2, padx=10, pady=10)
+
+        self.update_requests_tree()
+
+        tk.Button(frame, text=&#34;Закрыть смену&#34;, command=self.close_shift, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=2, column=0, pady=10)
+        tk.Button(frame, text=&#34;Назад&#34;, command=lambda: self.show_frame(&#34;summary_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+            row=2, column=1, pady=10)
+
+    def update_requests_tree(self):
+        &#34;&#34;&#34;
+        Updates the requests_tree widget with the latest request data.
+        This method clears all existing entries from the requests_tree widget and repopulates it
+        with the current data from self.updater.all_requests. If there are no requests available,
+        it inserts a placeholder row indicating that there is no data.
+        The method expects self.updater.all_requests to be a pandas DataFrame with the following columns:
+            - &#34;Тип товара&#34;
+            - &#34;Товар&#34;
+            - &#34;Время чека&#34;
+            - &#34;Количество человек&#34;
+            - &#34;Карта&#34;
+            - &#34;QR/СБП&#34;
+            - &#34;Наличные по кассе&#34;
+            - &#34;НП&#34;
+            - &#34;Игра AW&#34;
+            - &#34;Дата игры&#34;
+            - &#34;Время&#34;
+        If the DataFrame is empty, a row with &#34;Нет данных&#34; is inserted for each column.
+        &#34;&#34;&#34;
+
+        for item in self.requests_tree.get_children():
+            self.requests_tree.delete(item)
+
+        if not self.updater.all_requests.empty:
+            for _, request in self.updater.all_requests.iterrows():
+                self.requests_tree.insert(&#34;&#34;, &#34;end&#34;, values=(
+                    str(request[&#34;Тип товара&#34;]+&#34; &#34; +
+                        request[&#34;Товар&#34;]), request[&#34;Время чека&#34;],
+                    request[&#34;Количество человек&#34;], request[&#34;Карта&#34;], request[&#34;QR/СБП&#34;],
+                    request[&#34;Наличные по кассе&#34;], request[&#34;НП&#34;], request[&#34;Игра AW&#34;],
+                    request[&#34;Дата игры&#34;], request[&#34;Время&#34;]
+                ))
+        else:
+            self.requests_tree.insert(&#34;&#34;, &#34;end&#34;, values=(
+                &#34;Нет данных&#34;,) * len(self.requests_tree[&#34;columns&#34;]))
+
+    def open_CSF(self):
+        self.update_requests_tree()
+        self.show_frame(&#34;closeShift_frame&#34;)
+
+    def close_shift(self):
+        if tk.messagebox.askyesno(&#34;Подтверждение&#34;, &#34;Вы уверены, что хотите закрыть смену?&#34;):
+            tk.messagebox.showinfo(&#34;Закрытие смены&#34;, &#34;Смена успешно закрыта!&#34;)
+            self.on_close()
+
+    def show_frame(self, frame_name):
+        for frame in self.frames.values():
+            frame.grid_forget()
+        frame = self.frames[frame_name]
+        frame.grid(row=0, column=0, padx=10, pady=10)
+        frame.update_idletasks()
+
+    def update_dropdown(self, *args):
+        &#34;&#34;&#34;
+        Updates the options in the product dropdown menu based on the selected product type.
+        The method checks the current value of `self.product_type_var` and sets the dropdown options accordingly:
+            - &#34;Тариф&#34;: Sets options to [&#34;STD&#34;, &#34;HARD&#34;, &#34;VIP&#34;].
+            - &#34;Время&#34;: Sets options to time intervals from 30 to 300 minutes in 30-minute steps.
+            - &#34;Одиночная игра&#34;: Sets options to time intervals from 15 to 315 minutes in 15-minute steps.
+            - &#34;Сертификат&#34;: Sets options to certificate values in rubles.
+            - &#34;Абонемент&#34;: Sets options to subscription prices in rubles.
+        After updating the dropdown menu, the first option is selected by default.
+        Args:
+            *args: Additional arguments (not used, but allows compatibility with variable argument callbacks).
+        &#34;&#34;&#34;
+
+        if self.product_type_var.get() == &#34;Тариф&#34;:
+            new_options = [&#34;STD&#34;, &#34;HARD&#34;, &#34;VIP&#34;]
+        elif self.product_type_var.get() == &#34;Время&#34;:
+            new_options = [f&#34;{i} мин&#34; for i in range(30, 330, 30)]
+        elif self.product_type_var.get() == &#34;Одиночная игра&#34;:
+            new_options = [f&#34;{i} мин&#34; for i in range(15, 325, 15)]
+        elif self.product_type_var.get() == &#34;Сертификат&#34;:
+            new_options = [f&#34;На {i} рублей&#34; for i in [1000, 3000, 5000, 10000]]
+        elif self.product_type_var.get() == &#34;Абонемент&#34;:
+            new_options = [f&#34;За {i} рублей&#34; for i in [2500, 4500, 6500]]
+        menu = self.product_dropdown[&#34;menu&#34;]
+        menu.delete(0, &#34;end&#34;)
+        for option in new_options:
+            menu.add_command(
+                label=option, command=lambda value=option: self.product_var.set(value))
+        self.product_var.set(new_options[0])
+
+    def show_preview(self):
+        &#34;&#34;&#34;
+        Displays a preview window summarizing the current data.
+        This method creates a new top-level window containing a read-only text widget
+        that displays key-value pairs from `self.data_summary`. It also provides two buttons:
+        &#34;Согласен&#34; (Agree) and &#34;Не согласен&#34; (Disagree), which call `self.agreeToDisagree`
+        with the user&#39;s choice and close the preview window. The preview window is intended
+        to allow the user to review and confirm the data before proceeding to the next step
+        (e.g., the payment frame).
+        &#34;&#34;&#34;
+
+        self.preview_window = tk.Toplevel(self.root)
+        self.preview_window.title(&#34;Предварительный просмотр&#34;)
+        self.preview_window.geometry(&#34;600x500&#34;)
+
+        text_widget = tk.Text(self.preview_window, wrap=&#34;word&#34;,
+                              font=(&#34;Helvetica&#34;, 12))
+        text_widget.pack(expand=True, fill=&#34;both&#34;, padx=10, pady=10)
+
+        for key, value in self.data_summary.items():
+            text_widget.insert(&#34;end&#34;, f&#34;{key}: {value}\n&#34;)
+
+        text_widget.config(state=&#34;disabled&#34;)
+        self.isAgreed = False
+        button_frame = tk.Frame(self.preview_window)
+        button_frame.pack(pady=10)
+        tk.Button(button_frame, text=&#34;Согласен&#34;,
+                  command=lambda: self.agreeToDisagree(True, self.preview_window, next_frame=&#34;payment_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;left&#34;, padx=10)
+        tk.Button(button_frame, text=&#34;Не согласен&#34;,
+                  command=lambda: self.agreeToDisagree(False, self.preview_window, next_frame=&#34;payment_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;right&#34;, padx=10)
+
+    def agreeToDisagree(self, isAgreed, preview_window, act_frame=&#34;payment_frame&#34;, next_frame=&#34;summary_frame&#34;, key=&#34;sell&#34;):
+        &#34;&#34;&#34;
+        Handles the user&#39;s agreement or disagreement with a request and updates the UI accordingly.
+        If the user agrees (`isAgreed` is True), performs an action based on the `key` parameter:
+            - If `key` is &#34;sell&#34;, sends a sell request using `self.updater.catch_req_sell`.
+            - If `key` is &#34;emp&#34;, processes an employee request using `self.get_employee_request`.
+        In both cases, displays a confirmation message, switches to the `next_frame`, and closes the `preview_window`.
+        If the user disagrees (`isAgreed` is False), displays a message prompting for clarification,
+        switches to the `act_frame`, and closes the `preview_window`.
+        Args:
+            isAgreed (bool): Indicates whether the user agreed to the request.
+            preview_window (tk.Toplevel): The preview window to be destroyed after the action.
+            act_frame (str, optional): The frame to show if the user disagrees. Defaults to &#34;payment_frame&#34;.
+            next_frame (str, optional): The frame to show if the user agrees. Defaults to &#34;summary_frame&#34;.
+            key (str, optional): Determines the action to perform if agreed (&#34;sell&#34; or &#34;emp&#34;). Defaults to &#34;sell&#34;.
+        &#34;&#34;&#34;
+
+        if isAgreed:
+            if key == &#34;sell&#34;:
+                self.updater.catch_req_sell(self.data_summary)
+            elif key == &#34;emp&#34;:
+                self.get_employee_request()
+            tk.messagebox.showinfo(
+                &#34;Внимание!&#34;, &#34;Запрос отправлен в таблицу!&#34;)
+            self.show_frame(next_frame)
+            preview_window.destroy()
+        else:
+            tk.messagebox.showinfo(
+                &#34;Внимание!&#34;, &#34;Уточните детали и отправьте запрос еще раз!&#34;)
+            self.show_frame(act_frame)
+            preview_window.destroy()
+
+    def make_data(self):
+        &#34;&#34;&#34;
+        Collects and summarizes form data from various UI elements into a dictionary (`self.data_summary`).
+
+        The method gathers values such as product type, product, payment details, number of people, date, time, percentages, comments, and payment breakdowns (including split payments) from the UI variables. It also applies specific business logic for calculating the number of people and payment allocations based on the selected options.
+
+        After assembling the data, it calls `self.show_preview()` to display a preview of the collected information.
+
+        Fields in `self.data_summary` include:
+            - &#34;Тип товара&#34;: Selected product type.
+            - &#34;Товар&#34;: Selected product.
+            - &#34;Стоимость&#34;: Actual payment amount.
+            - &#34;Способ оплаты&#34;: Payment method or &#34;Раздельная&#34; if split payment is enabled.
+            - &#34;Тип оплаты&#34;: Type of payment.
+            - &#34;Количество человек&#34;: Number of people, calculated based on product type and product.
+            - &#34;Дата&#34;: Selected date.
+            - &#34;Время&#34;: Selected time.
+            - &#34;Проценты&#34;: Percentage for partial/prepayment, or &#34;100&#34; otherwise.
+            - &#34;Время чека&#34;: Check time.
+            - &#34;Комментарий&#34;: User comment.
+            - &#34;НП&#34;, &#34;Наличные по кассе&#34;, &#34;Карта&#34;, &#34;QR/СБП&#34;: Payment breakdowns by method.
+            - &#34;Игра AW&#34;: Calculated value based on payment type, product type, and percentage.
+
+        Returns:
+            None
+        &#34;&#34;&#34;
+
+        self.data_summary = {
+            &#34;Тип товара&#34;: self.product_type_var.get(),
+            &#34;Товар&#34;: self.product_var.get(),
+            &#34;Стоимость&#34;: self.actuallPayment.get(),
+            &#34;Способ оплаты&#34;: self.payment_dropdown_var.get() if not self.split_payment_var.get() else &#34;Раздельная&#34;,
+            &#34;Тип оплаты&#34;: self.payment_type_var.get(),
+            &#34;Количество человек&#34;: 8 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;STD&#34;] else 12 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;HARD&#34;] else 16 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;VIP&#34;] else int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 0,
+            &#34;Дата&#34;: f&#34;{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}&#34;,
+            &#34;Время&#34;: self.time_var.get(),
+            &#34;Проценты&#34;: self.percentage_entry_var.get() if self.payment_type_var.get() in [&#34;Доплата&#34;, &#34;Предоплата&#34;] else &#34;100&#34;,
+            &#34;Время чека&#34;: self.check_time.get(),
+            &#34;Комментарий&#34;: self.comment_var.get(),
+            &#34;НП&#34;: self.payment_entries[self.payment_methods.index(&#34;Н/П&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Н/П&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Н/П&#34; else 0),
+            &#34;Наличные по кассе&#34;: self.payment_entries[self.payment_methods.index(&#34;Наличные по кассе&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Наличные по кассе&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Наличные по кассе&#34; else 0),
+            &#34;Карта&#34;: self.payment_entries[self.payment_methods.index(&#34;Карта&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Карта&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Карта&#34; else 0),
+            &#34;QR/СБП&#34;: self.payment_entries[self.payment_methods.index(&#34;QR/СБП&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;QR/СБП&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;QR/СБП&#34; else 0),
+            &#34;Игра AW&#34;: 0 if self.payment_type_var.get() == &#34;Предоплата&#34; or self.product_type_var.get() in [&#34;Абонемент&#34;, &#34;Сертификат&#34;] and not self.use_abo_cert_var.get() else (
+                self.actuallPayment.get() * (100 / int(self.percentage_entry_var.get())) if self.payment_type_var.get(
+                ) == &#34;Доплата&#34; and self.percentage_entry_var.get().isdigit() and not self.use_abo_cert_var.get() else self.actuallPayment.get()
+            )
+        }
+
+        self.show_preview()
+
+    def go_back(self):
+        &#34;&#34;&#34;
+        Navigates to the previous frame in the application&#39;s frame order.
+        This method determines the currently visible frame, finds its position in the
+        frame order, and if it is not the first frame, switches the view to the previous frame.
+        &#34;&#34;&#34;
+
+        current_frame = None
+        for frame_name, frame in self.frames.items():
+            if frame.winfo_ismapped():
+                current_frame = frame_name
+                break
+
+        if current_frame:
+            current_index = self.frame_order.index(current_frame)
+            if current_index &gt; 0:
+                previous_frame = self.frame_order[current_index - 1]
+                self.show_frame(previous_frame)
+
+    def openUI(self, root):
+        root.mainloop()</code></pre>
+</details>
+<div class="desc"><p>UIManager is a singleton class responsible for managing the graphical user interface (GUI) of the SellerForEmployees application.
+This class orchestrates the creation, configuration, and navigation of multiple frames (views) within a Tkinter-based desktop application. It handles user authentication, employee selection, payment processing, summary display, and shift closure, providing a cohesive workflow for the application's users.</p>
+<pre><code>Args:
+    _instance (UIManager): Singleton instance of the class.
+    updater: External updater object for data operations.
+    sheetwages: Reference to wage sheet or data source.
+    employees (list): List of employee names for selection.
+    root (tk.Tk): Main Tkinter root window.
+    frames (dict): Dictionary mapping frame names to Tkinter Frame objects.
+    today_date (datetime.date): Current date.
+    address: Address or location information.
+    employee_request: Stores selected employee data.
+    wrongAttempts (int): Counter for failed login attempts.
+    frame_order (list): Ordered list of frame names for navigation.
+    Various Tkinter variables for UI state (e.g., StringVar, IntVar, BooleanVar).
+------------------------------------------------------
+Methods:
+    __new__(cls, *args, **kwargs): Ensures singleton instantiation.
+    __init__(self, config): Initializes UIManager with configuration.
+    on_close(self): Handles application shutdown.
+    enforce_frame_size(self, event): Triggers animated resizing of frames.
+    _apply_frame_size(self): Applies animated resizing to the current frame.
+    get_current_month_name(self): Returns the current month name in Russian.
+    init_login_frame(self): Sets up the login frame UI.
+    validate_login(self): Validates user credentials and access.
+    init_employee_frame(self): Sets up the employee selection frame.
+    preview_employees(self): Shows a preview dialog for selected employees.
+    get_employee_request(self): Collects and processes employee selection data.
+    update_employee_options(self, changed_index): Updates dropdowns to prevent duplicate employee selection.
+    init_payment_frame(self): Sets up the payment processing frame.
+    set_today_date(self): Sets date fields to today's date.
+    set_current_time(self): Sets time field to current time.
+    init_summary_frame(self): Sets up the summary frame for final review.
+    init_closeShift_frame(self): Sets up the shift closure frame.
+    update_requests_tree(self): Updates the shift closure request table.
+    open_CSF(self): Opens the close shift frame.
+    close_shift(self): Handles shift closure logic and confirmation.
+    show_frame(self, frame_name): Switches the visible frame.
+    update_dropdown(self, *args): Updates product dropdown options based on selection.
+    show_preview(self): Displays a summary preview dialog.
+    agreeToDisagree(self, isAgreed, preview_window, ...): Handles user confirmation dialogs.
+    make_data(self): Collects and summarizes all form data for processing.
+    go_back(self): Navigates to the previous frame.
+    openUI(self, root): Starts the Tkinter main loop.
+Usage:
+    Instantiate UIManager with a configuration dictionary containing references to the Tkinter root, updater, employee list, and other dependencies. Call openUI(root) to start the application.
+Note:
+    This class assumes the existence of external classes and modules such as Model, Updater, and various Tkinter widgets.
+</code></pre></div>
+<h3>Methods</h3>
+<dl>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.agreeToDisagree"><code class="name flex">
+<span>def <span class="ident">agreeToDisagree</span></span>(<span>self,<br>isAgreed,<br>preview_window,<br>act_frame='payment_frame',<br>next_frame='summary_frame',<br>key='sell')</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def agreeToDisagree(self, isAgreed, preview_window, act_frame=&#34;payment_frame&#34;, next_frame=&#34;summary_frame&#34;, key=&#34;sell&#34;):
+    &#34;&#34;&#34;
+    Handles the user&#39;s agreement or disagreement with a request and updates the UI accordingly.
+    If the user agrees (`isAgreed` is True), performs an action based on the `key` parameter:
+        - If `key` is &#34;sell&#34;, sends a sell request using `self.updater.catch_req_sell`.
+        - If `key` is &#34;emp&#34;, processes an employee request using `self.get_employee_request`.
+    In both cases, displays a confirmation message, switches to the `next_frame`, and closes the `preview_window`.
+    If the user disagrees (`isAgreed` is False), displays a message prompting for clarification,
+    switches to the `act_frame`, and closes the `preview_window`.
+    Args:
+        isAgreed (bool): Indicates whether the user agreed to the request.
+        preview_window (tk.Toplevel): The preview window to be destroyed after the action.
+        act_frame (str, optional): The frame to show if the user disagrees. Defaults to &#34;payment_frame&#34;.
+        next_frame (str, optional): The frame to show if the user agrees. Defaults to &#34;summary_frame&#34;.
+        key (str, optional): Determines the action to perform if agreed (&#34;sell&#34; or &#34;emp&#34;). Defaults to &#34;sell&#34;.
+    &#34;&#34;&#34;
+
+    if isAgreed:
+        if key == &#34;sell&#34;:
+            self.updater.catch_req_sell(self.data_summary)
+        elif key == &#34;emp&#34;:
+            self.get_employee_request()
+        tk.messagebox.showinfo(
+            &#34;Внимание!&#34;, &#34;Запрос отправлен в таблицу!&#34;)
+        self.show_frame(next_frame)
+        preview_window.destroy()
+    else:
+        tk.messagebox.showinfo(
+            &#34;Внимание!&#34;, &#34;Уточните детали и отправьте запрос еще раз!&#34;)
+        self.show_frame(act_frame)
+        preview_window.destroy()</code></pre>
+</details>
+<div class="desc"><p>Handles the user's agreement or disagreement with a request and updates the UI accordingly.
+If the user agrees (<code>isAgreed</code> is True), performs an action based on the <code>key</code> parameter:
+- If <code>key</code> is "sell", sends a sell request using <code>self.updater.catch_req_sell</code>.
+- If <code>key</code> is "emp", processes an employee request using <code>self.get_employee_request</code>.
+In both cases, displays a confirmation message, switches to the <code>next_frame</code>, and closes the <code>preview_window</code>.
+If the user disagrees (<code>isAgreed</code> is False), displays a message prompting for clarification,
+switches to the <code>act_frame</code>, and closes the <code>preview_window</code>.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>isAgreed</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Indicates whether the user agreed to the request.</dd>
+<dt><strong><code>preview_window</code></strong> :&ensp;<code>tk.Toplevel</code></dt>
+<dd>The preview window to be destroyed after the action.</dd>
+<dt><strong><code>act_frame</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The frame to show if the user disagrees. Defaults to "payment_frame".</dd>
+<dt><strong><code>next_frame</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>The frame to show if the user agrees. Defaults to "summary_frame".</dd>
+<dt><strong><code>key</code></strong> :&ensp;<code>str</code>, optional</dt>
+<dd>Determines the action to perform if agreed ("sell" or "emp"). Defaults to "sell".</dd>
+</dl></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.close_shift"><code class="name flex">
+<span>def <span class="ident">close_shift</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def close_shift(self):
+    if tk.messagebox.askyesno(&#34;Подтверждение&#34;, &#34;Вы уверены, что хотите закрыть смену?&#34;):
+        tk.messagebox.showinfo(&#34;Закрытие смены&#34;, &#34;Смена успешно закрыта!&#34;)
+        self.on_close()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.enforce_frame_size"><code class="name flex">
+<span>def <span class="ident">enforce_frame_size</span></span>(<span>self, event)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enforce_frame_size(self, event):
+    if self.resize_timer:
+        self.resize_timer.cancel()
+    self.resize_timer = Timer(0.1, self._apply_frame_size)
+    self.resize_timer.start()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.get_current_month_name"><code class="name flex">
+<span>def <span class="ident">get_current_month_name</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_current_month_name(self):
+    months_in_russian = [
+        &#34;Январь&#34;, &#34;Февраль&#34;, &#34;Март&#34;, &#34;Апрель&#34;, &#34;Май&#34;, &#34;Июнь&#34;,
+        &#34;Июль&#34;, &#34;Август&#34;, &#34;Сентябрь&#34;, &#34;Октябрь&#34;, &#34;Ноябрь&#34;, &#34;Декабрь&#34;
+    ]
+    current_month = datetime.datetime.now().month
+    return months_in_russian[current_month - 1]</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.get_employee_request"><code class="name flex">
+<span>def <span class="ident">get_employee_request</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_employee_request(self):
+    &#34;&#34;&#34;
+    Collects employee selection data from the UI, processes it, and updates related attributes and frames.
+    This method performs the following steps:
+    1. Gathers employee information from UI variables and widgets for three employees.
+    2. Appends the selected workplace to the employee request list.
+    3. Filters out entries where the employee selection is &#34;Пропуск&#34; or &#34;Выберете работника&#34;.
+    4. Updates the UI to show the payment frame.
+    5. Sets the address and employee request attributes.
+    6. Updates the employee list in the updater and triggers an update.
+    Side Effects:
+        - Prints the raw employee request list.
+        - Changes the current frame to &#34;payment_frame&#34;.
+        - Updates `self.address`, `self.employee_request`, and `self.updater.employee_list`.
+        - Calls `self.updater._update_emp()` to refresh employee data.
+    &#34;&#34;&#34;
+
+    employee_request = []
+    for i in range(3):
+        employee_request.append([
+            self.employee_vars[i].get(),
+            self.frames[&#34;employee_frame&#34;].grid_slaves(
+                row=i + 2, column=1)[0].cget(&#34;text&#34;),
+            self.frames[&#34;employee_frame&#34;].grid_slaves(
+                row=i + 2, column=2)[0].cget(&#34;text&#34;)
+        ])
+    employee_request.append(self.workplace_var.get())
+    print(employee_request)
+    employee_request = [
+        item for item in employee_request[:-1]
+        if item[0] not in [&#34;Пропуск&#34;, &#34;Выберете работника&#34;]
+    ] + [employee_request[-1]]
+    self.show_frame(&#34;payment_frame&#34;)
+    self.address = self.updater.adress
+    self.employee_request = employee_request
+    self.updater.employee_list = self.employee_request
+    self.updater._update_emp()</code></pre>
+</details>
+<div class="desc"><p>Collects employee selection data from the UI, processes it, and updates related attributes and frames.
+This method performs the following steps:
+1. Gathers employee information from UI variables and widgets for three employees.
+2. Appends the selected workplace to the employee request list.
+3. Filters out entries where the employee selection is "Пропуск" or "Выберете работника".
+4. Updates the UI to show the payment frame.
+5. Sets the address and employee request attributes.
+6. Updates the employee list in the updater and triggers an update.
+Side Effects:
+- Prints the raw employee request list.
+- Changes the current frame to "payment_frame".
+- Updates <code>self.address</code>, <code>self.employee_request</code>, and <code>self.updater.employee_list</code>.
+- Calls <code>self.updater._update_emp()</code> to refresh employee data.</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.go_back"><code class="name flex">
+<span>def <span class="ident">go_back</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def go_back(self):
+    &#34;&#34;&#34;
+    Navigates to the previous frame in the application&#39;s frame order.
+    This method determines the currently visible frame, finds its position in the
+    frame order, and if it is not the first frame, switches the view to the previous frame.
+    &#34;&#34;&#34;
+
+    current_frame = None
+    for frame_name, frame in self.frames.items():
+        if frame.winfo_ismapped():
+            current_frame = frame_name
+            break
+
+    if current_frame:
+        current_index = self.frame_order.index(current_frame)
+        if current_index &gt; 0:
+            previous_frame = self.frame_order[current_index - 1]
+            self.show_frame(previous_frame)</code></pre>
+</details>
+<div class="desc"><p>Navigates to the previous frame in the application's frame order.
+This method determines the currently visible frame, finds its position in the
+frame order, and if it is not the first frame, switches the view to the previous frame.</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.init_closeShift_frame"><code class="name flex">
+<span>def <span class="ident">init_closeShift_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_closeShift_frame(self):
+    frame = tk.Frame(self.root, bg=&#34;black&#34;)
+    self.frames[&#34;closeShift_frame&#34;] = frame
+
+    tk.Label(frame, text=&#34;Закрытие смены&#34;, font=(&#34;Helvetica&#34;, 16), bg=&#34;black&#34;, fg=&#34;white&#34;).grid(
+        row=0, column=0, columnspan=2, pady=10)
+
+    self.requests_tree = tk.ttk.Treeview(frame, columns=(
+        &#34;Тип товара, Товар&#34;, &#34;Время чека&#34;, &#34;Количество человек&#34;, &#34;Карта&#34;,
+        &#34;QR/СБП&#34;, &#34;Наличные по кассе&#34;, &#34;НП&#34;, &#34;Игра AW&#34;,
+        &#34;Дата игры&#34;, &#34;Время&#34;
+    ), show=&#34;headings&#34;, height=15)
+
+    for col in self.requests_tree[&#34;columns&#34;]:
+        self.requests_tree.heading(col, text=col)
+        self.requests_tree.column(col, width=120, anchor=&#34;center&#34;)
+
+    self.requests_tree.grid(
+        row=1, column=0, columnspan=2, padx=10, pady=10)
+
+    self.update_requests_tree()
+
+    tk.Button(frame, text=&#34;Закрыть смену&#34;, command=self.close_shift, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=2, column=0, pady=10)
+    tk.Button(frame, text=&#34;Назад&#34;, command=lambda: self.show_frame(&#34;summary_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=2, column=1, pady=10)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.init_employee_frame"><code class="name flex">
+<span>def <span class="ident">init_employee_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_employee_frame(self):
+    frame = tk.Frame(self.root, bg=&#34;#000000&#34;)
+    self.frames[&#34;employee_frame&#34;] = frame
+    frame.configure(bg=&#34;#000000&#34;)
+    self.root.configure(bg=&#34;#000000&#34;)
+    tk.Label(frame, text=&#34;Выберете сотрудников на смене&#34;).grid(
+        row=0, column=1, pady=10)
+    tk.Label(frame, text=&#34;Имя работника&#34;).grid(
+        row=1, column=0, columnspan=1, pady=10)
+    tk.Label(frame, text=&#34;Тип работника &#34;).grid(
+        row=1, column=1, columnspan=1, pady=10)
+    tk.Label(frame, text=&#34;Тип смены&#34;).grid(
+        row=1, column=2, columnspan=1, pady=10)
+    self.employee_vars = []
+    self.employee_menus = []
+    dropdown_width = 18
+    for i in range(3):
+        employee_var = tk.StringVar(frame)
+        employee_var.set(&#34;Выберете работника&#34;)
+        employee_var.trace_add(&#34;write&#34;, lambda *args,
+                               idx=i: self.update_employee_options(idx))
+        self.employee_vars.append(employee_var)
+
+        role_var = tk.StringVar(frame)
+        role_var.set(&#34;Оператор&#34;)
+
+        shift_var = tk.StringVar(frame)
+        shift_var.set(&#34;1&#34;)
+
+        employee_menu = tk.OptionMenu(frame, employee_var, *self.employees)
+        employee_menu.configure(width=dropdown_width)
+        employee_menu.grid(row=i + 2, column=0, padx=10, pady=5)
+        self.employee_menus.append(employee_menu)
+
+        role_menu = tk.OptionMenu(frame, role_var, &#34;Оператор&#34;,
+                                  &#34;Администратор&#34;, &#34;Стажер&#34;)
+        role_menu.configure(width=dropdown_width)
+        role_menu.grid(row=i + 2, column=1, padx=10, pady=5)
+
+        shift_menu = tk.OptionMenu(frame, shift_var, *
+                                   [f&#34;{i/10}&#34; for i in range(1, 11)])
+        shift_menu.configure(width=dropdown_width)
+        shift_menu.grid(row=i + 2, column=2, padx=10, pady=5)
+
+        tk.Label(frame, text=&#34;Рабочее место&#34;).grid(
+            row=5, column=0, pady=10)
+        self.workplace_var = tk.StringVar(frame)
+        self.workplace_var.set(&#34;Июнь&#34;)
+        workplace_menu = tk.OptionMenu(
+            frame, self.workplace_var, &#34;Июнь&#34;, &#34;Пик&#34;, &#34;Лондон Молл&#34;, &#34;Коменда&#34;)
+        workplace_menu.configure(width=dropdown_width)
+        workplace_menu.grid(row=5, column=1, pady=10)
+
+    tk.Button(frame, text=&#34;Далее&#34;, command=self.preview_employees, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=6, column=1, pady=10)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.init_login_frame"><code class="name flex">
+<span>def <span class="ident">init_login_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_login_frame(self):
+    frame = tk.Frame(self.root)
+    self.frames[&#34;login_frame&#34;] = frame
+    frame.configure(bg=&#34;#000000&#34;)
+    frame.option_add(&#34;*Font&#34;, &#34;Helvetica 14&#34;)
+    frame.option_add(&#34;*Button.relief&#34;, &#34;flat&#34;)
+    frame.option_add(&#34;*Button.highlightThickness&#34;, 0)
+    frame.option_add(&#34;*Button.background&#34;, &#34;#FFFFFF&#34;)
+    frame.option_add(&#34;*Button.foreground&#34;, &#34;#000000&#34;)
+    frame.option_add(&#34;*Button.activeBackground&#34;, &#34;#555555&#34;)
+    frame.option_add(&#34;*Label.background&#34;, &#34;#000000&#34;)
+    frame.option_add(&#34;*Label.foreground&#34;, &#34;#FFFFFF&#34;)
+    frame.option_add(&#34;*Entry.background&#34;, &#34;#333333&#34;)
+    frame.option_add(&#34;*Entry.foreground&#34;, &#34;#FFFFFF&#34;)
+    frame.option_add(&#34;*Entry.highlightThickness&#34;, 1)
+    tk.Label(frame, text=&#34;Введите логин и пароль&#34;).grid(
+        row=0, column=0, columnspan=2, pady=10)
+
+    tk.Label(frame, text=&#34;Логин&#34;).grid(row=1, column=0, pady=5)
+    self.username_var = tk.StringVar(frame)
+    tk.Entry(frame, textvariable=self.username_var).grid(
+        row=1, column=1, pady=5)
+
+    tk.Label(frame, text=&#34;Пароль&#34;).grid(row=2, column=0, pady=5)
+    self.password_var = tk.StringVar(frame)
+    password_entry = tk.Entry(
+        frame, textvariable=self.password_var, show=&#34;*&#34;)
+    password_entry.grid(row=2, column=1, pady=5)
+
+    footerLabel = tk.Label(
+        frame, text=&#34;Все довольно просто\n Вводите логин и пароль и кайфуете&#34;, font=(&#34;Helvetica&#34;, 10))
+    footerLabel.grid(row=999, column=0, columnspan=2, pady=5, sticky=&#34;s&#34;)
+    frame.grid_rowconfigure(999, weight=1)
+
+    def paste_password():
+        try:
+            clipboard_content = self.root.clipboard_get()
+            self.password_var.set(clipboard_content)
+        except tk.TclError:
+            pass
+
+    password_menu = tk.Menu(self.root, tearoff=0)
+    password_menu.add_command(label=&#34;Paste&#34;, command=paste_password)
+
+    def show_password_menu(event):
+        password_menu.post(event.x_root, event.y_root)
+
+    password_entry.bind(&#34;&lt;Button-3&gt;&#34;, show_password_menu)
+    tk.Button(frame, text=&#34;Войти&#34;, command=self.validate_login, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=3, column=0, columnspan=2, pady=10)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.init_payment_frame"><code class="name flex">
+<span>def <span class="ident">init_payment_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_payment_frame(self):
+    &#34;&#34;&#34;
+    Initializes and configures the payment frame UI for the application.
+
+    This method sets up all widgets and layout for the payment process, including:
+    - Dropdowns for payment type, product type, and product selection.
+    - Dynamic visibility of widgets based on selected product type (e.g., people count, use of certificate/abonement).
+    - Date and time selection widgets with options to set to current date/time.
+    - Payment method selection, including support for split payments and dynamic entry fields.
+    - Calculation and validation of payment amounts, with error and status feedback.
+    - Navigation buttons for proceeding to summary, returning to employee frame, and closing the shift.
+    - Percentage entry for partial/pre-payment types.
+    - All widgets are arranged using a grid layout and are dynamically shown/hidden based on user interaction.
+
+    Traces and event handlers are set up to update the UI in response to user input.
+    &#34;&#34;&#34;
+
+    self.root.bind(&#34;&lt;Configure&gt;&#34;, self.enforce_frame_size)
+    dropdown_width = 18
+    frame = tk.Frame(self.root, bg=&#34;black&#34;)
+    self.frames[&#34;payment_frame&#34;] = frame
+    for i in range(10):
+        frame.grid_rowconfigure(i, minsize=50)
+    for j in range(10):
+        frame.grid_columnconfigure(j, minsize=100)
+
+    tk.Label(frame, text=&#34;Выберите тип оплаты&#34;, anchor=&#34;w&#34;).grid(
+        row=2, column=0, pady=10, sticky=&#34;w&#34;)
+
+    tk.Label(frame, text=&#34;Выберите товар&#34;, anchor=&#34;w&#34;).grid(
+        row=1, column=0, pady=10, sticky=&#34;w&#34;)
+
+    self.payment_type_var = tk.StringVar(frame)
+    self.payment_type_var.set(&#34;Полная оплата&#34;)
+    payment_type_menu = tk.OptionMenu(
+        frame, self.payment_type_var, &#34;Доплата&#34;, &#34;Предоплата&#34;, &#34;Полная оплата&#34;)
+    payment_type_menu.configure(width=dropdown_width)
+    payment_type_menu.grid(row=2, column=1, pady=10)
+
+    tk.Label(frame, text=&#34;Выберите Тип товара&#34;, anchor=&#34;w&#34;).grid(
+        row=0, column=0, pady=10, sticky=&#34;w&#34;)
+    self.product_type_var = tk.StringVar(frame)
+    self.product_type_var.set(&#34;Тип товара&#34;)
+    product_type_menu = tk.OptionMenu(
+        frame, self.product_type_var, &#34;Тариф&#34;, &#34;Время&#34;, &#34;Одиночная игра&#34;, &#34;Абонемент&#34;, &#34;Сертификат&#34;)
+    product_type_menu.configure(width=dropdown_width)
+    product_type_menu.grid(row=0, column=1, pady=10)
+
+    self.product_var = tk.StringVar(frame)
+    self.product_dropdown = tk.OptionMenu(
+        frame, self.product_var, &#34;тут будут продукты&#34;)
+    self.product_dropdown.configure(width=dropdown_width)
+    self.product_dropdown.grid(row=1, column=1, pady=10)
+    self.product_type_var.trace_add(&#34;write&#34;, self.update_dropdown)
+
+    def update_people_count_visibility(*args):
+        &#34;&#34;&#34;
+        Updates the visibility of the people count label and entry widgets based on the selected product type.
+        If the selected product type is &#34;Время&#34; (Time) or &#34;Одиночная игра&#34; (Single Game), the people count label and entry are shown.
+        Otherwise, they are hidden.
+        Args:
+            *args: Variable length argument list, typically used for Tkinter trace callbacks.
+        &#34;&#34;&#34;
+
+        def fade_in(widget):
+            widget.grid()
+        def fade_out(widget):
+            widget.grid_forget()
+        if self.product_type_var.get() in [&#34;Время&#34;, &#34;Одиночная игра&#34;]:
+            people_count_label.grid(row=4, column=0, pady=10, sticky=&#34;w&#34;)
+            people_count_entry.grid(row=4, column=1, pady=10)
+            fade_in(people_count_label)
+            fade_in(people_count_entry)
+        else:
+            fade_out(people_count_label)
+            fade_out(people_count_entry)
+
+    people_count_label = tk.Label(
+        frame, text=&#34;Количество человек&#34;, anchor=&#34;w&#34;)
+    self.people_count_var = tk.StringVar(frame)
+    people_count_entry = tk.Entry(
+        frame, textvariable=self.people_count_var)
+
+    self.product_type_var.trace_add(
+        &#34;write&#34;, update_people_count_visibility)
+
+    tk.Label(frame, text=&#34;Способ оплаты&#34;, anchor=&#34;w&#34;).grid(
+        row=5, column=0, pady=10, sticky=&#34;w&#34;)
+    self.split_payment_var = tk.BooleanVar(frame)
+    self.use_abo_cert_var = tk.BooleanVar(frame)
+    tk.Checkbutton(frame, text=&#34;Раздельная оплата&#34;,
+                   variable=self.split_payment_var).grid(row=5, column=1, pady=10)
+
+    useABOcERT = tk.Checkbutton(
+        frame, text=f&#34;&#34;, variable=self.use_abo_cert_var)
+    useABOcERT.grid(row=0, column=2)
+    useABOcERT.grid_forget()
+
+    def update_use_abo_cert_visibility(*args):
+        &#34;&#34;&#34;
+        Updates the visibility and label of the &#39;useABOcERT&#39; widget based on the selected product type.
+
+        If the selected product type is either &#34;Абонемент&#34; or &#34;Сертификат&#34;, the widget is displayed with a label
+        prompting the user to use the selected product type. Otherwise, the widget is hidden.
+
+        Args:
+            *args: Variable length argument list, typically used for Tkinter trace callbacks.
+        &#34;&#34;&#34;
+        if self.product_type_var.get() in [&#34;Абонемент&#34;, &#34;Сертификат&#34;]:
+            useABOcERT.grid(padx=10, row=0, column=2)
+            useABOcERT.config(
+                text=f&#34;Использовать \n{self.product_type_var.get()}?&#34;)
+        else:
+            useABOcERT.grid_forget()
+
+    def update_use_var(*args):
+        if self.use_abo_cert_var.get():
+            self.use_item = True
+        else:
+            self.use_item = False
+
+    self.use_abo_cert_var.trace_add(&#34;write&#34;, update_use_var)
+
+    self.product_type_var.trace_add(
+        &#34;write&#34;, update_use_abo_cert_visibility)
+    tk.Label(frame, text=&#34;Выберите дату&#34;, anchor=&#34;w&#34;).grid(
+        row=3, column=3, pady=10, sticky=&#34;w&#34;)
+    self.date_var = tk.StringVar(frame)
+
+    self.year_var = tk.StringVar(frame)
+    self.year_var.set(str(self.today_date.year))
+    year_options = [str(year)
+                    for year in range(self.today_date.year, 2027)]
+    year_menu = tk.OptionMenu(frame, self.year_var, *year_options)
+    year_menu.configure(width=dropdown_width)
+    year_menu.grid(row=4, column=3, pady=10)
+
+    self.month_var = tk.StringVar(frame)
+    month_options = [
+        &#34;Январь&#34;, &#34;Февраль&#34;, &#34;Март&#34;, &#34;Апрель&#34;, &#34;Май&#34;, &#34;Июнь&#34;,
+        &#34;Июль&#34;, &#34;Август&#34;, &#34;Сентябрь&#34;, &#34;Октябрь&#34;, &#34;Ноябрь&#34;, &#34;Декабрь&#34;
+    ]
+    self.month_var.set(month_options[self.today_date.month - 1])
+    self.time_var = tk.StringVar(frame)
+    self.time_var.set(&#34;10:00&#34;)
+
+    tk.Label(frame, text=&#34;Введите время (чч:мм)&#34;).grid(
+        row=3, column=4, pady=10)
+
+    self.time_entry = tk.Entry(frame, textvariable=self.time_var)
+    self.time_entry.grid(row=4, column=4, pady=10, padx=10)
+
+    tk.Button(frame, text=&#34;Сегодня&#34;, command=self.set_today_date, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=4, column=5, pady=10)
+
+    tk.Button(frame, text=&#34;Сейчас&#34;, command=self.set_current_time, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=3, column=5, pady=10)
+
+    month_menu = tk.OptionMenu(frame, self.month_var, *month_options)
+    month_menu.configure(width=dropdown_width)
+    month_menu.grid(row=5, column=3, pady=10)
+
+    self.day_var = tk.StringVar(frame)
+    self.day_var.set(str(self.today_date.day))
+    day_options = [str(day) for day in range(1, 32)]
+    day_menu = tk.OptionMenu(frame, self.day_var, *day_options)
+    day_menu.configure(width=dropdown_width)
+    day_menu.grid(row=6, column=3, pady=10, padx=10)
+
+    self.actuallPayment = tk.IntVar(frame)
+    self.actuallPayment.set(0)
+    self.error_label = tk.Label(
+        frame, text=&#34;&#34;, fg=&#34;red&#34;)
+    self.error_label.grid(row=12, column=0,
+                          columnspan=2, pady=5)
+
+    tk.Button(frame, text=&#34;Далее&#34;, command=lambda: self.show_frame(
+        &#34;summary_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(row=11, column=5, pady=10)
+
+    tk.Button(frame, text=&#34;Назад&#34;, command=lambda: self.show_frame(&#34;employee_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=11, column=0, pady=10)
+
+    tk.Button(frame, text=&#34;Рассчитать&#34;, command=lambda: Model.calculate_payment(month_options, self.year_var, self.month_var, self.day_var, self.time_var, self.product_type_var, self.product_var, self.people_count_var, self.percentage_entry_var, self.payment_type_var, self.actuallPayment, payLabel), bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=1, column=5, pady=10)
+
+    payLabel = tk.Label(
+        frame, text=f&#34;Рассчитанная \n стоимость: {self.actuallPayment.get()}&#34;, font=(&#34;Arial&#34;, 20),
+        bg=&#34;black&#34;, relief=&#34;solid&#34;, borderwidth=2)
+    payLabel.grid(row=0, column=3, pady=10)
+
+    self.payment_methods = [&#34;Наличные по кассе&#34;, &#34;Карта&#34;, &#34;QR/СБП&#34;, &#34;Н/П&#34;]
+    self.payment_entries = []
+    self.payment_dropdown_var = tk.StringVar(frame)
+    self.payment_dropdown_var.set(self.payment_methods[0])
+    payment_dropdown = tk.OptionMenu(
+        frame, self.payment_dropdown_var, *self.payment_methods)
+    payment_dropdown.configure(width=dropdown_width)
+    payment_dropdown.grid(row=6, column=1, pady=5)
+
+    def update_payment_method_visibility(*args):
+        &#34;&#34;&#34;
+        Updates the visibility and layout of payment method input fields based on the state of the split payment option.
+        If the split payment option is enabled (`self.split_payment_var.get()` is True), dynamically creates and displays
+        entry fields for each payment method in `self.payment_methods`, allowing the user to input amounts for each method.
+        Hides the single payment method dropdown.
+        If the split payment option is disabled, removes the dynamically created payment method entry fields and restores
+        the single payment method dropdown for user selection.
+        Args:
+            *args: Variable length argument list, typically used for Tkinter variable trace callbacks.
+        &#34;&#34;&#34;
+
+        if self.split_payment_var.get():
+            for i, method in enumerate(self.payment_methods):
+                tk.Label(frame, text=f&#34;{method}:&#34;, anchor=&#34;w&#34;).grid(
+                    row=6 + i, column=0, pady=5, sticky=&#34;w&#34;)
+                payment_var = tk.StringVar(frame)
+                tk.Entry(frame, textvariable=payment_var).grid(
+                    row=6 + i, column=1, pady=5)
+                self.payment_entries.append(payment_var)
+            payment_dropdown.grid_forget()
+        else:
+            for widget in frame.grid_slaves():
+                if int(widget.grid_info()[&#34;row&#34;]) &gt;= 6 and (widget.grid_info()[&#34;column&#34;] == 1 or widget.grid_info()[&#34;column&#34;] == 0) and not isinstance(widget, tk.Button):
+                    widget.grid_forget()
+            self.payment_entries.clear()
+            payment_dropdown.grid(row=6, column=1, pady=5)
+            self.payment_dropdown_var.set(self.payment_methods[0])
+
+    self.split_payment_var.trace_add(
+        &#34;write&#34;, update_payment_method_visibility)
+
+    tk.Button(frame, text=&#34;Закрытие смены&#34;, command=self.open_CSF, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=11, column=4, pady=10)
+    self.percentage_label = tk.Label(frame, text=&#34;Проценты&#34;)
+    self.percentage_entry_var = tk.StringVar(frame)
+    self.percentage_entry = tk.Entry(
+        frame, textvariable=self.percentage_entry_var)
+
+    def calculate_remaining_balance():
+        &#34;&#34;&#34;
+        Calculates the remaining balance based on user-entered payment amounts and updates the UI accordingly.
+        This function:
+        - Sums all valid integer values entered in the payment entry fields.
+        - Calculates the remaining balance by subtracting the total entered amount from the actual payment amount.
+        - Updates the UI to reflect the payment status:
+            - Highlights entry fields in red and displays an error if the entered sum exceeds the required amount.
+            - Shows the remaining balance in red if the payment is incomplete.
+            - Resets entry field colors and displays a success message if the payment is exact.
+            - Warns the user if no valid data is entered.
+        - Handles invalid input by displaying an error message.
+        Exceptions:
+            ValueError: If any entry contains invalid data that cannot be converted to an integer.
+        &#34;&#34;&#34;
+
+        try:
+            total_entered = sum(
+                int(entry.get()) for entry in self.payment_entries if entry.get().isdigit()
+            )
+            remaining_balance = self.actuallPayment.get() - total_entered
+
+            if any(entry.get().isdigit() for entry in self.payment_entries):
+                if remaining_balance &lt; 0:
+                    self.error_label.config(text=&#34;&#34;)
+                    for i, entry_var in enumerate(self.payment_entries):
+                        entry_widget = frame.grid_slaves(
+                            row=6 + i, column=1)[0]
+                        entry_widget.configure(bg=&#34;red&#34;, fg=&#34;white&#34;)
+                    self.error_label.config(
+                        text=&#34;Сумма превышает рассчитанную стоимость!&#34;, fg=&#34;red&#34;
+                    )
+                elif remaining_balance != 0:
+                    self.error_label.config(text=&#34;&#34;)
+                    for i, entry_var in enumerate(self.payment_entries):
+                        entry_widget = frame.grid_slaves(
+                            row=6 + i, column=1)[0]
+                        entry_widget.config(bg=&#34;white&#34;, fg=&#34;black&#34;)
+                    self.error_label.config(
+                        text=f&#34;Остаток: {remaining_balance}&#34;, fg=&#34;red&#34;
+                    )
+                    self.root.after(
+                        2000,
+                        lambda: [
+                            frame.grid_slaves(row=6 + j, column=1)[0].configure(
+                                bg=&#34;white&#34;, fg=&#34;black&#34;
+                            )
+                            for j in range(len(self.payment_entries))
+                        ],
+                    )
+                else:
+                    self.error_label.config(text=&#34;&#34;)
+                    for i, entry_var in enumerate(self.payment_entries):
+                        entry_widget = frame.grid_slaves(
+                            row=6 + i, column=1)[0]
+                        entry_widget.configure(bg=&#34;white&#34;, fg=&#34;black&#34;)
+                    self.error_label.config(
+                        text=&#34;Оплата успешно рассчитана!&#34;, fg=&#34;green&#34;
+                    )
+            else:
+                self.error_label.config(text=&#34;&#34;)
+                self.error_label.config(
+                    text=&#34;Нет введенных данных для проверки остатка.&#34;, fg=&#34;yellow&#34;)
+        except ValueError as e:
+            self.error_label.config(text=&#34;&#34;)
+            self.error_label.config(text=f&#34;Ошибка: {e}&#34;, fg=&#34;red&#34;)
+
+    tk.Button(frame, text=&#34;Проверить остаток&#34;, command=calculate_remaining_balance, bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+        row=11, column=3, pady=10
+    )
+
+    def update_percentage_visibility(*args):
+        &#34;&#34;&#34;
+        Updates the visibility of the percentage label and entry widgets based on the selected payment type.
+        If the payment type is either &#34;Доплата&#34; (additional payment) or &#34;Предоплата&#34; (prepayment), 
+        the percentage label and entry widgets are displayed in the UI grid. Otherwise, they are hidden.
+        Args:
+            *args: Variable length argument list to support callback usage (e.g., with Tkinter variable tracing).
+        &#34;&#34;&#34;
+
+        if self.payment_type_var.get() in [&#34;Доплата&#34;, &#34;Предоплата&#34;]:
+            self.percentage_label.grid(row=2, column=2, pady=10)
+            self.percentage_entry.grid(row=2, column=3, pady=10)
+        else:
+            self.percentage_label.grid_forget()
+            self.percentage_entry.grid_forget()
+
+    self.payment_type_var.trace_add(&#34;write&#34;, update_percentage_visibility)
+
+    def update_date_visibility(*args):
+        &#34;&#34;&#34;
+        Updates the visibility and placement of date and time selection widgets based on the selected product type.
+        If the selected product type is &#34;Сертификат&#34; or &#34;Абонемент&#34;, all date and time widgets are hidden and their values are reset.
+        Otherwise, the date and time widgets (year, month, day menus, time entry, and related labels/buttons) are displayed in their respective grid positions.
+        Args:
+            *args: Variable length argument list, used to support callback signatures (e.g., for Tkinter variable tracing).
+        Side Effects:
+            Modifies the visibility and values of various Tkinter widgets related to date and time selection within the UI frame.
+        &#34;&#34;&#34;
+
+        if self.product_type_var.get() in [&#34;Сертификат&#34;, &#34;Абонемент&#34;]:
+            year_menu.grid_forget()
+            month_menu.grid_forget()
+            day_menu.grid_forget()
+            self.time_entry.grid_forget()
+            self.time_var.set(&#34;&#34;)
+            self.date_var.set(&#34;&#34;)
+            self.time_var.set(&#34;10:00&#34;)
+            for widget in frame.grid_slaves():
+                if widget.cget(&#34;text&#34;) in [&#34;Выберите дату&#34;, &#34;Введите время (чч:мм)&#34;, &#34;Сегодня&#34;, &#34;Сейчас&#34;]:
+                    widget.grid_forget()
+            self.date_var.set(&#34;&#34;)
+        else:
+            self.time_entry.grid(row=4, column=4, pady=10, padx=10)
+            tk.Label(frame, text=&#34;Выберите дату&#34;, anchor=&#34;w&#34;).grid(
+                row=3, column=3, pady=10, sticky=&#34;w&#34;)
+            tk.Label(frame, text=&#34;Введите время (чч:мм)&#34;).grid(
+                row=3, column=4, pady=10)
+            year_menu.grid(row=4, column=3, pady=10)
+            month_menu.grid(row=5, column=3, pady=10)
+            day_menu.grid(row=6, column=3, pady=10)
+            tk.Button(frame, text=&#34;Сегодня&#34;, command=self.set_today_date,  bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+                row=4, column=5, pady=10)
+            tk.Button(frame, text=&#34;Сейчас&#34;, command=self.set_current_time,  bg=&#34;white&#34;, fg=&#34;black&#34;).grid(
+                row=3, column=5, pady=10)
+
+    self.product_type_var.trace_add(&#34;write&#34;, update_date_visibility)</code></pre>
+</details>
+<div class="desc"><p>Initializes and configures the payment frame UI for the application.</p>
+<p>This method sets up all widgets and layout for the payment process, including:
+- Dropdowns for payment type, product type, and product selection.
+- Dynamic visibility of widgets based on selected product type (e.g., people count, use of certificate/abonement).
+- Date and time selection widgets with options to set to current date/time.
+- Payment method selection, including support for split payments and dynamic entry fields.
+- Calculation and validation of payment amounts, with error and status feedback.
+- Navigation buttons for proceeding to summary, returning to employee frame, and closing the shift.
+- Percentage entry for partial/pre-payment types.
+- All widgets are arranged using a grid layout and are dynamically shown/hidden based on user interaction.</p>
+<p>Traces and event handlers are set up to update the UI in response to user input.</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.init_summary_frame"><code class="name flex">
+<span>def <span class="ident">init_summary_frame</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def init_summary_frame(self):
+    frame = tk.Frame(self.root, bg=&#34;black&#34;)
+    self.frames[&#34;summary_frame&#34;] = frame
+
+    tk.Label(frame, text=&#34;Укажите время чека:&#34;).grid(
+        row=0, column=0, pady=10)
+    self.check_time = tk.StringVar(frame)
+    tk.Entry(frame, textvariable=self.check_time).grid(
+        row=0, column=1, pady=10)
+
+    tk.Label(frame, text=&#34;Комментарий:&#34;).grid(
+        row=1, column=0, pady=10)
+    self.comment_var = tk.StringVar(frame)
+    tk.Entry(frame, textvariable=self.comment_var).grid(
+        row=1, column=1, pady=10)
+
+    tk.Button(frame, text=&#34;Отправить&#34;, bg=&#34;white&#34;, fg=&#34;black&#34;, command=self.make_data).grid(
+        row=2, column=2, columnspan=2, pady=10)
+    tk.Button(frame, text=&#34;Назад&#34;, bg=&#34;white&#34;, fg=&#34;black&#34;, command=self.go_back).grid(
+        row=2, column=0, pady=10)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.make_data"><code class="name flex">
+<span>def <span class="ident">make_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def make_data(self):
+    &#34;&#34;&#34;
+    Collects and summarizes form data from various UI elements into a dictionary (`self.data_summary`).
+
+    The method gathers values such as product type, product, payment details, number of people, date, time, percentages, comments, and payment breakdowns (including split payments) from the UI variables. It also applies specific business logic for calculating the number of people and payment allocations based on the selected options.
+
+    After assembling the data, it calls `self.show_preview()` to display a preview of the collected information.
+
+    Fields in `self.data_summary` include:
+        - &#34;Тип товара&#34;: Selected product type.
+        - &#34;Товар&#34;: Selected product.
+        - &#34;Стоимость&#34;: Actual payment amount.
+        - &#34;Способ оплаты&#34;: Payment method or &#34;Раздельная&#34; if split payment is enabled.
+        - &#34;Тип оплаты&#34;: Type of payment.
+        - &#34;Количество человек&#34;: Number of people, calculated based on product type and product.
+        - &#34;Дата&#34;: Selected date.
+        - &#34;Время&#34;: Selected time.
+        - &#34;Проценты&#34;: Percentage for partial/prepayment, or &#34;100&#34; otherwise.
+        - &#34;Время чека&#34;: Check time.
+        - &#34;Комментарий&#34;: User comment.
+        - &#34;НП&#34;, &#34;Наличные по кассе&#34;, &#34;Карта&#34;, &#34;QR/СБП&#34;: Payment breakdowns by method.
+        - &#34;Игра AW&#34;: Calculated value based on payment type, product type, and percentage.
+
+    Returns:
+        None
+    &#34;&#34;&#34;
+
+    self.data_summary = {
+        &#34;Тип товара&#34;: self.product_type_var.get(),
+        &#34;Товар&#34;: self.product_var.get(),
+        &#34;Стоимость&#34;: self.actuallPayment.get(),
+        &#34;Способ оплаты&#34;: self.payment_dropdown_var.get() if not self.split_payment_var.get() else &#34;Раздельная&#34;,
+        &#34;Тип оплаты&#34;: self.payment_type_var.get(),
+        &#34;Количество человек&#34;: 8 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;STD&#34;] else 12 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;HARD&#34;] else 16 if self.product_type_var.get() in [&#34;Тариф&#34;] and self.product_var.get() in [&#34;VIP&#34;] else int(self.people_count_var.get()) if self.people_count_var.get().isdigit() else 0,
+        &#34;Дата&#34;: f&#34;{self.day_var.get()} {self.month_var.get()} {self.year_var.get()}&#34;,
+        &#34;Время&#34;: self.time_var.get(),
+        &#34;Проценты&#34;: self.percentage_entry_var.get() if self.payment_type_var.get() in [&#34;Доплата&#34;, &#34;Предоплата&#34;] else &#34;100&#34;,
+        &#34;Время чека&#34;: self.check_time.get(),
+        &#34;Комментарий&#34;: self.comment_var.get(),
+        &#34;НП&#34;: self.payment_entries[self.payment_methods.index(&#34;Н/П&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Н/П&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Н/П&#34; else 0),
+        &#34;Наличные по кассе&#34;: self.payment_entries[self.payment_methods.index(&#34;Наличные по кассе&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Наличные по кассе&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Наличные по кассе&#34; else 0),
+        &#34;Карта&#34;: self.payment_entries[self.payment_methods.index(&#34;Карта&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;Карта&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;Карта&#34; else 0),
+        &#34;QR/СБП&#34;: self.payment_entries[self.payment_methods.index(&#34;QR/СБП&#34;)].get() if self.split_payment_var.get() and self.payment_entries and self.payment_entries[self.payment_methods.index(&#34;QR/СБП&#34;)].get().isdigit() else (self.actuallPayment.get() if not self.split_payment_var.get() and self.payment_dropdown_var.get() == &#34;QR/СБП&#34; else 0),
+        &#34;Игра AW&#34;: 0 if self.payment_type_var.get() == &#34;Предоплата&#34; or self.product_type_var.get() in [&#34;Абонемент&#34;, &#34;Сертификат&#34;] and not self.use_abo_cert_var.get() else (
+            self.actuallPayment.get() * (100 / int(self.percentage_entry_var.get())) if self.payment_type_var.get(
+            ) == &#34;Доплата&#34; and self.percentage_entry_var.get().isdigit() and not self.use_abo_cert_var.get() else self.actuallPayment.get()
+        )
+    }
+
+    self.show_preview()</code></pre>
+</details>
+<div class="desc"><p>Collects and summarizes form data from various UI elements into a dictionary (<code>self.data_summary</code>).</p>
+<p>The method gathers values such as product type, product, payment details, number of people, date, time, percentages, comments, and payment breakdowns (including split payments) from the UI variables. It also applies specific business logic for calculating the number of people and payment allocations based on the selected options.</p>
+<p>After assembling the data, it calls <code>self.show_preview()</code> to display a preview of the collected information.</p>
+<p>Fields in <code>self.data_summary</code> include:
+- "Тип товара": Selected product type.
+- "Товар": Selected product.
+- "Стоимость": Actual payment amount.
+- "Способ оплаты": Payment method or "Раздельная" if split payment is enabled.
+- "Тип оплаты": Type of payment.
+- "Количество человек": Number of people, calculated based on product type and product.
+- "Дата": Selected date.
+- "Время": Selected time.
+- "Проценты": Percentage for partial/prepayment, or "100" otherwise.
+- "Время чека": Check time.
+- "Комментарий": User comment.
+- "НП", "Наличные по кассе", "Карта", "QR/СБП": Payment breakdowns by method.
+- "Игра AW": Calculated value based on payment type, product type, and percentage.</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.on_close"><code class="name flex">
+<span>def <span class="ident">on_close</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def on_close(self):
+    if self.resize_timer:
+        self.resize_timer.cancel()
+    self.root.quit()
+    self.root.destroy()
+    sys.exit(0)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.openUI"><code class="name flex">
+<span>def <span class="ident">openUI</span></span>(<span>self, root)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def openUI(self, root):
+    root.mainloop()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.open_CSF"><code class="name flex">
+<span>def <span class="ident">open_CSF</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_CSF(self):
+    self.update_requests_tree()
+    self.show_frame(&#34;closeShift_frame&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.preview_employees"><code class="name flex">
+<span>def <span class="ident">preview_employees</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def preview_employees(self):
+    &#34;&#34;&#34;
+    Opens a preview window displaying the selected employees and their details.
+    This method collects information about up to three employees from the UI, 
+    filters out entries with placeholder values, and displays a formatted preview 
+    in a new Toplevel window. The preview includes employee name, type, and shift, 
+    as well as the selected workplace. The user can confirm or reject the selection 
+    using provided buttons.
+    UI Elements Created:
+        - Toplevel window with a formatted text widget showing employee details.
+        - Two buttons: &#34;Согласен&#34; (Agree) and &#34;Не согласен&#34; (Disagree), 
+          which trigger the agreeToDisagree method with appropriate arguments.
+    Filtering:
+        - Employees with names &#34;Пропуск&#34; or &#34;Выберете работника&#34; are excluded from the preview.
+    Side Effects:
+        - Opens a new window for preview.
+        - Calls agreeToDisagree based on user interaction.
+    &#34;&#34;&#34;
+    
+    employee_preview = []
+    for i in range(3):
+        employee_preview.append([
+            self.employee_vars[i].get(),
+            self.frames[&#34;employee_frame&#34;].grid_slaves(
+                row=i + 2, column=1)[0].cget(&#34;text&#34;),
+            self.frames[&#34;employee_frame&#34;].grid_slaves(
+                row=i + 2, column=2)[0].cget(&#34;text&#34;)
+        ])
+    employee_preview.append(&#34;На арене:&#34;)
+    employee_preview.append(self.workplace_var.get())
+    employee_preview = [
+        item for item in employee_preview[:-1]
+        if item[0] not in [&#34;Пропуск&#34;, &#34;Выберете работника&#34;]
+    ] + [employee_preview[-1]]
+
+    preview_window = tk.Toplevel(self.root)
+    preview_window.title(&#34;Предварительный просмотр сотрудников&#34;)
+    preview_window.geometry(&#34;400x500&#34;)
+
+    text_widget = tk.Text(preview_window, wrap=&#34;word&#34;,
+                          font=(&#34;Helvetica&#34;, 12))
+    text_widget.pack(expand=True, fill=&#34;both&#34;, padx=10, pady=10)
+
+    col_widths = [max(len(str(employee[i])) for employee in employee_preview if isinstance(
+        employee, list)) + 2 for i in range(3)]
+    col_widths.append(20)
+
+    text_widget.insert(
+        &#34;end&#34;, f&#34;{&#39;Имя&#39;:&lt;{col_widths[0]}}{&#39;Тип&#39;:&lt;{col_widths[1]}}{&#39;Смена&#39;:&lt;{col_widths[2]}}\n&#34;)
+    text_widget.insert(&#34;end&#34;, &#34;-&#34; * sum(col_widths) + &#34;\n&#34;)
+
+    for employee in employee_preview:
+        if isinstance(employee, list):
+            text_widget.insert(
+                &#34;end&#34;, f&#34;{employee[0]:&lt;{col_widths[0]}}{employee[1]:&lt;{col_widths[1]}}{employee[2]:&lt;{col_widths[2]}}\n&#34;
+            )
+        else:
+            text_widget.insert(
+                &#34;end&#34;, f&#34;\n{employee.center(sum(col_widths))}\n&#34;)
+
+    text_widget.config(state=&#34;disabled&#34;)
+    button_frame = tk.Frame(preview_window)
+    button_frame.pack(pady=10)
+
+    tk.Button(button_frame, text=&#34;Согласен&#34;, command=lambda: self.agreeToDisagree(
+        True, preview_window=preview_window, next_frame=&#34;payment_frame&#34;, key=&#34;emp&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;left&#34;, padx=10)
+    tk.Button(button_frame, text=&#34;Не согласен&#34;, command=lambda: self.agreeToDisagree(
+        False, preview_window=preview_window, act_frame=&#34;employee_frame&#34;, key=&#34;emp&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;right&#34;, padx=10)</code></pre>
+</details>
+<div class="desc"><p>Opens a preview window displaying the selected employees and their details.
+This method collects information about up to three employees from the UI,
+filters out entries with placeholder values, and displays a formatted preview
+in a new Toplevel window. The preview includes employee name, type, and shift,
+as well as the selected workplace. The user can confirm or reject the selection
+using provided buttons.
+UI Elements Created:
+- Toplevel window with a formatted text widget showing employee details.
+- Two buttons: "Согласен" (Agree) and "Не согласен" (Disagree),
+which trigger the agreeToDisagree method with appropriate arguments.</p>
+<h2 id="filtering">Filtering</h2>
+<ul>
+<li>Employees with names "Пропуск" or "Выберете работника" are excluded from the preview.
+Side Effects:<ul>
+<li>Opens a new window for preview.</li>
+<li>Calls agreeToDisagree based on user interaction.</li>
+</ul>
+</li>
+</ul></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.set_current_time"><code class="name flex">
+<span>def <span class="ident">set_current_time</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_current_time(self):
+    current_time = datetime.datetime.now().strftime(&#34;%H:%M&#34;)
+    self.time_var.set(current_time)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.set_today_date"><code class="name flex">
+<span>def <span class="ident">set_today_date</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_today_date(self):
+    self.year_var.set(str(self.today_date.year))
+    self.month_var.set(str(self.get_current_month_name()))
+    self.day_var.set(str(self.today_date.day))</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.show_frame"><code class="name flex">
+<span>def <span class="ident">show_frame</span></span>(<span>self, frame_name)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_frame(self, frame_name):
+    for frame in self.frames.values():
+        frame.grid_forget()
+    frame = self.frames[frame_name]
+    frame.grid(row=0, column=0, padx=10, pady=10)
+    frame.update_idletasks()</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.show_preview"><code class="name flex">
+<span>def <span class="ident">show_preview</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def show_preview(self):
+    &#34;&#34;&#34;
+    Displays a preview window summarizing the current data.
+    This method creates a new top-level window containing a read-only text widget
+    that displays key-value pairs from `self.data_summary`. It also provides two buttons:
+    &#34;Согласен&#34; (Agree) and &#34;Не согласен&#34; (Disagree), which call `self.agreeToDisagree`
+    with the user&#39;s choice and close the preview window. The preview window is intended
+    to allow the user to review and confirm the data before proceeding to the next step
+    (e.g., the payment frame).
+    &#34;&#34;&#34;
+
+    self.preview_window = tk.Toplevel(self.root)
+    self.preview_window.title(&#34;Предварительный просмотр&#34;)
+    self.preview_window.geometry(&#34;600x500&#34;)
+
+    text_widget = tk.Text(self.preview_window, wrap=&#34;word&#34;,
+                          font=(&#34;Helvetica&#34;, 12))
+    text_widget.pack(expand=True, fill=&#34;both&#34;, padx=10, pady=10)
+
+    for key, value in self.data_summary.items():
+        text_widget.insert(&#34;end&#34;, f&#34;{key}: {value}\n&#34;)
+
+    text_widget.config(state=&#34;disabled&#34;)
+    self.isAgreed = False
+    button_frame = tk.Frame(self.preview_window)
+    button_frame.pack(pady=10)
+    tk.Button(button_frame, text=&#34;Согласен&#34;,
+              command=lambda: self.agreeToDisagree(True, self.preview_window, next_frame=&#34;payment_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;left&#34;, padx=10)
+    tk.Button(button_frame, text=&#34;Не согласен&#34;,
+              command=lambda: self.agreeToDisagree(False, self.preview_window, next_frame=&#34;payment_frame&#34;), bg=&#34;white&#34;, fg=&#34;black&#34;).pack(side=&#34;right&#34;, padx=10)</code></pre>
+</details>
+<div class="desc"><p>Displays a preview window summarizing the current data.
+This method creates a new top-level window containing a read-only text widget
+that displays key-value pairs from <code>self.data_summary</code>. It also provides two buttons:
+"Согласен" (Agree) and "Не согласен" (Disagree), which call <code>self.agreeToDisagree</code>
+with the user's choice and close the preview window. The preview window is intended
+to allow the user to review and confirm the data before proceeding to the next step
+(e.g., the payment frame).</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.update_dropdown"><code class="name flex">
+<span>def <span class="ident">update_dropdown</span></span>(<span>self, *args)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_dropdown(self, *args):
+    &#34;&#34;&#34;
+    Updates the options in the product dropdown menu based on the selected product type.
+    The method checks the current value of `self.product_type_var` and sets the dropdown options accordingly:
+        - &#34;Тариф&#34;: Sets options to [&#34;STD&#34;, &#34;HARD&#34;, &#34;VIP&#34;].
+        - &#34;Время&#34;: Sets options to time intervals from 30 to 300 minutes in 30-minute steps.
+        - &#34;Одиночная игра&#34;: Sets options to time intervals from 15 to 315 minutes in 15-minute steps.
+        - &#34;Сертификат&#34;: Sets options to certificate values in rubles.
+        - &#34;Абонемент&#34;: Sets options to subscription prices in rubles.
+    After updating the dropdown menu, the first option is selected by default.
+    Args:
+        *args: Additional arguments (not used, but allows compatibility with variable argument callbacks).
+    &#34;&#34;&#34;
+
+    if self.product_type_var.get() == &#34;Тариф&#34;:
+        new_options = [&#34;STD&#34;, &#34;HARD&#34;, &#34;VIP&#34;]
+    elif self.product_type_var.get() == &#34;Время&#34;:
+        new_options = [f&#34;{i} мин&#34; for i in range(30, 330, 30)]
+    elif self.product_type_var.get() == &#34;Одиночная игра&#34;:
+        new_options = [f&#34;{i} мин&#34; for i in range(15, 325, 15)]
+    elif self.product_type_var.get() == &#34;Сертификат&#34;:
+        new_options = [f&#34;На {i} рублей&#34; for i in [1000, 3000, 5000, 10000]]
+    elif self.product_type_var.get() == &#34;Абонемент&#34;:
+        new_options = [f&#34;За {i} рублей&#34; for i in [2500, 4500, 6500]]
+    menu = self.product_dropdown[&#34;menu&#34;]
+    menu.delete(0, &#34;end&#34;)
+    for option in new_options:
+        menu.add_command(
+            label=option, command=lambda value=option: self.product_var.set(value))
+    self.product_var.set(new_options[0])</code></pre>
+</details>
+<div class="desc"><p>Updates the options in the product dropdown menu based on the selected product type.
+The method checks the current value of <code>self.product_type_var</code> and sets the dropdown options accordingly:
+- "Тариф": Sets options to ["STD", "HARD", "VIP"].
+- "Время": Sets options to time intervals from 30 to 300 minutes in 30-minute steps.
+- "Одиночная игра": Sets options to time intervals from 15 to 315 minutes in 15-minute steps.
+- "Сертификат": Sets options to certificate values in rubles.
+- "Абонемент": Sets options to subscription prices in rubles.
+After updating the dropdown menu, the first option is selected by default.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>*args</code></strong></dt>
+<dd>Additional arguments (not used, but allows compatibility with variable argument callbacks).</dd>
+</dl></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.update_employee_options"><code class="name flex">
+<span>def <span class="ident">update_employee_options</span></span>(<span>self, changed_index)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_employee_options(self, changed_index):
+    selected = [
+        var.get() for var in self.employee_vars
+        if var.get() != &#34;Выберете работника&#34; and var.get() != &#34;Пропуск&#34;
+    ]
+    for i, (var, menu_widget) in enumerate(zip(self.employee_vars, self.employee_menus)):
+        menu = menu_widget[&#34;menu&#34;]
+        menu.delete(0, &#34;end&#34;)
+        for emp in self.employees:
+            if emp not in selected or emp == var.get():
+                menu.add_command(
+                    label=emp,
+                    command=lambda value=emp, v=var: v.set(value)
+                )
+        if var.get() not in [emp for emp in self.employees if emp not in selected or emp == var.get()]:
+            var.set(&#34;Выберете работника&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.update_requests_tree"><code class="name flex">
+<span>def <span class="ident">update_requests_tree</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_requests_tree(self):
+    &#34;&#34;&#34;
+    Updates the requests_tree widget with the latest request data.
+    This method clears all existing entries from the requests_tree widget and repopulates it
+    with the current data from self.updater.all_requests. If there are no requests available,
+    it inserts a placeholder row indicating that there is no data.
+    The method expects self.updater.all_requests to be a pandas DataFrame with the following columns:
+        - &#34;Тип товара&#34;
+        - &#34;Товар&#34;
+        - &#34;Время чека&#34;
+        - &#34;Количество человек&#34;
+        - &#34;Карта&#34;
+        - &#34;QR/СБП&#34;
+        - &#34;Наличные по кассе&#34;
+        - &#34;НП&#34;
+        - &#34;Игра AW&#34;
+        - &#34;Дата игры&#34;
+        - &#34;Время&#34;
+    If the DataFrame is empty, a row with &#34;Нет данных&#34; is inserted for each column.
+    &#34;&#34;&#34;
+
+    for item in self.requests_tree.get_children():
+        self.requests_tree.delete(item)
+
+    if not self.updater.all_requests.empty:
+        for _, request in self.updater.all_requests.iterrows():
+            self.requests_tree.insert(&#34;&#34;, &#34;end&#34;, values=(
+                str(request[&#34;Тип товара&#34;]+&#34; &#34; +
+                    request[&#34;Товар&#34;]), request[&#34;Время чека&#34;],
+                request[&#34;Количество человек&#34;], request[&#34;Карта&#34;], request[&#34;QR/СБП&#34;],
+                request[&#34;Наличные по кассе&#34;], request[&#34;НП&#34;], request[&#34;Игра AW&#34;],
+                request[&#34;Дата игры&#34;], request[&#34;Время&#34;]
+            ))
+    else:
+        self.requests_tree.insert(&#34;&#34;, &#34;end&#34;, values=(
+            &#34;Нет данных&#34;,) * len(self.requests_tree[&#34;columns&#34;]))</code></pre>
+</details>
+<div class="desc"><p>Updates the requests_tree widget with the latest request data.
+This method clears all existing entries from the requests_tree widget and repopulates it
+with the current data from self.updater.all_requests. If there are no requests available,
+it inserts a placeholder row indicating that there is no data.
+The method expects self.updater.all_requests to be a pandas DataFrame with the following columns:
+- "Тип товара"
+- "Товар"
+- "Время чека"
+- "Количество человек"
+- "Карта"
+- "QR/СБП"
+- "Наличные по кассе"
+- "НП"
+- "Игра AW"
+- "Дата игры"
+- "Время"
+If the DataFrame is empty, a row with "Нет данных" is inserted for each column.</p></div>
+</dd>
+<dt id="SellerFOrEmployees.UI.ui.UIManager.validate_login"><code class="name flex">
+<span>def <span class="ident">validate_login</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def validate_login(self):
+    mac = &#39;:&#39;.join([&#39;{:02x}&#39;.format((uuid.getnode() &gt;&gt; ele) &amp; 0xff)
+                    for ele in range(0, 8*6, 8)][::-1])
+    hostname = socket.gethostname()
+    print(f&#34;MAC: {mac}, Hostname: {hostname}&#34;)
+    if hashlib.sha256(mac.encode()).hexdigest() in Model.allowed_macs and hostname in Model.allowed_hosts:
+        password = self.password_var.get()
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        if hashed_password == Model.hashed_password:
+            self.show_frame(&#34;employee_frame&#34;)
+        else:
+            self.wrongAttempts += 1
+            if self.wrongAttempts &gt;= 3:
+                messagebox.showerror(
+                    &#34;Ошибка&#34;, &#34;Слишком много неправильных попыток. Приложение будет закрыто.&#34;)
+                self.root.quit()
+                self.root.destroy()
+                sys.exit(0)
+            else:
+                messagebox.showerror(
+                    &#34;Ошибка&#34;, &#34;Неверный логин или пароль. Попробуйте еще раз.&#34;)
+    else: 
+        print(&#34;Unauthorized access attempt detected.&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="SellerFOrEmployees.UI" href="index.html">SellerFOrEmployees.UI</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="SellerFOrEmployees.UI.ui.UIManager" href="#SellerFOrEmployees.UI.ui.UIManager">UIManager</a></code></h4>
+<ul class="">
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.agreeToDisagree" href="#SellerFOrEmployees.UI.ui.UIManager.agreeToDisagree">agreeToDisagree</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.close_shift" href="#SellerFOrEmployees.UI.ui.UIManager.close_shift">close_shift</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.enforce_frame_size" href="#SellerFOrEmployees.UI.ui.UIManager.enforce_frame_size">enforce_frame_size</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.get_current_month_name" href="#SellerFOrEmployees.UI.ui.UIManager.get_current_month_name">get_current_month_name</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.get_employee_request" href="#SellerFOrEmployees.UI.ui.UIManager.get_employee_request">get_employee_request</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.go_back" href="#SellerFOrEmployees.UI.ui.UIManager.go_back">go_back</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.init_closeShift_frame" href="#SellerFOrEmployees.UI.ui.UIManager.init_closeShift_frame">init_closeShift_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.init_employee_frame" href="#SellerFOrEmployees.UI.ui.UIManager.init_employee_frame">init_employee_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.init_login_frame" href="#SellerFOrEmployees.UI.ui.UIManager.init_login_frame">init_login_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.init_payment_frame" href="#SellerFOrEmployees.UI.ui.UIManager.init_payment_frame">init_payment_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.init_summary_frame" href="#SellerFOrEmployees.UI.ui.UIManager.init_summary_frame">init_summary_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.make_data" href="#SellerFOrEmployees.UI.ui.UIManager.make_data">make_data</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.on_close" href="#SellerFOrEmployees.UI.ui.UIManager.on_close">on_close</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.openUI" href="#SellerFOrEmployees.UI.ui.UIManager.openUI">openUI</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.open_CSF" href="#SellerFOrEmployees.UI.ui.UIManager.open_CSF">open_CSF</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.preview_employees" href="#SellerFOrEmployees.UI.ui.UIManager.preview_employees">preview_employees</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.set_current_time" href="#SellerFOrEmployees.UI.ui.UIManager.set_current_time">set_current_time</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.set_today_date" href="#SellerFOrEmployees.UI.ui.UIManager.set_today_date">set_today_date</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.show_frame" href="#SellerFOrEmployees.UI.ui.UIManager.show_frame">show_frame</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.show_preview" href="#SellerFOrEmployees.UI.ui.UIManager.show_preview">show_preview</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.update_dropdown" href="#SellerFOrEmployees.UI.ui.UIManager.update_dropdown">update_dropdown</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.update_employee_options" href="#SellerFOrEmployees.UI.ui.UIManager.update_employee_options">update_employee_options</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.update_requests_tree" href="#SellerFOrEmployees.UI.ui.UIManager.update_requests_tree">update_requests_tree</a></code></li>
+<li><code><a title="SellerFOrEmployees.UI.ui.UIManager.validate_login" href="#SellerFOrEmployees.UI.ui.UIManager.validate_login">validate_login</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>

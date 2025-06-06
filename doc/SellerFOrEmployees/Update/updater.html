@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+<meta name="generator" content="pdoc3 0.11.6">
+<title>SellerFOrEmployees.Update.updater API documentation</title>
+<meta name="description" content="">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:1.5em;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:2em 0 .50em 0}h3{font-size:1.4em;margin:1.6em 0 .7em 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .2s ease-in-out}a:visited{color:#503}a:hover{color:#b62}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900;font-weight:bold}pre code{font-size:.8em;line-height:1.4em;padding:1em;display:block}code{background:#f3f3f3;font-family:"DejaVu Sans Mono",monospace;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source > summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible;min-width:max-content}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em 1em;margin:1em 0}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul ul{padding-left:1em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ==" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => {
+hljs.configure({languages: ['bash', 'css', 'diff', 'graphql', 'ini', 'javascript', 'json', 'plaintext', 'python', 'python-repl', 'rust', 'shell', 'sql', 'typescript', 'xml', 'yaml']});
+hljs.highlightAll();
+/* Collapse source docstrings */
+setTimeout(() => {
+[...document.querySelectorAll('.hljs.language-python > .hljs-string')]
+.filter(el => el.innerHTML.length > 200 && ['"""', "'''"].includes(el.innerHTML.substring(0, 3)))
+.forEach(el => {
+let d = document.createElement('details');
+d.classList.add('hljs-string');
+d.innerHTML = '<summary>"""</summary>' + el.innerHTML.substring(3);
+el.replaceWith(d);
+});
+}, 100);
+})</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>SellerFOrEmployees.Update.updater</code></h1>
+</header>
+<section id="section-intro">
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="SellerFOrEmployees.Update.updater.EmployeeHandler"><code class="flex name class">
+<span>class <span class="ident">EmployeeHandler</span></span>
+<span>(</span><span>successor=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class EmployeeHandler(Handler):
+    def _handle(self, request_type, *args, **kwargs):
+        if request_type == &#34;employee&#34;:
+            # args[0] is expected to be employee_list
+            updater = kwargs.get(&#39;updater&#39;)
+            if updater:
+                updater._update_emp()
+                return True
+        return False</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="SellerFOrEmployees.Update.updater.Handler" href="#SellerFOrEmployees.Update.updater.Handler">Handler</a></li>
+</ul>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Handler"><code class="flex name class">
+<span>class <span class="ident">Handler</span></span>
+<span>(</span><span>successor=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Handler:
+    def __init__(self, successor=None):
+        self._successor = successor
+
+    def handle(self, request_type, *args, **kwargs):
+        handled = self._handle(request_type, *args, **kwargs)
+        if not handled and self._successor:
+            return self._successor.handle(request_type, *args, **kwargs)
+        return handled
+
+    def _handle(self, request_type, *args, **kwargs):
+        raise NotImplementedError(&#34;Must implement _handle method&#34;)</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="SellerFOrEmployees.Update.updater.EmployeeHandler" href="#SellerFOrEmployees.Update.updater.EmployeeHandler">EmployeeHandler</a></li>
+<li><a title="SellerFOrEmployees.Update.updater.SellHandler" href="#SellerFOrEmployees.Update.updater.SellHandler">SellHandler</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="SellerFOrEmployees.Update.updater.Handler.handle"><code class="name flex">
+<span>def <span class="ident">handle</span></span>(<span>self, request_type, *args, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle(self, request_type, *args, **kwargs):
+    handled = self._handle(request_type, *args, **kwargs)
+    if not handled and self._successor:
+        return self._successor.handle(request_type, *args, **kwargs)
+    return handled</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.SellHandler"><code class="flex name class">
+<span>class <span class="ident">SellHandler</span></span>
+<span>(</span><span>successor=None)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SellHandler(Handler):
+    def _handle(self, request_type, *args, **kwargs):
+        if request_type == &#34;sell&#34;:
+            updater = kwargs.get(&#39;updater&#39;)
+            payment_req = kwargs.get(&#39;payment_req&#39;)
+            if updater and payment_req:
+                updater.catch_req_sell(payment_req)
+                return True
+        return False</code></pre>
+</details>
+<div class="desc"></div>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="SellerFOrEmployees.Update.updater.Handler" href="#SellerFOrEmployees.Update.updater.Handler">Handler</a></li>
+</ul>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater"><code class="flex name class">
+<span>class <span class="ident">Updater</span></span>
+<span>(</span><span>config)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Updater:
+    &#34;&#34;&#34;
+    Updater class is responsible for managing and updating Google Sheets with employee shift information.
+    Attributes:
+        client (object): The Google Sheets client used to interact with the API.
+        shtKOM_id (str): The ID of the KOM sheet.
+        shtPIK_id (str): The ID of the PIK sheet.
+        shtJUN_id (str): The ID of the JUN sheet.
+        shtLM_id (str): The ID of the LM sheet.
+        sheetKOM (object): The KOM sheet object (initialized later).
+        sheetPIK (object): The PIK sheet object (initialized later).
+        sheetJUNE (object): The JUNE sheet object (initialized later).
+        sheetLM (object): The LM sheet object (initialized later).
+    Methods:
+        (None explicitly defined in the provided code snippet, but the class appears to handle opening
+        sheets, preparing text based on employee data, and updating specific cells in the sheet.)
+    &#34;&#34;&#34;
+    sheetweneed = None
+    current_row = 0
+
+    _instance = None
+
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super(Updater, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(self, config):
+        self.all_requests = pd.DataFrame(columns=[
+            &#34;Тип товара&#34;, &#34;Товар&#34;, &#34;Время чека&#34;, &#34;Количество человек&#34;, &#34;Карта&#34;,
+            &#34;QR/СБП&#34;, &#34;Наличные по кассе&#34;, &#34;НП&#34;, &#34;Игра AW&#34;, &#34;Стоимость&#34;,
+            &#34;Дата игры&#34;, &#34;Время&#34;, &#34;Тип оплаты&#34;, &#34;Проценты&#34;
+        ])
+        self.client = config[&#39;client&#39;]
+        self.sheetPIK = config[&#39;sheetPIK&#39;]
+        self.sheetJUN = config[&#39;sheetJUN&#39;]
+        self.sheetLM = config[&#39;sheetLM&#39;]
+        self.sheetKom = config[&#39;sheetKOM&#39;]
+        self.ui = None
+        self.sheetwages = config[&#39;sheetWAGES&#39;]
+        self.employee_list = None
+        self.adress = None
+        self.today_date = datetime.now()
+        self.current_row = 0
+
+    def getCellAddrToday(self, sheetweneed):
+        &#34;&#34;&#34;
+        Retrieves the address of the first cell in the given sheet that matches today&#39;s date.
+        Args:
+            sheetweneed (object): The sheet object to search for the date.
+        Returns:
+            str: The address of the first cell containing today&#39;s date in the format &#34;DD.MM.YYYY&#34;.
+        &#34;&#34;&#34;
+
+        # Format the date as &#34;01.03.2025&#34; to match the cell content
+        formatted_date = self.today_date.strftime(&#34;%d.%m.%Y&#34;)
+        addr = ffcwp.find_first_matching_cell(
+            sheetweneed, date=[formatted_date])
+        return addr
+
+    def get_last_item(self, lst):
+        &#34;&#34;&#34;
+        Retrieves the last item from a given list and returns a corresponding sheet attribute
+        based on the item&#39;s value.
+        Args:
+            lst (list): The list from which the last item will be retrieved.
+        Returns:
+            object: The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK,
+                    self.sheetLM, self.sheetKom) if the last item matches a predefined value.
+                    Returns None if the list is empty or the last item does not match any
+                    predefined value.
+        Notes:
+            - Prints the last item in the list and its type for debugging purposes.
+            - Predefined values and their corresponding sheet attributes:
+                - &#39;Июнь&#39; -&gt; self.sheetJUNE
+                - &#39;Пик&#39; -&gt; self.sheetPIK
+                - &#39;Лондон молл&#39; -&gt; self.sheetLM
+                - &#39;Коменда&#39; -&gt; self.sheetKom
+        &#34;&#34;&#34;
+
+        last_item = lst[-1] if lst else None
+        print(
+            f&#34;Last item in employee list: {last_item} and type is {type(last_item)}&#34;)
+        if last_item == &#39;Июнь&#39;:
+            return self.sheetJUNE
+        elif last_item == &#39;Пик&#39;:
+            return self.sheetPIK
+        elif last_item == &#39;Лондон молл&#39;:
+            return self.sheetLM
+        elif last_item == &#39;Коменда&#39;:
+            return self.sheetKom
+        else:
+            return None
+
+    def _update_emp(self):
+        &#34;&#34;&#34;
+        Requests an update to the Google Sheet with the provided employee data.
+
+        Args:
+            sheet_id (str): The ID of the sheet to update.
+            employee_list (list): A list of employee data, where each employee is represented as a list
+                                  containing name, role, and hours.
+
+        Returns:
+            dict: A dictionary containing the sheet ID, employee list, and address for the update.
+        &#34;&#34;&#34;
+        Updater.sheetweneed = self.get_last_item(self.employee_list)
+        if Updater.sheetweneed is None:
+            raise ValueError(
+                &#34;No valid sheet selected. Check employee list or sheet mapping.&#34;)
+        print(Updater.sheetweneed)
+        adress = self.getCellAddrToday(Updater.sheetweneed)
+        self.employee_list = self.ui.employee_request
+        self.update_sheet_wEmp(Updater.sheetweneed, self.employee_list, adress)
+
+    def update_sheet_wEmp(self, sheet_we_need, employee_list, adress):
+        &#34;&#34;&#34;
+        Updates the specified Google Sheet with employee shift information.
+
+        Args:
+            sheet_we_need (str): The ID of the sheet to update.
+            employee_list (list): A list of employee data, where each employee is represented as a list
+                                  containing name, role, and hours.
+            adress (str): The cell address where the text should be written.
+        &#34;&#34;&#34;
+        # Open the sheet using the client and sheet ID
+       
+        months = {
+            &#34;January&#34;: &#34;Январь&#34;, &#34;February&#34;: &#34;Февраль&#34;, &#34;March&#34;: &#34;Март&#34;, &#34;April&#34;: &#34;Апрель&#34;,
+            &#34;May&#34;: &#34;Май&#34;, &#34;June&#34;: &#34;Июнь&#34;, &#34;July&#34;: &#34;Июль&#34;, &#34;August&#34;: &#34;Август&#34;,
+            &#34;September&#34;: &#34;Сентябрь&#34;, &#34;October&#34;: &#34;Октябрь&#34;, &#34;November&#34;: &#34;Ноябрь&#34;, &#34;December&#34;: &#34;Декабрь&#34;
+        }
+        current_month = months[datetime.now().strftime(&#34;%B&#34;)]
+
+        sheet = sheet_we_need
+        print(f&#34;{current_month}25&#34;)
+       
+        text = &#34;На смене: &#34;
+
+        for emp in employee_list:
+            if isinstance(emp, list) and len(emp) == 3:
+                name = emp[0]
+                if name == &#34;Пропуск&#34; or name == &#34;Выберете сотрудника&#34;:
+                    continue
+                role = emp[1]
+                hours = emp[2]
+                if &#34;Оператор&#34; in role:
+                    role_letter = &#34;О&#34;
+                elif &#34;Администратор&#34; in role:
+                    role_letter = &#34;А&#34;
+                elif &#34;Стажер&#34; in role:
+                    role_letter = &#34;С&#34;
+                else:
+                    role_letter = &#34;С&#34;
+                text += f&#34;{name}({hours};{role_letter}) &#34;
+
+        text = text.rstrip(&#34; &#34;)
+        print(f&#34;Updating sheet at address: {adress} with text: {text}&#34;)
+      
+        sheet.update(adress, [[text]])
+
+    def catch_req_sell(self, payment_req):
+        &#34;&#34;&#34;
+        Handles the process of recording a new sales request.
+        This method takes a payment request and adds a new sales entry to the specified sheet.
+        It determines the appropriate cell address for today&#39;s date and updates the sheet with
+        the provided payment request details.
+        Args:
+            payment_req (str): The payment request details to be recorded.
+        Returns:
+            None
+        &#34;&#34;&#34;
+
+        self.add_new_sell(sheet_we_need=Updater.sheetweneed,
+                          adress=self.getCellAddrToday(Updater.sheetweneed), payment_request=payment_req)
+
+    def add_new_sell(self, sheet_we_need, adress, payment_request):
+        &#34;&#34;&#34;
+        Adds a new sell entry to the specified Google Sheet with employee shift information and payment details.
+
+        Args:
+            sheet_we_need (str): The ID of the sheet to update.
+            employee_list (list): A list of employee data, where each employee is represented as a list
+                                  containing name, role, and hours.
+            adress (str): The cell address where the text should be written.
+            payment_request (dict): A dictionary containing payment details to be added to the sheet.
+        &#34;&#34;&#34;
+
+     
+        payment_details = [
+            f&#34;{payment_request.get(&#39;Тип товара&#39;, &#39;&#39;)}, {payment_request.get(&#39;Товар&#39;, &#39;&#39;)}&#34;,
+            payment_request.get(&#39;Время чека&#39;, &#39;&#39;),
+            payment_request.get(&#39;Количество человек&#39;, &#39;1&#39;),
+            float(payment_request.get(&#39;Карта&#39;, &#39;&#39;)),
+            float(payment_request.get(&#39;QR/СБП&#39;, &#39;&#39;)),
+            float(payment_request.get(&#39;Наличные по кассе&#39;, &#39;&#39;)),
+            float(payment_request.get(&#39;НП&#39;, &#39;&#39;)),
+            float(payment_request.get(&#39;Игра AW&#39;, &#39;&#39;)),
+            &#39;&#39;, &#39;&#39;,
+            payment_request.get(&#39;Комментарий&#39;, &#39;&#39;)
+        ]
+
+        
+        row_number = int(&#39;&#39;.join(filter(str.isdigit, adress)))
+        if Updater.current_row == 0:
+            Updater.current_row = row_number + 1
+        else:
+            Updater.current_row += 1
+        self.current_row = Updater.current_row
+
+     
+        updates = []
+
+        if not hasattr(sheet_we_need, &#39;batch_update&#39;):
+            raise TypeError(
+                &#34;sheet_we_need must be a valid Google Sheets object, not a string.&#34;)
+
+        columns = [&#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;,
+                   &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;] 
+        for col, detail in enumerate(payment_details, start=2):
+            cell_address = f&#34;{columns[col - 2]}{self.current_row}&#34;
+            updates.append({&#39;range&#39;: cell_address, &#39;values&#39;: [[detail]]})
+
+       
+        new_entry = {
+            &#34;Тип товара&#34;: payment_request.get(&#39;Тип товара&#39;, &#39;&#39;),
+            &#34;Товар&#34;: payment_request.get(&#39;Товар&#39;, &#39;&#39;),
+            &#34;Время чека&#34;: payment_request.get(&#39;Время чека&#39;, &#39;&#39;),
+            &#34;Количество человек&#34;: payment_request.get(&#39;Количество человек&#39;, &#39;1&#39;),
+            &#34;Карта&#34;: float(payment_request.get(&#39;Карта&#39;, 0) or 0),
+            &#34;QR/СБП&#34;: float(payment_request.get(&#39;QR/СБП&#39;, 0) or 0),
+            &#34;Наличные по кассе&#34;: float(payment_request.get(&#39;Наличные по кассе&#39;, 0) or 0),
+            &#34;НП&#34;: float(payment_request.get(&#39;НП&#39;, 0) or 0),
+            &#34;Игра AW&#34;: float(payment_request.get(&#39;Игра AW&#39;, 0) or 0),
+            &#34;Стоимость&#34;: float(payment_request.get(&#39;Стоимость&#39;, 0) or 0),
+            &#34;Дата игры&#34;: payment_request.get(&#39;Дата игры&#39;, &#39;Сегодня&#39;),
+            &#34;Время&#34;: payment_request.get(&#39;Время&#39;, &#39;&#39;),
+            &#34;Тип оплаты&#34;: payment_request.get(&#39;Тип оплаты&#39;, &#39;Полная оплата&#39;),
+            &#34;Проценты&#34;: payment_request.get(&#39;Проценты&#39;, 0),
+            &#34;Комментарий&#34;: payment_request.get(&#39;Комментарий&#39;, &#39;&#39;)
+        }
+
+        self.all_requests = pd.concat(
+            [self.all_requests, pd.DataFrame([new_entry])], ignore_index=True)
+        
+        sheet_we_need.batch_update(updates)
+
+    def setup_chain(self):
+        self.chain = EmployeeHandler(SellHandler())
+
+    def handle_request(self, request_type, **kwargs):
+        if not hasattr(self, &#39;chain&#39;):
+            self.setup_chain()
+        return self.chain.handle(request_type, updater=self, **kwargs)</code></pre>
+</details>
+<div class="desc"><p>Updater class is responsible for managing and updating Google Sheets with employee shift information.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>client</code></strong> :&ensp;<code>object</code></dt>
+<dd>The Google Sheets client used to interact with the API.</dd>
+<dt><strong><code>shtKOM_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the KOM sheet.</dd>
+<dt><strong><code>shtPIK_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the PIK sheet.</dd>
+<dt><strong><code>shtJUN_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the JUN sheet.</dd>
+<dt><strong><code>shtLM_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the LM sheet.</dd>
+<dt><strong><code>sheetKOM</code></strong> :&ensp;<code>object</code></dt>
+<dd>The KOM sheet object (initialized later).</dd>
+<dt><strong><code>sheetPIK</code></strong> :&ensp;<code>object</code></dt>
+<dd>The PIK sheet object (initialized later).</dd>
+<dt><strong><code>sheetJUNE</code></strong> :&ensp;<code>object</code></dt>
+<dd>The JUNE sheet object (initialized later).</dd>
+<dt><strong><code>sheetLM</code></strong> :&ensp;<code>object</code></dt>
+<dd>The LM sheet object (initialized later).</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p>(None explicitly defined in the provided code snippet, but the class appears to handle opening
+sheets, preparing text based on employee data, and updating specific cells in the sheet.)</p></div>
+<h3>Class variables</h3>
+<dl>
+<dt id="SellerFOrEmployees.Update.updater.Updater.current_row"><code class="name">var <span class="ident">current_row</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.sheetweneed"><code class="name">var <span class="ident">sheetweneed</span></code></dt>
+<dd>
+<div class="desc"><p>The type of the None singleton.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="SellerFOrEmployees.Update.updater.Updater.add_new_sell"><code class="name flex">
+<span>def <span class="ident">add_new_sell</span></span>(<span>self, sheet_we_need, adress, payment_request)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_new_sell(self, sheet_we_need, adress, payment_request):
+    &#34;&#34;&#34;
+    Adds a new sell entry to the specified Google Sheet with employee shift information and payment details.
+
+    Args:
+        sheet_we_need (str): The ID of the sheet to update.
+        employee_list (list): A list of employee data, where each employee is represented as a list
+                              containing name, role, and hours.
+        adress (str): The cell address where the text should be written.
+        payment_request (dict): A dictionary containing payment details to be added to the sheet.
+    &#34;&#34;&#34;
+
+ 
+    payment_details = [
+        f&#34;{payment_request.get(&#39;Тип товара&#39;, &#39;&#39;)}, {payment_request.get(&#39;Товар&#39;, &#39;&#39;)}&#34;,
+        payment_request.get(&#39;Время чека&#39;, &#39;&#39;),
+        payment_request.get(&#39;Количество человек&#39;, &#39;1&#39;),
+        float(payment_request.get(&#39;Карта&#39;, &#39;&#39;)),
+        float(payment_request.get(&#39;QR/СБП&#39;, &#39;&#39;)),
+        float(payment_request.get(&#39;Наличные по кассе&#39;, &#39;&#39;)),
+        float(payment_request.get(&#39;НП&#39;, &#39;&#39;)),
+        float(payment_request.get(&#39;Игра AW&#39;, &#39;&#39;)),
+        &#39;&#39;, &#39;&#39;,
+        payment_request.get(&#39;Комментарий&#39;, &#39;&#39;)
+    ]
+
+    
+    row_number = int(&#39;&#39;.join(filter(str.isdigit, adress)))
+    if Updater.current_row == 0:
+        Updater.current_row = row_number + 1
+    else:
+        Updater.current_row += 1
+    self.current_row = Updater.current_row
+
+ 
+    updates = []
+
+    if not hasattr(sheet_we_need, &#39;batch_update&#39;):
+        raise TypeError(
+            &#34;sheet_we_need must be a valid Google Sheets object, not a string.&#34;)
+
+    columns = [&#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;,
+               &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;] 
+    for col, detail in enumerate(payment_details, start=2):
+        cell_address = f&#34;{columns[col - 2]}{self.current_row}&#34;
+        updates.append({&#39;range&#39;: cell_address, &#39;values&#39;: [[detail]]})
+
+   
+    new_entry = {
+        &#34;Тип товара&#34;: payment_request.get(&#39;Тип товара&#39;, &#39;&#39;),
+        &#34;Товар&#34;: payment_request.get(&#39;Товар&#39;, &#39;&#39;),
+        &#34;Время чека&#34;: payment_request.get(&#39;Время чека&#39;, &#39;&#39;),
+        &#34;Количество человек&#34;: payment_request.get(&#39;Количество человек&#39;, &#39;1&#39;),
+        &#34;Карта&#34;: float(payment_request.get(&#39;Карта&#39;, 0) or 0),
+        &#34;QR/СБП&#34;: float(payment_request.get(&#39;QR/СБП&#39;, 0) or 0),
+        &#34;Наличные по кассе&#34;: float(payment_request.get(&#39;Наличные по кассе&#39;, 0) or 0),
+        &#34;НП&#34;: float(payment_request.get(&#39;НП&#39;, 0) or 0),
+        &#34;Игра AW&#34;: float(payment_request.get(&#39;Игра AW&#39;, 0) or 0),
+        &#34;Стоимость&#34;: float(payment_request.get(&#39;Стоимость&#39;, 0) or 0),
+        &#34;Дата игры&#34;: payment_request.get(&#39;Дата игры&#39;, &#39;Сегодня&#39;),
+        &#34;Время&#34;: payment_request.get(&#39;Время&#39;, &#39;&#39;),
+        &#34;Тип оплаты&#34;: payment_request.get(&#39;Тип оплаты&#39;, &#39;Полная оплата&#39;),
+        &#34;Проценты&#34;: payment_request.get(&#39;Проценты&#39;, 0),
+        &#34;Комментарий&#34;: payment_request.get(&#39;Комментарий&#39;, &#39;&#39;)
+    }
+
+    self.all_requests = pd.concat(
+        [self.all_requests, pd.DataFrame([new_entry])], ignore_index=True)
+    
+    sheet_we_need.batch_update(updates)</code></pre>
+</details>
+<div class="desc"><p>Adds a new sell entry to the specified Google Sheet with employee shift information and payment details.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sheet_we_need</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the sheet to update.</dd>
+<dt><strong><code>employee_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of employee data, where each employee is represented as a list
+containing name, role, and hours.</dd>
+<dt><strong><code>adress</code></strong> :&ensp;<code>str</code></dt>
+<dd>The cell address where the text should be written.</dd>
+<dt><strong><code>payment_request</code></strong> :&ensp;<code>dict</code></dt>
+<dd>A dictionary containing payment details to be added to the sheet.</dd>
+</dl></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.catch_req_sell"><code class="name flex">
+<span>def <span class="ident">catch_req_sell</span></span>(<span>self, payment_req)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def catch_req_sell(self, payment_req):
+    &#34;&#34;&#34;
+    Handles the process of recording a new sales request.
+    This method takes a payment request and adds a new sales entry to the specified sheet.
+    It determines the appropriate cell address for today&#39;s date and updates the sheet with
+    the provided payment request details.
+    Args:
+        payment_req (str): The payment request details to be recorded.
+    Returns:
+        None
+    &#34;&#34;&#34;
+
+    self.add_new_sell(sheet_we_need=Updater.sheetweneed,
+                      adress=self.getCellAddrToday(Updater.sheetweneed), payment_request=payment_req)</code></pre>
+</details>
+<div class="desc"><p>Handles the process of recording a new sales request.
+This method takes a payment request and adds a new sales entry to the specified sheet.
+It determines the appropriate cell address for today's date and updates the sheet with
+the provided payment request details.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>payment_req</code></strong> :&ensp;<code>str</code></dt>
+<dd>The payment request details to be recorded.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.getCellAddrToday"><code class="name flex">
+<span>def <span class="ident">getCellAddrToday</span></span>(<span>self, sheetweneed)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def getCellAddrToday(self, sheetweneed):
+    &#34;&#34;&#34;
+    Retrieves the address of the first cell in the given sheet that matches today&#39;s date.
+    Args:
+        sheetweneed (object): The sheet object to search for the date.
+    Returns:
+        str: The address of the first cell containing today&#39;s date in the format &#34;DD.MM.YYYY&#34;.
+    &#34;&#34;&#34;
+
+    # Format the date as &#34;01.03.2025&#34; to match the cell content
+    formatted_date = self.today_date.strftime(&#34;%d.%m.%Y&#34;)
+    addr = ffcwp.find_first_matching_cell(
+        sheetweneed, date=[formatted_date])
+    return addr</code></pre>
+</details>
+<div class="desc"><p>Retrieves the address of the first cell in the given sheet that matches today's date.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sheetweneed</code></strong> :&ensp;<code>object</code></dt>
+<dd>The sheet object to search for the date.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The address of the first cell containing today's date in the format "DD.MM.YYYY".</dd>
+</dl></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.get_last_item"><code class="name flex">
+<span>def <span class="ident">get_last_item</span></span>(<span>self, lst)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_last_item(self, lst):
+    &#34;&#34;&#34;
+    Retrieves the last item from a given list and returns a corresponding sheet attribute
+    based on the item&#39;s value.
+    Args:
+        lst (list): The list from which the last item will be retrieved.
+    Returns:
+        object: The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK,
+                self.sheetLM, self.sheetKom) if the last item matches a predefined value.
+                Returns None if the list is empty or the last item does not match any
+                predefined value.
+    Notes:
+        - Prints the last item in the list and its type for debugging purposes.
+        - Predefined values and their corresponding sheet attributes:
+            - &#39;Июнь&#39; -&gt; self.sheetJUNE
+            - &#39;Пик&#39; -&gt; self.sheetPIK
+            - &#39;Лондон молл&#39; -&gt; self.sheetLM
+            - &#39;Коменда&#39; -&gt; self.sheetKom
+    &#34;&#34;&#34;
+
+    last_item = lst[-1] if lst else None
+    print(
+        f&#34;Last item in employee list: {last_item} and type is {type(last_item)}&#34;)
+    if last_item == &#39;Июнь&#39;:
+        return self.sheetJUNE
+    elif last_item == &#39;Пик&#39;:
+        return self.sheetPIK
+    elif last_item == &#39;Лондон молл&#39;:
+        return self.sheetLM
+    elif last_item == &#39;Коменда&#39;:
+        return self.sheetKom
+    else:
+        return None</code></pre>
+</details>
+<div class="desc"><p>Retrieves the last item from a given list and returns a corresponding sheet attribute
+based on the item's value.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>lst</code></strong> :&ensp;<code>list</code></dt>
+<dd>The list from which the last item will be retrieved.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>object</code></dt>
+<dd>The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK,
+self.sheetLM, self.sheetKom) if the last item matches a predefined value.
+Returns None if the list is empty or the last item does not match any
+predefined value.</dd>
+</dl>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Prints the last item in the list and its type for debugging purposes.</li>
+<li>Predefined values and their corresponding sheet attributes:<ul>
+<li>'Июнь' -&gt; self.sheetJUNE</li>
+<li>'Пик' -&gt; self.sheetPIK</li>
+<li>'Лондон молл' -&gt; self.sheetLM</li>
+<li>'Коменда' -&gt; self.sheetKom</li>
+</ul>
+</li>
+</ul></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.handle_request"><code class="name flex">
+<span>def <span class="ident">handle_request</span></span>(<span>self, request_type, **kwargs)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def handle_request(self, request_type, **kwargs):
+    if not hasattr(self, &#39;chain&#39;):
+        self.setup_chain()
+    return self.chain.handle(request_type, updater=self, **kwargs)</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.setup_chain"><code class="name flex">
+<span>def <span class="ident">setup_chain</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setup_chain(self):
+    self.chain = EmployeeHandler(SellHandler())</code></pre>
+</details>
+<div class="desc"></div>
+</dd>
+<dt id="SellerFOrEmployees.Update.updater.Updater.update_sheet_wEmp"><code class="name flex">
+<span>def <span class="ident">update_sheet_wEmp</span></span>(<span>self, sheet_we_need, employee_list, adress)</span>
+</code></dt>
+<dd>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_sheet_wEmp(self, sheet_we_need, employee_list, adress):
+    &#34;&#34;&#34;
+    Updates the specified Google Sheet with employee shift information.
+
+    Args:
+        sheet_we_need (str): The ID of the sheet to update.
+        employee_list (list): A list of employee data, where each employee is represented as a list
+                              containing name, role, and hours.
+        adress (str): The cell address where the text should be written.
+    &#34;&#34;&#34;
+    # Open the sheet using the client and sheet ID
+   
+    months = {
+        &#34;January&#34;: &#34;Январь&#34;, &#34;February&#34;: &#34;Февраль&#34;, &#34;March&#34;: &#34;Март&#34;, &#34;April&#34;: &#34;Апрель&#34;,
+        &#34;May&#34;: &#34;Май&#34;, &#34;June&#34;: &#34;Июнь&#34;, &#34;July&#34;: &#34;Июль&#34;, &#34;August&#34;: &#34;Август&#34;,
+        &#34;September&#34;: &#34;Сентябрь&#34;, &#34;October&#34;: &#34;Октябрь&#34;, &#34;November&#34;: &#34;Ноябрь&#34;, &#34;December&#34;: &#34;Декабрь&#34;
+    }
+    current_month = months[datetime.now().strftime(&#34;%B&#34;)]
+
+    sheet = sheet_we_need
+    print(f&#34;{current_month}25&#34;)
+   
+    text = &#34;На смене: &#34;
+
+    for emp in employee_list:
+        if isinstance(emp, list) and len(emp) == 3:
+            name = emp[0]
+            if name == &#34;Пропуск&#34; or name == &#34;Выберете сотрудника&#34;:
+                continue
+            role = emp[1]
+            hours = emp[2]
+            if &#34;Оператор&#34; in role:
+                role_letter = &#34;О&#34;
+            elif &#34;Администратор&#34; in role:
+                role_letter = &#34;А&#34;
+            elif &#34;Стажер&#34; in role:
+                role_letter = &#34;С&#34;
+            else:
+                role_letter = &#34;С&#34;
+            text += f&#34;{name}({hours};{role_letter}) &#34;
+
+    text = text.rstrip(&#34; &#34;)
+    print(f&#34;Updating sheet at address: {adress} with text: {text}&#34;)
+  
+    sheet.update(adress, [[text]])</code></pre>
+</details>
+<div class="desc"><p>Updates the specified Google Sheet with employee shift information.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>sheet_we_need</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the sheet to update.</dd>
+<dt><strong><code>employee_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>A list of employee data, where each employee is represented as a list
+containing name, role, and hours.</dd>
+<dt><strong><code>adress</code></strong> :&ensp;<code>str</code></dt>
+<dd>The cell address where the text should be written.</dd>
+</dl></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="SellerFOrEmployees.Update" href="index.html">SellerFOrEmployees.Update</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="SellerFOrEmployees.Update.updater.EmployeeHandler" href="#SellerFOrEmployees.Update.updater.EmployeeHandler">EmployeeHandler</a></code></h4>
+</li>
+<li>
+<h4><code><a title="SellerFOrEmployees.Update.updater.Handler" href="#SellerFOrEmployees.Update.updater.Handler">Handler</a></code></h4>
+<ul class="">
+<li><code><a title="SellerFOrEmployees.Update.updater.Handler.handle" href="#SellerFOrEmployees.Update.updater.Handler.handle">handle</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="SellerFOrEmployees.Update.updater.SellHandler" href="#SellerFOrEmployees.Update.updater.SellHandler">SellHandler</a></code></h4>
+</li>
+<li>
+<h4><code><a title="SellerFOrEmployees.Update.updater.Updater" href="#SellerFOrEmployees.Update.updater.Updater">Updater</a></code></h4>
+<ul class="two-column">
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.add_new_sell" href="#SellerFOrEmployees.Update.updater.Updater.add_new_sell">add_new_sell</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.catch_req_sell" href="#SellerFOrEmployees.Update.updater.Updater.catch_req_sell">catch_req_sell</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.current_row" href="#SellerFOrEmployees.Update.updater.Updater.current_row">current_row</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.getCellAddrToday" href="#SellerFOrEmployees.Update.updater.Updater.getCellAddrToday">getCellAddrToday</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.get_last_item" href="#SellerFOrEmployees.Update.updater.Updater.get_last_item">get_last_item</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.handle_request" href="#SellerFOrEmployees.Update.updater.Updater.handle_request">handle_request</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.setup_chain" href="#SellerFOrEmployees.Update.updater.Updater.setup_chain">setup_chain</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.sheetweneed" href="#SellerFOrEmployees.Update.updater.Updater.sheetweneed">sheetweneed</a></code></li>
+<li><code><a title="SellerFOrEmployees.Update.updater.Updater.update_sheet_wEmp" href="#SellerFOrEmployees.Update.updater.Updater.update_sheet_wEmp">update_sheet_wEmp</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.11.6</a>.</p>
+</footer>
+</body>
+</html>
