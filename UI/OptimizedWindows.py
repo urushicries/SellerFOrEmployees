@@ -5,18 +5,21 @@ import tkinter as tk
 
 
 class OptimizedWindows:
-    """Класс, содержащий утилитарные методы для настройки DPI, определения пути исполняемого файла
-    и проверки масштабирования окна.
+    """A class containing utility methods for DPI settings, determining the executable path,
+    and checking window scaling.
 
-    Методы:
+    Methods:
         optForWindowSize() -> None:
-            Устанавливает DPI-осведомленность процесса для предотвращения размытия интерфейса.
+            Sets process DPI awareness to prevent interface blurring.
 
         optIfAppIsCompiled() -> str:
-            Определяет путь к исполняемому файлу, учитывая запуск из скомпилированного пакета (PyInstaller).
+            Determines the executable path, considering running from a compiled package (PyInstaller).
 
-        checkWindowDPI() -> float:
-            Проверяет масштабирование окна, возвращая коэффициент DPI.
+        checkWindowDPI() -> tuple:
+            Checks window scaling, returning the DPI factor and screen dimensions.
+
+        adjust_window_size(screen_width, screen_height, width, height) -> tuple:
+            Adjusts window size and position based on screen resolution and desired dimensions.
     """
 
     @staticmethod
@@ -47,7 +50,7 @@ class OptimizedWindows:
 
     @staticmethod
     def adjust_window_size(screen_width, screen_height, width, height):
-        """
+        """ 
         Этот метод настраивает размер и позицию окна в зависимости от разрешения экрана и желаемых размеров.
 
         Аргументы:
