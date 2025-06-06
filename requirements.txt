@@ -1,0 +1,12 @@
+gspread
+oauth2client
+google-api-python-client
+pandas
+google-auth
+google-auth-oauthlib
+google-auth-httplib2
+google-cloud-bigquery
+google-cloud-storage
+google-cloud-bigquery-storage
+google-cloud-core
+hashlib

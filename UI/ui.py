@@ -11,9 +11,72 @@ from Model.model import Model
 
 
 class UIManager:
-    _instance = None
+    """
+    UIManager is a singleton class responsible for managing the graphical user interface (GUI) of the SellerForEmployees application.
+    This class orchestrates the creation, configuration, and navigation of multiple frames (views) within a Tkinter-based desktop application. It handles user authentication, employee selection, payment processing, summary display, and shift closure, providing a cohesive workflow for the application's users.
 
+        Args:
+            _instance (UIManager): Singleton instance of the class.
+            updater: External updater object for data operations.
+            sheetwages: Reference to wage sheet or data source.
+            employees (list): List of employee names for selection.
+            root (tk.Tk): Main Tkinter root window.
+            frames (dict): Dictionary mapping frame names to Tkinter Frame objects.
+            today_date (datetime.date): Current date.
+            address: Address or location information.
+            employee_request: Stores selected employee data.
+            wrongAttempts (int): Counter for failed login attempts.
+            frame_order (list): Ordered list of frame names for navigation.
+            Various Tkinter variables for UI state (e.g., StringVar, IntVar, BooleanVar).
+        ------------------------------------------------------
+        Methods:
+            __new__(cls, *args, **kwargs): Ensures singleton instantiation.
+            __init__(self, config): Initializes UIManager with configuration.
+            on_close(self): Handles application shutdown.
+            enforce_frame_size(self, event): Triggers animated resizing of frames.
+            _apply_frame_size(self): Applies animated resizing to the current frame.
+            get_current_month_name(self): Returns the current month name in Russian.
+            init_login_frame(self): Sets up the login frame UI.
+            validate_login(self): Validates user credentials and access.
+            init_employee_frame(self): Sets up the employee selection frame.
+            preview_employees(self): Shows a preview dialog for selected employees.
+            get_employee_request(self): Collects and processes employee selection data.
+            update_employee_options(self, changed_index): Updates dropdowns to prevent duplicate employee selection.
+            init_payment_frame(self): Sets up the payment processing frame.
+            set_today_date(self): Sets date fields to today's date.
+            set_current_time(self): Sets time field to current time.
+            init_summary_frame(self): Sets up the summary frame for final review.
+            init_closeShift_frame(self): Sets up the shift closure frame.
+            update_requests_tree(self): Updates the shift closure request table.
+            open_CSF(self): Opens the close shift frame.
+            close_shift(self): Handles shift closure logic and confirmation.
+            show_frame(self, frame_name): Switches the visible frame.
+            update_dropdown(self, *args): Updates product dropdown options based on selection.
+            show_preview(self): Displays a summary preview dialog.
+            agreeToDisagree(self, isAgreed, preview_window, ...): Handles user confirmation dialogs.
+            make_data(self): Collects and summarizes all form data for processing.
+            go_back(self): Navigates to the previous frame.
+            openUI(self, root): Starts the Tkinter main loop.
+        Usage:
+            Instantiate UIManager with a configuration dictionary containing references to the Tkinter root, updater, employee list, and other dependencies. Call openUI(root) to start the application.
+        Note:
+            This class assumes the existence of external classes and modules such as Model, Updater, and various Tkinter widgets.
+        """
+
+    _instance = None
     def __new__(cls, *args, **kwargs):
+        """
+        Creates and returns a singleton instance of the UIManager class.
+        This method overrides the default __new__ method to ensure that only one instance
+        of the UIManager class is created (singleton pattern). If an instance already exists,
+        it returns the existing instance; otherwise, it creates a new one.
+        Args:
+            *args: Variable length argument list.
+            **kwargs: Arbitrary keyword arguments.
+        Returns:
+            UIManager: The singleton instance of the UIManager class.
+        """
+
         if cls._instance is None:
             cls._instance = super(UIManager, cls).__new__(cls)
         return cls._instance
@@ -161,7 +224,6 @@ class UIManager:
             password_menu.post(event.x_root, event.y_root)
 
         password_entry.bind("<Button-3>", show_password_menu)
-
         tk.Button(frame, text="Войти", command=self.validate_login, bg="white", fg="black").grid(
             row=3, column=0, columnspan=2, pady=10)
 
@@ -196,17 +258,6 @@ class UIManager:
         self.frames["employee_frame"] = frame
         frame.configure(bg="#000000")
         self.root.configure(bg="#000000")
-        frame.option_add("*Font", "Helvetica 14")
-        frame.option_add("*Button.relief", "flat")
-        frame.option_add("*Button.highlightThickness", 0)
-        frame.option_add("*Button.background", "#333333")
-        frame.option_add("*Button.foreground", "#FFFFFF")
-        frame.option_add("*Button.activeBackground", "#555555")
-        frame.option_add("*Label.background", "#000000")
-        frame.option_add("*Label.foreground", "#FFFFFF")
-        frame.option_add("*Entry.background", "#333333")
-        frame.option_add("*Entry.foreground", "#FFFFFF")
-        frame.option_add("*Entry.highlightThickness", 1)
         tk.Label(frame, text="Выберете сотрудников на смене").grid(
             row=0, column=1, pady=10)
         tk.Label(frame, text="Имя работника").grid(
@@ -259,6 +310,24 @@ class UIManager:
             row=6, column=1, pady=10)
 
     def preview_employees(self):
+        """
+        Opens a preview window displaying the selected employees and their details.
+        This method collects information about up to three employees from the UI, 
+        filters out entries with placeholder values, and displays a formatted preview 
+        in a new Toplevel window. The preview includes employee name, type, and shift, 
+        as well as the selected workplace. The user can confirm or reject the selection 
+        using provided buttons.
+        UI Elements Created:
+            - Toplevel window with a formatted text widget showing employee details.
+            - Two buttons: "Согласен" (Agree) and "Не согласен" (Disagree), 
+              which trigger the agreeToDisagree method with appropriate arguments.
+        Filtering:
+            - Employees with names "Пропуск" or "Выберете работника" are excluded from the preview.
+        Side Effects:
+            - Opens a new window for preview.
+            - Calls agreeToDisagree based on user interaction.
+        """
+        
         employee_preview = []
         for i in range(3):
             employee_preview.append([
@@ -310,6 +379,22 @@ class UIManager:
             False, preview_window=preview_window, act_frame="employee_frame", key="emp"), bg="white", fg="black").pack(side="right", padx=10)
 
     def get_employee_request(self):
+        """
+        Collects employee selection data from the UI, processes it, and updates related attributes and frames.
+        This method performs the following steps:
+        1. Gathers employee information from UI variables and widgets for three employees.
+        2. Appends the selected workplace to the employee request list.
+        3. Filters out entries where the employee selection is "Пропуск" or "Выберете работника".
+        4. Updates the UI to show the payment frame.
+        5. Sets the address and employee request attributes.
+        6. Updates the employee list in the updater and triggers an update.
+        Side Effects:
+            - Prints the raw employee request list.
+            - Changes the current frame to "payment_frame".
+            - Updates `self.address`, `self.employee_request`, and `self.updater.employee_list`.
+            - Calls `self.updater._update_emp()` to refresh employee data.
+        """
+
         employee_request = []
         for i in range(3):
             employee_request.append([
@@ -349,6 +434,21 @@ class UIManager:
                 var.set("Выберете работника")
 
     def init_payment_frame(self):
+        """
+        Initializes and configures the payment frame UI for the application.
+
+        This method sets up all widgets and layout for the payment process, including:
+        - Dropdowns for payment type, product type, and product selection.
+        - Dynamic visibility of widgets based on selected product type (e.g., people count, use of certificate/abonement).
+        - Date and time selection widgets with options to set to current date/time.
+        - Payment method selection, including support for split payments and dynamic entry fields.
+        - Calculation and validation of payment amounts, with error and status feedback.
+        - Navigation buttons for proceeding to summary, returning to employee frame, and closing the shift.
+        - Percentage entry for partial/pre-payment types.
+        - All widgets are arranged using a grid layout and are dynamically shown/hidden based on user interaction.
+
+        Traces and event handlers are set up to update the UI in response to user input.
+        """
 
         self.root.bind("<Configure>", self.enforce_frame_size)
         dropdown_width = 18
@@ -389,6 +489,14 @@ class UIManager:
         self.product_type_var.trace_add("write", self.update_dropdown)
 
         def update_people_count_visibility(*args):
+            """
+            Updates the visibility of the people count label and entry widgets based on the selected product type.
+            If the selected product type is "Время" (Time) or "Одиночная игра" (Single Game), the people count label and entry are shown.
+            Otherwise, they are hidden.
+            Args:
+                *args: Variable length argument list, typically used for Tkinter trace callbacks.
+            """
+
             def fade_in(widget):
                 widget.grid()
             def fade_out(widget):
@@ -424,6 +532,15 @@ class UIManager:
         useABOcERT.grid_forget()
 
         def update_use_abo_cert_visibility(*args):
+            """
+            Updates the visibility and label of the 'useABOcERT' widget based on the selected product type.
+
+            If the selected product type is either "Абонемент" or "Сертификат", the widget is displayed with a label
+            prompting the user to use the selected product type. Otherwise, the widget is hidden.
+
+            Args:
+                *args: Variable length argument list, typically used for Tkinter trace callbacks.
+            """
             if self.product_type_var.get() in ["Абонемент", "Сертификат"]:
                 useABOcERT.grid(padx=10, row=0, column=2)
                 useABOcERT.config(
@@ -516,6 +633,17 @@ class UIManager:
         payment_dropdown.grid(row=6, column=1, pady=5)
 
         def update_payment_method_visibility(*args):
+            """
+            Updates the visibility and layout of payment method input fields based on the state of the split payment option.
+            If the split payment option is enabled (`self.split_payment_var.get()` is True), dynamically creates and displays
+            entry fields for each payment method in `self.payment_methods`, allowing the user to input amounts for each method.
+            Hides the single payment method dropdown.
+            If the split payment option is disabled, removes the dynamically created payment method entry fields and restores
+            the single payment method dropdown for user selection.
+            Args:
+                *args: Variable length argument list, typically used for Tkinter variable trace callbacks.
+            """
+
             if self.split_payment_var.get():
                 for i, method in enumerate(self.payment_methods):
                     tk.Label(frame, text=f"{method}:", anchor="w").grid(
@@ -544,6 +672,21 @@ class UIManager:
             frame, textvariable=self.percentage_entry_var)
 
         def calculate_remaining_balance():
+            """
+            Calculates the remaining balance based on user-entered payment amounts and updates the UI accordingly.
+            This function:
+            - Sums all valid integer values entered in the payment entry fields.
+            - Calculates the remaining balance by subtracting the total entered amount from the actual payment amount.
+            - Updates the UI to reflect the payment status:
+                - Highlights entry fields in red and displays an error if the entered sum exceeds the required amount.
+                - Shows the remaining balance in red if the payment is incomplete.
+                - Resets entry field colors and displays a success message if the payment is exact.
+                - Warns the user if no valid data is entered.
+            - Handles invalid input by displaying an error message.
+            Exceptions:
+                ValueError: If any entry contains invalid data that cannot be converted to an integer.
+            """
+
             try:
                 total_entered = sum(
                     int(entry.get()) for entry in self.payment_entries if entry.get().isdigit()
@@ -600,6 +743,14 @@ class UIManager:
         )
 
         def update_percentage_visibility(*args):
+            """
+            Updates the visibility of the percentage label and entry widgets based on the selected payment type.
+            If the payment type is either "Доплата" (additional payment) or "Предоплата" (prepayment), 
+            the percentage label and entry widgets are displayed in the UI grid. Otherwise, they are hidden.
+            Args:
+                *args: Variable length argument list to support callback usage (e.g., with Tkinter variable tracing).
+            """
+
             if self.payment_type_var.get() in ["Доплата", "Предоплата"]:
                 self.percentage_label.grid(row=2, column=2, pady=10)
                 self.percentage_entry.grid(row=2, column=3, pady=10)
@@ -610,6 +761,16 @@ class UIManager:
         self.payment_type_var.trace_add("write", update_percentage_visibility)
 
         def update_date_visibility(*args):
+            """
+            Updates the visibility and placement of date and time selection widgets based on the selected product type.
+            If the selected product type is "Сертификат" or "Абонемент", all date and time widgets are hidden and their values are reset.
+            Otherwise, the date and time widgets (year, month, day menus, time entry, and related labels/buttons) are displayed in their respective grid positions.
+            Args:
+                *args: Variable length argument list, used to support callback signatures (e.g., for Tkinter variable tracing).
+            Side Effects:
+                Modifies the visibility and values of various Tkinter widgets related to date and time selection within the UI frame.
+            """
+
             if self.product_type_var.get() in ["Сертификат", "Абонемент"]:
                 year_menu.grid_forget()
                 month_menu.grid_forget()
@@ -696,6 +857,26 @@ class UIManager:
             row=2, column=1, pady=10)
 
     def update_requests_tree(self):
+        """
+        Updates the requests_tree widget with the latest request data.
+        This method clears all existing entries from the requests_tree widget and repopulates it
+        with the current data from self.updater.all_requests. If there are no requests available,
+        it inserts a placeholder row indicating that there is no data.
+        The method expects self.updater.all_requests to be a pandas DataFrame with the following columns:
+            - "Тип товара"
+            - "Товар"
+            - "Время чека"
+            - "Количество человек"
+            - "Карта"
+            - "QR/СБП"
+            - "Наличные по кассе"
+            - "НП"
+            - "Игра AW"
+            - "Дата игры"
+            - "Время"
+        If the DataFrame is empty, a row with "Нет данных" is inserted for each column.
+        """
+
         for item in self.requests_tree.get_children():
             self.requests_tree.delete(item)
 
@@ -729,6 +910,19 @@ class UIManager:
         frame.update_idletasks()
 
     def update_dropdown(self, *args):
+        """
+        Updates the options in the product dropdown menu based on the selected product type.
+        The method checks the current value of `self.product_type_var` and sets the dropdown options accordingly:
+            - "Тариф": Sets options to ["STD", "HARD", "VIP"].
+            - "Время": Sets options to time intervals from 30 to 300 minutes in 30-minute steps.
+            - "Одиночная игра": Sets options to time intervals from 15 to 315 minutes in 15-minute steps.
+            - "Сертификат": Sets options to certificate values in rubles.
+            - "Абонемент": Sets options to subscription prices in rubles.
+        After updating the dropdown menu, the first option is selected by default.
+        Args:
+            *args: Additional arguments (not used, but allows compatibility with variable argument callbacks).
+        """
+
         if self.product_type_var.get() == "Тариф":
             new_options = ["STD", "HARD", "VIP"]
         elif self.product_type_var.get() == "Время":
@@ -747,6 +941,16 @@ class UIManager:
         self.product_var.set(new_options[0])
 
     def show_preview(self):
+        """
+        Displays a preview window summarizing the current data.
+        This method creates a new top-level window containing a read-only text widget
+        that displays key-value pairs from `self.data_summary`. It also provides two buttons:
+        "Согласен" (Agree) and "Не согласен" (Disagree), which call `self.agreeToDisagree`
+        with the user's choice and close the preview window. The preview window is intended
+        to allow the user to review and confirm the data before proceeding to the next step
+        (e.g., the payment frame).
+        """
+
         self.preview_window = tk.Toplevel(self.root)
         self.preview_window.title("Предварительный просмотр")
         self.preview_window.geometry("600x500")
@@ -768,6 +972,22 @@ class UIManager:
                   command=lambda: self.agreeToDisagree(False, self.preview_window, next_frame="payment_frame"), bg="white", fg="black").pack(side="right", padx=10)
 
     def agreeToDisagree(self, isAgreed, preview_window, act_frame="payment_frame", next_frame="summary_frame", key="sell"):
+        """
+        Handles the user's agreement or disagreement with a request and updates the UI accordingly.
+        If the user agrees (`isAgreed` is True), performs an action based on the `key` parameter:
+            - If `key` is "sell", sends a sell request using `self.updater.catch_req_sell`.
+            - If `key` is "emp", processes an employee request using `self.get_employee_request`.
+        In both cases, displays a confirmation message, switches to the `next_frame`, and closes the `preview_window`.
+        If the user disagrees (`isAgreed` is False), displays a message prompting for clarification,
+        switches to the `act_frame`, and closes the `preview_window`.
+        Args:
+            isAgreed (bool): Indicates whether the user agreed to the request.
+            preview_window (tk.Toplevel): The preview window to be destroyed after the action.
+            act_frame (str, optional): The frame to show if the user disagrees. Defaults to "payment_frame".
+            next_frame (str, optional): The frame to show if the user agrees. Defaults to "summary_frame".
+            key (str, optional): Determines the action to perform if agreed ("sell" or "emp"). Defaults to "sell".
+        """
+
         if isAgreed:
             if key == "sell":
                 self.updater.catch_req_sell(self.data_summary)
@@ -784,6 +1004,31 @@ class UIManager:
             preview_window.destroy()
 
     def make_data(self):
+        """
+        Collects and summarizes form data from various UI elements into a dictionary (`self.data_summary`).
+
+        The method gathers values such as product type, product, payment details, number of people, date, time, percentages, comments, and payment breakdowns (including split payments) from the UI variables. It also applies specific business logic for calculating the number of people and payment allocations based on the selected options.
+
+        After assembling the data, it calls `self.show_preview()` to display a preview of the collected information.
+
+        Fields in `self.data_summary` include:
+            - "Тип товара": Selected product type.
+            - "Товар": Selected product.
+            - "Стоимость": Actual payment amount.
+            - "Способ оплаты": Payment method or "Раздельная" if split payment is enabled.
+            - "Тип оплаты": Type of payment.
+            - "Количество человек": Number of people, calculated based on product type and product.
+            - "Дата": Selected date.
+            - "Время": Selected time.
+            - "Проценты": Percentage for partial/prepayment, or "100" otherwise.
+            - "Время чека": Check time.
+            - "Комментарий": User comment.
+            - "НП", "Наличные по кассе", "Карта", "QR/СБП": Payment breakdowns by method.
+            - "Игра AW": Calculated value based on payment type, product type, and percentage.
+
+        Returns:
+            None
+        """
 
         self.data_summary = {
             "Тип товара": self.product_type_var.get(),
@@ -810,6 +1055,12 @@ class UIManager:
         self.show_preview()
 
     def go_back(self):
+        """
+        Navigates to the previous frame in the application's frame order.
+        This method determines the currently visible frame, finds its position in the
+        frame order, and if it is not the first frame, switches the view to the previous frame.
+        """
+
         current_frame = None
         for frame_name, frame in self.frames.items():
             if frame.winfo_ismapped():

@@ -1,8 +1,43 @@
-# -*- coding: utf-8 -*-
 import gspread
 from datetime import datetime
 from Model.FFCWP import ffcwp
 import pandas as pd
+
+
+class Handler:
+    def __init__(self, successor=None):
+        self._successor = successor
+
+    def handle(self, request_type, *args, **kwargs):
+        handled = self._handle(request_type, *args, **kwargs)
+        if not handled and self._successor:
+            return self._successor.handle(request_type, *args, **kwargs)
+        return handled
+
+    def _handle(self, request_type, *args, **kwargs):
+        raise NotImplementedError("Must implement _handle method")
+
+
+class EmployeeHandler(Handler):
+    def _handle(self, request_type, *args, **kwargs):
+        if request_type == "employee":
+            # args[0] is expected to be employee_list
+            updater = kwargs.get('updater')
+            if updater:
+                updater._update_emp()
+                return True
+        return False
+
+
+class SellHandler(Handler):
+    def _handle(self, request_type, *args, **kwargs):
+        if request_type == "sell":
+            updater = kwargs.get('updater')
+            payment_req = kwargs.get('payment_req')
+            if updater and payment_req:
+                updater.catch_req_sell(payment_req)
+                return True
+        return False
 
 
 class Updater:
@@ -22,7 +57,7 @@ class Updater:
         (None explicitly defined in the provided code snippet, but the class appears to handle opening
         sheets, preparing text based on employee data, and updating specific cells in the sheet.)
     """
-    sheetweneed = None 
+    sheetweneed = None
     current_row = 0
 
     _instance = None
@@ -31,7 +66,7 @@ class Updater:
         if cls._instance is None:
             cls._instance = super(Updater, cls).__new__(cls)
         return cls._instance
-    
+
     def __init__(self, config):
         self.all_requests = pd.DataFrame(columns=[
             "Тип товара", "Товар", "Время чека", "Количество человек", "Карта",
@@ -67,14 +102,14 @@ class Updater:
 
     def get_last_item(self, lst):
         """
-        Retrieves the last item from a given list and returns a corresponding sheet attribute 
+        Retrieves the last item from a given list and returns a corresponding sheet attribute
         based on the item's value.
         Args:
             lst (list): The list from which the last item will be retrieved.
         Returns:
-            object: The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK, 
+            object: The corresponding sheet attribute (e.g., self.sheetJUNE, self.sheetPIK,
                     self.sheetLM, self.sheetKom) if the last item matches a predefined value.
-                    Returns None if the list is empty or the last item does not match any 
+                    Returns None if the list is empty or the last item does not match any
                     predefined value.
         Notes:
             - Prints the last item in the list and its type for debugging purposes.
@@ -131,7 +166,7 @@ class Updater:
             adress (str): The cell address where the text should be written.
         """
         # Open the sheet using the client and sheet ID
-        # Get the current month name
+       
         months = {
             "January": "Январь", "February": "Февраль", "March": "Март", "April": "Апрель",
             "May": "Май", "June": "Июнь", "July": "Июль", "August": "Август",
@@ -141,7 +176,7 @@ class Updater:
 
         sheet = sheet_we_need
         print(f"{current_month}25")
-        # Prepare the text to write
+       
         text = "На смене: "
 
         for emp in employee_list:
@@ -161,10 +196,9 @@ class Updater:
                     role_letter = "С"
                 text += f"{name}({hours};{role_letter}) "
 
-                # Remove the trailing comma and space
         text = text.rstrip(" ")
         print(f"Updating sheet at address: {adress} with text: {text}")
-        # Write the text to the specified cell address
+      
         sheet.update(adress, [[text]])
 
     def catch_req_sell(self, payment_req):
@@ -194,7 +228,7 @@ class Updater:
             payment_request (dict): A dictionary containing payment details to be added to the sheet.
         """
 
-        # Extract payment details and write them to the same row as the address
+     
         payment_details = [
             f"{payment_request.get('Тип товара', '')}, {payment_request.get('Товар', '')}",
             payment_request.get('Время чека', ''),
@@ -208,33 +242,28 @@ class Updater:
             payment_request.get('Комментарий', '')
         ]
 
-        # Determine the row number from the address
+        
         row_number = int(''.join(filter(str.isdigit, adress)))
         if Updater.current_row == 0:
             Updater.current_row = row_number + 1
         else:
             Updater.current_row += 1
         self.current_row = Updater.current_row
-        print(
-            f"Adding payment details at row: {row_number} with details: {payment_details}")
 
-        # Write the payment details to the same row, starting from the next column
-        # Batch update to work around Google API limitations
+     
         updates = []
 
-        # Start from column B (2)
         if not hasattr(sheet_we_need, 'batch_update'):
             raise TypeError(
                 "sheet_we_need must be a valid Google Sheets object, not a string.")
 
         columns = ['B', 'C', 'D', 'E', 'F', 'G', 'H',
-                   'I', 'J', 'K', 'L']  # Columns B to L
+                   'I', 'J', 'K', 'L'] 
         for col, detail in enumerate(payment_details, start=2):
-            # Convert column number to letter
             cell_address = f"{columns[col - 2]}{self.current_row}"
             updates.append({'range': cell_address, 'values': [[detail]]})
-        print(updates)
-        # Add the payment details to the all_requests DataFrame
+
+       
         new_entry = {
             "Тип товара": payment_request.get('Тип товара', ''),
             "Товар": payment_request.get('Товар', ''),
@@ -252,49 +281,16 @@ class Updater:
             "Проценты": payment_request.get('Проценты', 0),
             "Комментарий": payment_request.get('Комментарий', '')
         }
+
         self.all_requests = pd.concat(
             [self.all_requests, pd.DataFrame([new_entry])], ignore_index=True)
-        print(new_entry)
+        
         sheet_we_need.batch_update(updates)
 
-        def color_cells(self, sheet_we_need, cell_addresses, color):
-            """
-            Colors the specified cells in the Google Sheet.
+    def setup_chain(self):
+        self.chain = EmployeeHandler(SellHandler())
 
-            Args:
-                sheet_we_need (object): The Google Sheet object to update.
-                cell_addresses (list): A list of cell addresses to color (e.g., ['A1', 'B2']).
-                color (dict): A dictionary specifying the RGB color values (e.g., {'red': 1.0, 'green': 0.0, 'blue': 0.0}).
-            """
-            if not hasattr(sheet_we_need, 'batch_update'):
-                raise TypeError(
-                    "sheet_we_need must be a valid Google Sheets object, not a string.")
-
-            requests = []
-            for cell_address in cell_addresses:
-                # Convert cell address to row and column indices
-                row = int(''.join(filter(str.isdigit, cell_address)))
-                col = ord(cell_address[0].upper()) - ord('A') + 1
-
-                requests.append({
-                    'updateCells': {
-                        'range': {
-                            'sheetId': sheet_we_need.id,
-                            'startRowIndex': row - 1,
-                            'endRowIndex': row,
-                            'startColumnIndex': col - 1,
-                            'endColumnIndex': col
-                        },
-                        'rows': [{
-                            'values': [{
-                                'userEnteredFormat': {
-                                    'backgroundColor': color
-                                }
-                            }]
-                        }],
-                        'fields': 'userEnteredFormat.backgroundColor'
-                    }
-                })
-
-            body = {'requests': requests}
-            sheet_we_need.batch_update(body)
+    def handle_request(self, request_type, **kwargs):
+        if not hasattr(self, 'chain'):
+            self.setup_chain()
+        return self.chain.handle(request_type, updater=self, **kwargs)
