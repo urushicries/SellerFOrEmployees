@@ -1,4 +1,4 @@
-# SellerForEmployees
+# SellerForEmployees [DEV VER 0.9.2]
 
 ## Описание
 
@@ -36,11 +36,8 @@ python main.py
 
 ## Документация
 
-- [Пользовательская документация](docs/user_manual.md)
-- [Техническая документация](docs/technical_doc.md)
-- [UML-диаграмма](docs/uml_diagram.png)
-- [Автодокументация Python (Sphinx)](docs/html/index.html)  
-  *(если сгенерирована, откройте файл index.html в браузере)*
+- [Автодокументация Python (Sphinx)](doc/SellerFOrEmployees/index.html)  
+
 
 ## Минимальные системные требования
 
