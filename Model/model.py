@@ -68,7 +68,6 @@ class Model:
             selected_time = datetime.datetime.strptime(
                 time_var.get(), "%H:%M").time()
             day_of_week = selected_date.weekday()
-            print(day_of_week)
             if selected_date.weekday() >= 4:  
                 AWgame_price = 1800  
             else:
@@ -95,7 +94,6 @@ class Model:
 
 
                 is_weekend = selected_date.weekday() >= 4
-                print(selected_date.weekday())
                 is_evening = selected_time >= datetime.time(16, 0)
 
                 percentage = int(percentage_entry_var.get()) if payment_type_var.get() in [
