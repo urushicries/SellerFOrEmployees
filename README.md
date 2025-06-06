@@ -34,14 +34,6 @@ SellerForEmployees — это программа для автоматизаци
 python main.py
 ```
 
-## Документация
-
-- [Пользовательская документация](docs/user_manual.md)
-- [Техническая документация](docs/technical_doc.md)
-- [UML-диаграмма](docs/uml_diagram.png)
-- [Автодокументация Python (Sphinx)](docs/html/index.html)  
-  *(если сгенерирована, откройте файл index.html в браузере)*
-
 ## Минимальные системные требования
 
 - Python 3.8+
@@ -50,11 +42,6 @@ python main.py
 
 ## Тестирование
 
-Для запуска модульных тестов:
-```bash
-python -m unittest discover
-```
-
 ## Лицензия
 
 MIT License
@@ -62,6 +49,5 @@ MIT License
 ---
 
 **Разработчик:**  
-[Ваше имя или никнейм]  
-[Контакты или ссылка на GitHub]
+[urushicries]  
 
