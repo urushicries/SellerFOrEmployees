@@ -21,7 +21,6 @@ class Handler:
 class EmployeeHandler(Handler):
     def _handle(self, request_type, *args, **kwargs):
         if request_type == "employee":
-            # args[0] is expected to be employee_list
             updater = kwargs.get('updater')
             if updater:
                 updater._update_emp()
@@ -95,7 +94,7 @@ class Updater:
         """
 
         # Format the date as "01.03.2025" to match the cell content
-        formatted_date = self.today_date.strftime("%d.%m.%Y")
+        formatted_date = self.today_date.strtime("%d.%m.%Y")
         addr = ffcwp.find_first_matching_cell(
             sheetweneed, date=[formatted_date])
         return addr

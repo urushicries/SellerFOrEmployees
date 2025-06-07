@@ -30,7 +30,7 @@ SellerForEmployees — это программа для автоматизаци
 
 ## Запуск
 
-```bash
+```zsh
 python main.py
 ```
 
@@ -52,13 +52,4 @@ python main.py
 python -m unittest discover
 ```
 
-## Лицензия
-
-MIT License
-
----
-
-**Разработчик:**  
-[Ваше имя или никнейм]  
-[Контакты или ссылка на GitHub]
 
